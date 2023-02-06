@@ -8,13 +8,13 @@ import pathlib
 import shutil
 from typing import Any, Awaitable, Callable
 
-from aiogithubapi import (
-    GitHubAPI,
-    GitHubAuthenticationException,
-    GitHubException,
-    GitHubNotModifiedException,
-    GitHubRatelimitException,
-)
+#from aiogithubapi import (
+#    GitHubAPI,
+#    GitHubAuthenticationException,
+#    GitHubException,
+#    GitHubNotModifiedException,
+#    GitHubRatelimitException,
+#)
 from homeassistant.components.frontend import add_extra_js_url, async_remove_panel
 from homeassistant.components.lovelace import _register_panel
 from homeassistant.components.lovelace.dashboard import LovelaceYAML
@@ -23,8 +23,8 @@ from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
 from .const import (
-    COMMUNITY_CARDS_FOLDER,
-    DEFAULT_COMMUNITY_CARDS_ENABLED,
+    #COMMUNITY_CARDS_FOLDER,
+    #DEFAULT_COMMUNITY_CARDS_ENABLED,
     DEFAULT_INCLUDE_OTHER_CARDS,
     DEFAULT_LANGUAGE,
     DEFAULT_SIDEPANEL_ENABLED,
@@ -33,7 +33,7 @@ from .const import (
     DEFAULT_THEME,
     DEFAULT_THEME_PATH,
     DOMAIN,
-    GITHUB_REPO,
+    #GITHUB_REPO,
     LANGUAGES,
     TV,
 )
@@ -74,9 +74,9 @@ class MuiConfiguration:
     plugin_path: str = "www/community/"
     include_other_cards: bool = DEFAULT_INCLUDE_OTHER_CARDS
     language: str = DEFAULT_LANGUAGE
-    community_cards_enabled = bool = DEFAULT_COMMUNITY_CARDS_ENABLED
-    community_cards: list = field(default_factory=list)
-    all_community_cards: list = field(default_factory=list)
+    #community_cards_enabled = bool = False
+    #community_cards: list = field(default_factory=list)
+    #all_community_cards: list = field(default_factory=list)
     token: str = None
 
     def to_dict(self) -> dict:
@@ -103,7 +103,7 @@ class MuiBase:
     configuration = MuiConfiguration()
     hass: HomeAssistant | None = None
     log: logging.Logger = _LOGGER
-    githubapi: GitHubAPI | None = None
+    #githubapi: GitHubAPI | None = None
     system = MuiSystem()
     version: str | None = None
 
@@ -117,10 +117,10 @@ class MuiBase:
         """Return the Button Cards Template dir."""
         return pathlib.Path(f"{self.integration_dir}/__ui_minimalist__/mui_templates")
 
-    @property
-    def community_cards_dir(self) -> pathlib.Path:
-        """Return the Comminty cards dir inside Template dir."""
-        return pathlib.Path(f"{self.templates_dir}/community_cards")
+    #@property
+    #def community_cards_dir(self) -> pathlib.Path:
+    #    """Return the Comminty cards dir inside Template dir."""
+    #    return pathlib.Path(f"{self.templates_dir}/community_cards")
 
     def disable_mui(self, reason: muiDisabledReason) -> None:
         """Disable Mui."""
@@ -164,6 +164,7 @@ class MuiBase:
             return False
 
         return os.path.exists(file_path)
+
 
     async def async_github_get_file(self, filename: str) -> list:
         """Get the content of a file."""
@@ -299,6 +300,7 @@ class MuiBase:
                                             ),
                                         )
 
+
     async def configure_plugins(self) -> bool:
         """Configure the Plugins MUI depends on."""
         self.log.debug("Checking Dependencies.")
@@ -423,7 +425,7 @@ class MuiBase:
             shutil.rmtree(self.hass.config.path(f"{DOMAIN}/addons"), ignore_errors=True)
             # Create config dir
             os.makedirs(self.hass.config.path(f"{DOMAIN}/dashboard"), exist_ok=True)
-            os.makedirs(self.hass.config.path(f"{DOMAIN}/custom_cards"), exist_ok=True)
+            #os.makedirs(self.hass.config.path(f"{DOMAIN}/custom_cards"), exist_ok=True)
             os.makedirs(
                 self.hass.config.path(f"{DOMAIN}/custom_actions"), exist_ok=True
             )
@@ -483,11 +485,11 @@ class MuiBase:
                     dirs_exist_ok=True,
                 )
                 # Copy over manually installed custom_cards from user
-                shutil.copytree(
-                    self.hass.config.path(f"{DOMAIN}/custom_cards"),
-                    f"{self.templates_dir}/custom_cards",
-                    dirs_exist_ok=True,
-                )
+                #shutil.copytree(
+                #    self.hass.config.path(f"{DOMAIN}/custom_cards"),
+                #    f"{self.templates_dir}/custom_cards",
+                #    dirs_exist_ok=True,
+                #)
                 # Copy over manually installed custom_actions from user
                 shutil.copytree(
                     self.hass.config.path(f"{DOMAIN}/custom_actions"),
@@ -520,13 +522,13 @@ class MuiBase:
 
     def reload_configuration(self):
         """Reload Configuration."""
-        if os.path.exists(self.hass.config.path(f"{DOMAIN}/custom_cards")):
-            # Copy over manually installed custom_cards from user
-            shutil.copytree(
-                self.hass.config.path(f"{DOMAIN}/custom_cards"),
-                f"{self.templates_dir}/custom_cards",
-                dirs_exist_ok=True,
-            )
+        #if os.path.exists(self.hass.config.path(f"{DOMAIN}/custom_cards")):
+        #    # Copy over manually installed custom_cards from user
+        #    shutil.copytree(
+        #        self.hass.config.path(f"{DOMAIN}/custom_cards"),
+        #        f"{self.templates_dir}/custom_cards",
+        #        dirs_exist_ok=True,
+        #    )
         if os.path.exists(self.hass.config.path(f"{DOMAIN}/custom_actions")):
             # Copy over manually installed custom_actions from user
             shutil.copytree(

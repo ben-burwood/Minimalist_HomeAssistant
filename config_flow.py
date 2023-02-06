@@ -5,8 +5,8 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from aiogithubapi import GitHubDeviceAPI, GitHubException
-from aiogithubapi.common.const import OAUTH_USER_LOGIN
+#from aiogithubapi import GitHubDeviceAPI, GitHubException
+#from aiogithubapi.common.const import OAUTH_USER_LOGIN
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
@@ -16,32 +16,32 @@ from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
 from .base import MuiBase
-from .const import (  # CONF_COMMUNITY_CARDS_ALL,
+from .const import (
     CLIENT_ID,
-    CONF_COMMUNITY_CARDS,
-    CONF_COMMUNITY_CARDS_ENABLED,
+    #CONF_COMMUNITY_CARDS,
+    #CONF_COMMUNITY_CARDS_ENABLED,
     CONF_INCLUDE_OTHER_CARDS,
     CONF_LANGUAGE,
     CONF_LANGUAGES,
-    CONF_SIDEPANEL_ADV_ENABLED,
-    CONF_SIDEPANEL_ADV_ICON,
-    CONF_SIDEPANEL_ADV_TITLE,
     CONF_SIDEPANEL_ENABLED,
     CONF_SIDEPANEL_ICON,
     CONF_SIDEPANEL_TITLE,
+    CONF_SIDEPANEL_ADV_ENABLED,
+    CONF_SIDEPANEL_ADV_ICON,
+    CONF_SIDEPANEL_ADV_TITLE,
     CONF_THEME,
     CONF_THEME_OPTIONS,
     CONF_THEME_PATH,
-    DEFAULT_COMMUNITY_CARDS,
-    DEFAULT_COMMUNITY_CARDS_ENABLED,
+    #DEFAULT_COMMUNITY_CARDS,
+    #DEFAULT_COMMUNITY_CARDS_ENABLED,
     DEFAULT_INCLUDE_OTHER_CARDS,
     DEFAULT_LANGUAGE,
-    DEFAULT_SIDEPANEL_ADV_ENABLED,
-    DEFAULT_SIDEPANEL_ADV_ICON,
-    DEFAULT_SIDEPANEL_ADV_TITLE,
     DEFAULT_SIDEPANEL_ENABLED,
     DEFAULT_SIDEPANEL_ICON,
     DEFAULT_SIDEPANEL_TITLE,
+    DEFAULT_SIDEPANEL_ADV_ENABLED,
+    DEFAULT_SIDEPANEL_ADV_ICON,
+    DEFAULT_SIDEPANEL_ADV_TITLE,    
     DEFAULT_THEME,
     DEFAULT_THEME_PATH,
     DOMAIN,
