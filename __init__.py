@@ -4,7 +4,7 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from aiogithubapi import AIOGitHubAPIException, GitHubAPI
+#from aiogithubapi import AIOGitHubAPIException, GitHubAPI
 from homeassistant.components import frontend
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.core import Config, HomeAssistant
@@ -18,11 +18,9 @@ from .enums import ConfigurationType, muiDisabledReason
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
 
-async def async_initialize_integration(
-    hass: HomeAssistant,
-    *,
-    config_entry: ConfigEntry | None = None,
-    config: dict[str, Any] | None = None,
+async def async_initialize_integration(hass: HomeAssistant, *, 
+    config_entry: ConfigEntry | None = None, 
+    config: dict[str, Any] | None = None
 ) -> bool:
     """Initialize the integration."""
     hass.data[DOMAIN] = mui = MuiBase()
@@ -67,27 +65,9 @@ async def async_initialize_integration(
     mui.session = clientsession
     mui.hass = hass
     mui.system.running = True
-    mui.githubapi = GitHubAPI(
-        token=mui.configuration.token,
-        session=clientsession,
-        **{"client_name": "MUI"},
-    )
 
     async def async_startup():
         """MUI Startup tasks."""
-
-        if (
-            mui.configuration.community_cards_enabled
-            and mui.configuration.token is None
-        ):
-            mui.disable_mui(muiDisabledReason.INVALID_TOKEN)
-            mui.log.error(
-                "Github token is not set up yet, please reconfigure the integration."
-            )
-            return False
-        if mui.configuration.community_cards_enabled:
-            await mui.fetch_cards()
-            await mui.configure_community_cards()
 
         if (
             not await mui.configure_mui()
@@ -100,10 +80,7 @@ async def async_initialize_integration(
 
         return not mui.system.disabled
 
-    try:
-        startup_result = await async_startup()
-    except AIOGitHubAPIException:
-        startup_result = False
+    startup_result = await async_startup()
     if not startup_result:
         return False
 
@@ -115,7 +92,6 @@ async def async_initialize_integration(
 async def async_setup(hass: HomeAssistant, config: Config):
     """Set up this integration using UI."""
     return await async_initialize_integration(hass=hass, config=config)
-
 
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Set up this integration using UI."""

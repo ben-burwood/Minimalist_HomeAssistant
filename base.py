@@ -8,13 +8,6 @@ import pathlib
 import shutil
 from typing import Any, Awaitable, Callable
 
-from aiogithubapi import (
-    GitHubAPI,
-    GitHubAuthenticationException,
-    GitHubException,
-    GitHubNotModifiedException,
-    GitHubRatelimitException,
-)
 from homeassistant.components.frontend import add_extra_js_url, async_remove_panel
 from homeassistant.components.lovelace import _register_panel
 from homeassistant.components.lovelace.dashboard import LovelaceYAML
@@ -23,9 +16,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.loader import Integration
 
 from .const import (
-    COMMUNITY_CARDS_FOLDER,
-    DEFAULT_COMMUNITY_CARDS_ENABLED,
-    DEFAULT_INCLUDE_OTHER_CARDS,
+    #DEFAULT_INCLUDE_OTHER_CARDS,
     DEFAULT_LANGUAGE,
     DEFAULT_SIDEPANEL_ENABLED,
     DEFAULT_SIDEPANEL_ICON,
@@ -33,9 +24,7 @@ from .const import (
     DEFAULT_THEME,
     DEFAULT_THEME_PATH,
     DOMAIN,
-    GITHUB_REPO,
     LANGUAGES,
-    TV,
 )
 from .enums import ConfigurationType, muiDisabledReason
 from .utils.decode import decode_content
@@ -72,12 +61,8 @@ class MuiConfiguration:
     theme_path: str = DEFAULT_THEME_PATH
     theme: str = DEFAULT_THEME
     plugin_path: str = "www/community/"
-    include_other_cards: bool = DEFAULT_INCLUDE_OTHER_CARDS
+    #include_other_cards: bool = DEFAULT_INCLUDE_OTHER_CARDS
     language: str = DEFAULT_LANGUAGE
-    community_cards_enabled = bool = DEFAULT_COMMUNITY_CARDS_ENABLED
-    community_cards: list = field(default_factory=list)
-    all_community_cards: list = field(default_factory=list)
-    token: str = None
 
     def to_dict(self) -> dict:
         """Return Dict."""
@@ -103,7 +88,6 @@ class MuiBase:
     configuration = MuiConfiguration()
     hass: HomeAssistant | None = None
     log: logging.Logger = _LOGGER
-    githubapi: GitHubAPI | None = None
     system = MuiSystem()
     version: str | None = None
 
@@ -116,11 +100,6 @@ class MuiBase:
     def templates_dir(self) -> pathlib.Path:
         """Return the Button Cards Template dir."""
         return pathlib.Path(f"{self.integration_dir}/__ui_minimalist__/mui_templates")
-
-    @property
-    def community_cards_dir(self) -> pathlib.Path:
-        """Return the Comminty cards dir inside Template dir."""
-        return pathlib.Path(f"{self.templates_dir}/community_cards")
 
     def disable_mui(self, reason: muiDisabledReason) -> None:
         """Disable Mui."""
@@ -165,139 +144,6 @@ class MuiBase:
 
         return os.path.exists(file_path)
 
-    async def async_github_get_file(self, filename: str) -> list:
-        """Get the content of a file."""
-        self.log.debug("Fetching github file: %s" % filename)
-        response = await self.async_github_api_method(
-            method=self.githubapi.repos.contents.get,
-            repository=GITHUB_REPO,
-            path=filename,
-        )
-        if response is None:
-            return []
-        return decode_content(response.data.content)
-
-    async def async_github_get_tree(self, path: str) -> list:
-        """Get the content of a directory."""
-        self.log.debug("Fetching github tree: %s" % path)
-        response = await self.async_github_api_method(
-            method=self.githubapi.repos.contents.get, repository=GITHUB_REPO, path=path
-        )
-        if response is None:
-            return []
-        return response.data
-
-    async def async_github_api_method(
-        self,
-        method: Callable[[], Awaitable[TV]],
-        *args,
-        raise_exception: bool = True,
-        **kwargs,
-    ) -> TV | None:
-        """Call a GitHub API method."""
-        _exception = None
-
-        try:
-            return await method(*args, **kwargs)
-        except GitHubAuthenticationException as exception:
-            self.disable_mui(muiDisabledReason.INVALID_TOKEN)
-            _exception = exception
-        except GitHubRatelimitException as exception:
-            _exception = exception
-        except GitHubNotModifiedException as exception:
-            raise exception
-        except GitHubException as exception:
-            _exception = exception
-        except BaseException as exception:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
-            self.log.exception(exception)
-            _exception = exception
-
-        if raise_exception and _exception is not None:
-            raise Exception(_exception)
-        return None
-
-    async def fetch_cards(self) -> None:
-        """Fetch list of cards."""
-        response = await self.async_github_api_method(
-            method=self.githubapi.repos.contents.get,
-            repository=GITHUB_REPO,
-            path=COMMUNITY_CARDS_FOLDER,
-        )
-        if response is None:
-            return []
-        self.configuration.all_community_cards = [
-            c.name for c in response.data if c.type == "dir"
-        ]
-
-    async def configure_community_cards(self) -> None:
-        """Configure selected community cards."""
-        self.log.info("Configuring selected community cards")
-
-        language = LANGUAGES[self.configuration.language]
-        os.makedirs(self.community_cards_dir, exist_ok=True)
-
-        if (
-            not self.configuration.community_cards_enabled
-            or self.configuration.community_cards == []
-        ):
-            shutil.rmtree(f"{self.community_cards_dir}/", ignore_errors=True)
-        elif self.configuration.community_cards_enabled:
-            existing_cards = [
-                f.path for f in os.scandir(self.community_cards_dir) if f.is_dir()
-            ]
-            for e in existing_cards:
-                card_dir = os.path.basename(e)
-                # Delete unselected folders
-                if card_dir not in self.configuration.community_cards:
-                    self.log.debug(
-                        f"Deleting community card folder {card_dir}, not selected anymore."
-                    )
-                    shutil.rmtree(e, ignore_errors=True)
-                if card_dir not in self.configuration.all_community_cards:
-                    self.log.debug(
-                        f"Deleting community card folder {card_dir}, that is not existing anymore on Github."
-                    )
-                    shutil.rmtree(e, ignore_errors=True)
-
-            for card in self.configuration.community_cards:
-                if card not in self.configuration.all_community_cards:
-                    self.configuration.community_cards.remove(card)
-                else:
-                    card_files = await self.async_github_get_tree(
-                        path=f"{COMMUNITY_CARDS_FOLDER}/{card}"
-                    )
-                    for f in card_files:
-                        if f.type == "file":
-                            card_file_path = (
-                                f"{self.community_cards_dir}/{card}/{f.name}"
-                            )
-                            if (
-                                not os.path.exists(card_file_path)
-                                or os.path.getsize(card_file_path) != f.size
-                            ):
-                                await self.async_save_file(
-                                    file_path=card_file_path,
-                                    content=await self.async_github_get_file(
-                                        filename=f.path
-                                    ),
-                                )
-                        elif f.type == "dir" and f.name == "languages":
-                            language_files = await self.async_github_get_tree(
-                                path=f.path
-                            )
-                            for lang in language_files:
-                                lang_file_path = f"{self.community_cards_dir}/{card}/languages/{lang.name}"
-                                if pathlib.Path(lang.name).stem == language:
-                                    if (
-                                        not os.path.exists(lang_file_path)
-                                        or os.path.getsize(lang_file_path) != lang.size
-                                    ):
-                                        await self.async_save_file(
-                                            file_path=lang_file_path,
-                                            content=await self.async_github_get_file(
-                                                filename=lang.path
-                                            ),
-                                        )
 
     async def configure_plugins(self) -> bool:
         """Configure the Plugins MUI depends on."""
@@ -354,6 +200,7 @@ class MuiBase:
 
         return True
 
+
     async def configure_dashboard(self) -> bool:
         """Configure the MUI Dashboards."""
 
@@ -391,17 +238,17 @@ class MuiBase:
                 if dashboard_url in self.hass.data["lovelace"]["dashboards"]:
                     async_remove_panel(self.hass, "minimalis-ui")
 
-            if self.configuration.adaptive_ui_enabled:
-                self.hass.data["lovelace"]["dashboards"][
-                    adv_dashboard_url
-                ] = LovelaceYAML(self.hass, adv_dashboard_url, adv_dashboard_config)
+            #if self.configuration.adaptive_ui_enabled:
+            #    self.hass.data["lovelace"]["dashboards"][
+            #        adv_dashboard_url
+            #    ] = LovelaceYAML(self.hass, adv_dashboard_url, adv_dashboard_config)
 
-                _register_panel(
-                    self.hass, adv_dashboard_url, "yaml", adv_dashboard_config, True
-                )
-            else:
-                if adv_dashboard_url in self.hass.data["lovelace"]["dashboards"]:
-                    async_remove_panel(self.hass, "adaptive-dash")
+            #    _register_panel(
+            #        self.hass, adv_dashboard_url, "yaml", adv_dashboard_config, True
+            #    )
+            #else:
+            #    if adv_dashboard_url in self.hass.data["lovelace"]["dashboards"]:
+            #        async_remove_panel(self.hass, "adaptive-dash")
 
         except Exception as exception:
             self.log.error(exception)
@@ -415,7 +262,6 @@ class MuiBase:
         self.log.info("Setup MUI Configuration")
 
         try:
-
             # Cleanup
             shutil.rmtree(
                 self.hass.config.path(f"{DOMAIN}/configs"), ignore_errors=True
@@ -423,7 +269,6 @@ class MuiBase:
             shutil.rmtree(self.hass.config.path(f"{DOMAIN}/addons"), ignore_errors=True)
             # Create config dir
             os.makedirs(self.hass.config.path(f"{DOMAIN}/dashboard"), exist_ok=True)
-            os.makedirs(self.hass.config.path(f"{DOMAIN}/custom_cards"), exist_ok=True)
             os.makedirs(
                 self.hass.config.path(f"{DOMAIN}/custom_actions"), exist_ok=True
             )
@@ -451,14 +296,14 @@ class MuiBase:
                             ),
                         )
                 # Copy adaptive dashboard if not exists and is selected as option
-                if self.configuration.adaptive_ui_enabled:
-                    if not os.path.exists(
-                        self.hass.config.path(f"{DOMAIN}/dashboard/adaptive-dash")
-                    ):
-                        shutil.copytree(
-                            f"{self.integration_dir}/lovelace/adaptive-dash",
-                            self.hass.config.path(f"{DOMAIN}/dashboard/adaptive-dash"),
-                        )
+                #if self.configuration.adaptive_ui_enabled:
+                #    if not os.path.exists(
+                #        self.hass.config.path(f"{DOMAIN}/dashboard/adaptive-dash")
+                #    ):
+                #        shutil.copytree(
+                #            f"{self.integration_dir}/lovelace/adaptive-dash",
+                #            self.hass.config.path(f"{DOMAIN}/dashboard/adaptive-dash"),
+                #        )
                 # Copy example custom actions file over to user config dir if not exists
                 if not os.path.exists(
                     self.hass.config.path(
@@ -480,12 +325,6 @@ class MuiBase:
                 shutil.copytree(
                     f"{self.integration_dir}/lovelace/mui_templates",
                     f"{self.templates_dir}",
-                    dirs_exist_ok=True,
-                )
-                # Copy over manually installed custom_cards from user
-                shutil.copytree(
-                    self.hass.config.path(f"{DOMAIN}/custom_cards"),
-                    f"{self.templates_dir}/custom_cards",
                     dirs_exist_ok=True,
                 )
                 # Copy over manually installed custom_actions from user
@@ -518,15 +357,9 @@ class MuiBase:
 
         return True
 
+
     def reload_configuration(self):
         """Reload Configuration."""
-        if os.path.exists(self.hass.config.path(f"{DOMAIN}/custom_cards")):
-            # Copy over manually installed custom_cards from user
-            shutil.copytree(
-                self.hass.config.path(f"{DOMAIN}/custom_cards"),
-                f"{self.templates_dir}/custom_cards",
-                dirs_exist_ok=True,
-            )
         if os.path.exists(self.hass.config.path(f"{DOMAIN}/custom_actions")):
             # Copy over manually installed custom_actions from user
             shutil.copytree(
