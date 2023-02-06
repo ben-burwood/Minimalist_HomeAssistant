@@ -57,9 +57,9 @@ async def mui_config_option_schema(options: dict = {}) -> dict:
 
     # Also update base.py MuiConfiguration
     return {
-        vol.Optional(
-            CONF_LANGUAGE, default=options.get(CONF_LANGUAGE, DEFAULT_LANGUAGE)
-        ): vol.In(CONF_LANGUAGES),
+        #vol.Optional(
+        #    CONF_LANGUAGE, default=options.get(CONF_LANGUAGE, DEFAULT_LANGUAGE)
+        #): vol.In(CONF_LANGUAGES),
         vol.Optional(
             CONF_SIDEPANEL_ENABLED,
             default=options.get(CONF_SIDEPANEL_ENABLED, DEFAULT_SIDEPANEL_ENABLED),
@@ -72,37 +72,37 @@ async def mui_config_option_schema(options: dict = {}) -> dict:
             CONF_SIDEPANEL_ICON,
             default=options.get(CONF_SIDEPANEL_ICON, DEFAULT_SIDEPANEL_ICON),
         ): str,
-        vol.Optional(
-            CONF_SIDEPANEL_ADV_ENABLED,
-            default=options.get(
-                CONF_SIDEPANEL_ADV_ENABLED, DEFAULT_SIDEPANEL_ADV_ENABLED
-            ),
-        ): bool,
-        vol.Optional(
-            CONF_SIDEPANEL_ADV_TITLE,
-            default=options.get(CONF_SIDEPANEL_ADV_TITLE, DEFAULT_SIDEPANEL_ADV_TITLE),
-        ): str,
-        vol.Optional(
-            CONF_SIDEPANEL_ADV_ICON,
-            default=options.get(CONF_SIDEPANEL_ADV_ICON, DEFAULT_SIDEPANEL_ADV_ICON),
-        ): str,
+        #vol.Optional(
+        #    CONF_SIDEPANEL_ADV_ENABLED,
+        #    default=options.get(
+        #        CONF_SIDEPANEL_ADV_ENABLED, DEFAULT_SIDEPANEL_ADV_ENABLED
+        #    ),
+        #): bool,
+        #vol.Optional(
+        #    CONF_SIDEPANEL_ADV_TITLE,
+        #    default=options.get(CONF_SIDEPANEL_ADV_TITLE, DEFAULT_SIDEPANEL_ADV_TITLE),
+        #): str,
+        #vol.Optional(
+        #    CONF_SIDEPANEL_ADV_ICON,
+        #    default=options.get(CONF_SIDEPANEL_ADV_ICON, DEFAULT_SIDEPANEL_ADV_ICON),
+        #): str,
         vol.Optional(
             CONF_THEME, default=options.get(CONF_THEME, DEFAULT_THEME)
         ): vol.In(CONF_THEME_OPTIONS),
         vol.Optional(
             CONF_THEME_PATH,
             default=options.get(CONF_THEME_PATH, DEFAULT_THEME_PATH),
-        ): str,
-        vol.Optional(
-            CONF_INCLUDE_OTHER_CARDS,
-            default=options.get(CONF_INCLUDE_OTHER_CARDS, DEFAULT_INCLUDE_OTHER_CARDS),
-        ): bool,
-        vol.Optional(
-            CONF_COMMUNITY_CARDS_ENABLED,
-            default=options.get(
-                CONF_COMMUNITY_CARDS_ENABLED, DEFAULT_COMMUNITY_CARDS_ENABLED
-            ),
-        ): bool,
+        ): str#,
+        #vol.Optional(
+        #    CONF_INCLUDE_OTHER_CARDS,
+        #    default=options.get(CONF_INCLUDE_OTHER_CARDS, DEFAULT_INCLUDE_OTHER_CARDS),
+        #): bool,
+        #vol.Optional(
+        #    CONF_COMMUNITY_CARDS_ENABLED,
+        #    default=options.get(
+        #        CONF_COMMUNITY_CARDS_ENABLED, DEFAULT_COMMUNITY_CARDS_ENABLED
+        #    ),
+        #): bool,
     }
 
 

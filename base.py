@@ -376,7 +376,7 @@ class MuiBase:
             "show_in_sidebar": True,
             "require_admin": False,
         }
-        # Optoinal override can be done with config_flow?
+        # Optional override can be done with config_flow?
         # if not dashboard_url in hass.data["lovelace"]["dashboards"]:
         try:
             if self.configuration.sidepanel_enabled:
@@ -442,12 +442,12 @@ class MuiBase:
                 # Copy example dashboard file over to user config dir if not exists
                 if self.configuration.sidepanel_enabled:
                     if not os.path.exists(
-                        self.hass.config.path(f"{DOMAIN}/dashboard/ui-lovelace.yaml")
+                        self.hass.config.path(f"{DOMAIN}/dashboard/ui.yaml")
                     ):
                         shutil.copy2(
-                            f"{self.integration_dir}/lovelace/ui-lovelace.yaml",
+                            f"{self.integration_dir}/lovelace/ui.yaml",
                             self.hass.config.path(
-                                f"{DOMAIN}/dashboard/ui-lovelace.yaml"
+                                f"{DOMAIN}/dashboard/ui.yaml"
                             ),
                         )
                 # Copy adaptive dashboard if not exists and is selected as option
