@@ -1,9 +1,9 @@
 {
-    "title": "UI Lovelace Minimalist",
+    "title": "Minimalist UI",
     "config": {
         "step": {
             "user": {
-                "title": "UI Lovelace Minimalist Settings",
+                "title": "Minimalist UI Settings",
                 "description": "",
                 "data": {
                     "community_cards_enabled": "Enable the ability to configure community cards with this integrations, Does require GitHub authentication!"
@@ -18,19 +18,19 @@
             }
         },
         "abort": {
-            "single_instance_allowed": "Only a single configuration of UI Lovelace Minimalist is allowed.",
-            "not_setup": "UI Lovelace Minimalist is not setup.",
+            "single_instance_allowed": "Only a single configuration of Minimalist UI is allowed.",
+            "not_setup": "Minimalist UI is not setup.",
             "github": "Could not authenticate with GitHub, try again later.",
             "reauth_successful": "Reauthentication was successful."
         },
         "progress": {
-            "wait_for_device": "1. Open {url} \n2.Paste the following key to authorize ULM: \n```\n{code}\n```\n"
+            "wait_for_device": "1. Open {url} \n2.Paste the following key to authorize MUI: \n```\n{code}\n```\n"
         }
     },
     "options": {
         "step": {
             "user": {
-                "title": "UI Lovelace Minimalist Settings",
+                "title": "Minimalist UI Settings",
                 "description": "",
                 "data": {
                     "language": "Language",
@@ -48,8 +48,8 @@
             }
         },
         "abort": {
-            "single_instance_allowed": "Only a single configuration of UI Lovelace Minimalist is allowed.",
-            "not_setup": "UI Lovelace Minimalist is not setup."
+            "single_instance_allowed": "Only a single configuration of Minimalist UI is allowed.",
+            "not_setup": "Minimalist UI is not setup."
         },
         "error": {
             "github_cards": "Something went wrong when fetching cards from GitHub.",

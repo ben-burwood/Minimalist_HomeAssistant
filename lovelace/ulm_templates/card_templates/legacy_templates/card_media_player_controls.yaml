@@ -4,4 +4,4 @@ card_media_player_controls:
   template:
     - "card_media_player"
   variables:
-    ulm_card_media_enable_controls: true
+    mui_card_media_enable_controls: true

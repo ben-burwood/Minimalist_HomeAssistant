@@ -3,8 +3,8 @@
 chip_alarm:
   template:
     - "chip_icon_label"
-    - "ulm_translation_engine"
-  label: "[[[ return variables.ulm_translation_state ]]]"
+    - "mui_translation_engine"
+  label: "[[[ return variables.mui_translation_state ]]]"
   icon: |
     [[[
       var state = entity.state.toLowerCase();

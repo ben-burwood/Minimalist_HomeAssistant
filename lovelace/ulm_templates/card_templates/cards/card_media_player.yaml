@@ -3,18 +3,18 @@
 card_media_player:
   template:
     - "icon_more_info_new"
-    - "ulm_translation_engine"
+    - "mui_translation_engine"
   variables:
-    ulm_card_media_player_name: "[[[ return entity.attributes.friendly_name ]]]"
-    ulm_card_media_player_icon: false
-    ulm_card_media_player_enable_art: false
-    ulm_card_media_player_enable_controls: false
-    ulm_card_media_player_enable_volume_slider: false
-    ulm_card_media_player_collapsible: false
-    ulm_card_media_player_player_controls_entity: "[[[ return entity.entity_id ]]]"
-    ulm_card_media_player_enable_popup: false
-    ulm_card_media_player_more_info: false
-    ulm_card_media_player_power_button: false
+    mui_card_media_player_name: "[[[ return entity.attributes.friendly_name ]]]"
+    mui_card_media_player_icon: false
+    mui_card_media_player_enable_art: false
+    mui_card_media_player_enable_controls: false
+    mui_card_media_player_enable_volume_slider: false
+    mui_card_media_player_collapsible: false
+    mui_card_media_player_player_controls_entity: "[[[ return entity.entity_id ]]]"
+    mui_card_media_player_enable_popup: false
+    mui_card_media_player_more_info: false
+    mui_card_media_player_power_button: false
   triggers_update: "all"
   show_icon: false
   show_name: false
@@ -24,10 +24,10 @@ card_media_player:
       - grid-template-areas: |
           [[[
             var areas = "'item1'";
-            if (variables.ulm_card_media_player_enable_controls){
+            if (variables.mui_card_media_player_enable_controls){
               areas = areas + " 'item2'";
             }
-            if (variables.ulm_card_media_player_enable_volume_slider){
+            if (variables.mui_card_media_player_enable_volume_slider){
               areas = areas + " 'item3'";
             }
             return areas;
@@ -36,17 +36,17 @@ card_media_player:
       - grid-template-rows: |
           [[[
             var rows = "min-content";
-            if (variables.ulm_card_media_player_enable_controls){
+            if (variables.mui_card_media_player_enable_controls){
               rows = rows + " min-content";
             }
-            if (variables.ulm_card_media_player_enable_volume_slider){
+            if (variables.mui_card_media_player_enable_volume_slider){
               rows = rows + " min-content";
             }
             return rows;
           ]]]
       - row-gap: |-
           [[[
-            if (!variables.ulm_card_media_player_collapsible) {
+            if (!variables.mui_card_media_player_collapsible) {
                 return "12px";
               } else {
                 return (entity.state === "off" || entity.state === "standby") ? "0px" : "12px";
@@ -58,21 +58,21 @@ card_media_player:
       - padding: "12px"
       - background: |
           [[[
-            return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+            return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
             ? 'center / cover url(' + states[entity.entity_id].attributes.entity_picture + ') rgba(0, 0, 0, 0.15)'
             : ''
           ]]]
     custom_fields:
       power:
-        - display: "[[[ return variables.ulm_card_media_player_power_button ? 'block' : 'none']]]"
+        - display: "[[[ return variables.mui_card_media_player_power_button ? 'block' : 'none']]]"
         - position: "absolute"
         - top: "12px"
         - right: "12px"
       item2:
         - display: |
             [[[
-              if(variables.ulm_card_media_player_enable_controls) {
-                if(variables.ulm_card_media_player_collapsible){
+              if(variables.mui_card_media_player_enable_controls) {
+                if(variables.mui_card_media_player_collapsible){
                 return (entity.state === "off" || entity.state === "standby") ? "none" : "block";
                 }
                 return "block";
@@ -82,8 +82,8 @@ card_media_player:
       item3:
         - display: |
             [[[
-              if(variables.ulm_card_media_player_enable_volume_slider) {
-                if(variables.ulm_card_media_player_collapsible){
+              if(variables.mui_card_media_player_enable_volume_slider) {
+                if(variables.mui_card_media_player_collapsible){
                 return (entity.state === "off" || entity.state === "standby") ? "none" : "block";
                 }
                 return "block";
@@ -106,14 +106,14 @@ card_media_player:
           card:
             - background-color: |
                 [[[
-                  return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                  return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                   ? 'rgba(0, 0, 0, 0.2)'
                   : 'rgba(var(--color-theme),0.05)'
                 ]]]
           icon:
             - color: |
                 [[[
-                  return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                  return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                   ? 'white'
                   : 'rgba(var(--color-theme), 0.9)'
                 ]]]
@@ -128,8 +128,8 @@ card_media_player:
               variables: >
                 [[[
                   let vars = variables;
-                  if(variables.ulm_card_media_player_enable_popup) {
-                    vars.ulm_custom_popup = {
+                  if(variables.mui_card_media_player_enable_popup) {
+                    vars.mui_custom_popup = {
                       'template': 'popup_media_player_infos'
                     };
                   }
@@ -153,20 +153,20 @@ card_media_player:
                       "bluetooth audio": "mdi:bluetooth"
                     }
                   }
-                  return variables.ulm_card_media_player_icon || icon[app];
+                  return variables.mui_card_media_player_icon || icon[app];
                 ]]]
               styles:
                 icon:
                   - color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'white'
                         : 'rgba(var(--color-theme), 0.2)'
                       ]]]
                 img_cell:
                   - background-color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'rgba(0, 0, 0, 0.2)'
                         : 'rgba(var(--color-theme), 0.05)'
                       ]]]
@@ -179,34 +179,34 @@ card_media_player:
               variables: >
                 [[[
                   let vars = variables;
-                  if(variables.ulm_card_media_player_enable_popup) {
-                    vars.ulm_custom_popup = {
+                  if(variables.mui_card_media_player_enable_popup) {
+                    vars.mui_custom_popup = {
                       'template': 'popup_media_player_infos'
                     };
                   }
                   return vars;
                 ]]]
-              label: "[[[ return variables.ulm_translation_state ]]]"
+              label: "[[[ return variables.mui_translation_state ]]]"
               state:
                 - operator: "template"
                   value: "[[[ return entity.state == 'off' ]]]"
                   name: |
                     [[[
-                      let name = variables.ulm_card_media_player_name || states[entity.entity_id].attributes.friendly_name;
+                      let name = variables.mui_card_media_player_name || states[entity.entity_id].attributes.friendly_name;
                       return name;
                     ]]]
                 - operator: "template"
                   value: "[[[ return entity.state == 'standby' ]]]"
                   name: |
                     [[[
-                      let name = variables.ulm_card_media_player_name || states[entity.entity_id].attributes.friendly_name;
+                      let name = variables.mui_card_media_player_name || states[entity.entity_id].attributes.friendly_name;
                       return name;
                     ]]]
                 - operator: "template"
                   value: "[[[ return entity.state != 'off'  || entity.state != 'standby']]]"
                   name: |
                     [[[
-                      let name = variables.ulm_card_media_player_name || states[entity.entity_id].attributes.friendly_name;
+                      let name = variables.mui_card_media_player_name || states[entity.entity_id].attributes.friendly_name;
                       if(states[entity.entity_id].attributes.media_title){
                           name = states[entity.entity_id].attributes.media_title;
                       }
@@ -214,8 +214,8 @@ card_media_player:
                     ]]]
                   label: |
                     [[[
-                      let label = variables.ulm_translation_on;
-                      if (variables.ulm_card_media_player_more_info && states[entity.entity_id].attributes.media_artist
+                      let label = variables.mui_translation_on;
+                      if (variables.mui_card_media_player_more_info && states[entity.entity_id].attributes.media_artist
                           && states[entity.entity_id].attributes.media_album_name) {
                           label = states[entity.entity_id].attributes.media_artist + " • " + states[entity.entity_id].attributes.media_album_name;
                       } else if(states[entity.entity_id].attributes.media_album_name) {
@@ -231,20 +231,20 @@ card_media_player:
                   - filter: "opacity(100%)"
                   - text-shadow: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? '0 0 black'
                         : 'none'
                       ]]]
                   - color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'white'
                         : 'rgba(var(--color-theme), .5)'
                       ]]]
                 name:
                   - color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'white'
                         : 'rgba(var(--color-theme), 1)'
                       ]]]
@@ -272,7 +272,7 @@ card_media_player:
               hold_action:
                 action: >
                   [[[
-                      return variables.ulm_card_media_player_enable_popup ? "fire-dom-event" : "more-info";
+                      return variables.mui_card_media_player_enable_popup ? "fire-dom-event" : "more-info";
                   ]]]
                 browser_mod:
                   service: "browser_mod.popup"
@@ -287,20 +287,20 @@ card_media_player:
                 action: "call-service"
                 service: "media_player.media_previous_track"
                 service_data:
-                  entity_id: "[[[ return variables.ulm_card_media_player_player_controls_entity ]]]"
+                  entity_id: "[[[ return variables.mui_card_media_player_player_controls_entity ]]]"
               icon: "mdi:skip-previous"
               styles:
                 card:
                   - background-color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'rgba(0, 0, 0, 0.2)'
                         : 'rgba(var(--color-theme),0.05)'
                       ]]]
                 icon:
                   - color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'white'
                         : 'rgba(var(--color-theme), 0.9)'
                       ]]]
@@ -308,11 +308,11 @@ card_media_player:
             card:
               type: "custom:button-card"
               template: "widget_icon"
-              entity: "[[[ return variables.ulm_card_media_player_player_controls_entity ]]]"
+              entity: "[[[ return variables.mui_card_media_player_player_controls_entity ]]]"
               hold_action:
                 action: >
                   [[[
-                      return variables.ulm_card_media_player_enable_popup ? "fire-dom-event" : "more-info";
+                      return variables.mui_card_media_player_enable_popup ? "fire-dom-event" : "more-info";
                   ]]]
                 browser_mod:
                   service: "browser_mod.popup"
@@ -327,7 +327,7 @@ card_media_player:
                 action: "call-service"
                 service: "[[[ return (entity.attributes?.media_duration > 0) ? 'media_player.media_play_pause' : entity.state =='playing' ? 'media_player.media_stop' : 'media_player.media_play']]]"
                 service_data:
-                  entity_id: "[[[ return variables.ulm_card_media_player_player_controls_entity ]]]"
+                  entity_id: "[[[ return variables.mui_card_media_player_player_controls_entity ]]]"
               icon: "[[[ return (entity.attributes?.media_duration > 0) ? 'mdi:pause' : 'mdi:stop' ]]]"
               state:
                 - value: "paused"
@@ -342,14 +342,14 @@ card_media_player:
                 card:
                   - background-color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'rgba(0, 0, 0, 0.2)'
                         : 'rgba(var(--color-theme),0.05)'
                       ]]]
                 icon:
                   - color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'white'
                         : 'rgba(var(--color-theme), 0.9)'
                       ]]]
@@ -360,7 +360,7 @@ card_media_player:
               hold_action:
                 action: >
                   [[[
-                      return variables.ulm_card_media_player_enable_popup ? "fire-dom-event" : "more-info";
+                      return variables.mui_card_media_player_enable_popup ? "fire-dom-event" : "more-info";
                   ]]]
                 browser_mod:
                   service: "browser_mod.popup"
@@ -375,20 +375,20 @@ card_media_player:
                 action: "call-service"
                 service: "media_player.media_next_track"
                 service_data:
-                  entity_id: "[[[ return variables.ulm_card_media_player_player_controls_entity ]]]"
+                  entity_id: "[[[ return variables.mui_card_media_player_player_controls_entity ]]]"
               icon: "mdi:skip-next"
               styles:
                 card:
                   - background-color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'rgba(0, 0, 0, 0.2)'
                         : 'rgba(var(--color-theme),0.05)'
                       ]]]
                 icon:
                   - color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'white'
                         : 'rgba(var(--color-theme), 0.9)'
                       ]]]
@@ -402,21 +402,21 @@ card_media_player:
                 card:
                   - background-color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'rgba(0, 0, 0, 0.2)'
                         : 'rgba(var(--color-theme),0.05)'
                       ]]]
                 icon:
                   - color: |
                       [[[
-                        return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+                        return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
                         ? 'white'
                         : 'rgba(var(--color-theme), 0.9)'
                       ]]]
               hold_action:
                 action: >
                   [[[
-                      return variables.ulm_card_media_player_enable_popup && entity.attributes?.source_list ? "fire-dom-event" : "more-info";
+                      return variables.mui_card_media_player_enable_popup && entity.attributes?.source_list ? "fire-dom-event" : "more-info";
                   ]]]
                 browser_mod:
                   service: "browser_mod.popup"
@@ -430,7 +430,7 @@ card_media_player:
               tap_action:
                 action: >
                   [[[
-                      return variables.ulm_card_media_player_enable_popup && entity.attributes?.source_list ? "fire-dom-event" : "more-info";
+                      return variables.mui_card_media_player_enable_popup && entity.attributes?.source_list ? "fire-dom-event" : "more-info";
                   ]]]
                 browser_mod:
                   service: "browser_mod.popup"
@@ -467,13 +467,13 @@ card_media_player:
         height: "42px"
         mainSliderColor: |
           [[[
-            return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+            return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
             ? 'rgba(0, 0, 0, 0.2)'
             : 'rgba(var(--color-blue),1)'
           ]]]
         secondarySliderColor: |
           [[[
-            return variables.ulm_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
+            return variables.mui_card_media_player_enable_art && states[entity.entity_id].attributes.entity_picture != null
             ? 'rgba(0, 0, 0, 0.1)'
             : 'rgba(var(--color-blue),0.2)'
           ]]]

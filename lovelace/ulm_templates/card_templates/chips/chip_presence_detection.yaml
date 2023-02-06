@@ -5,9 +5,9 @@ chip_presence_detection:
   triggers_update: "all"
   label: |
     [[[
-      if (!!variables.ulm_chip_presence_counter_guests) {
-        return "🏠 " +  states[variables.ulm_chip_presence_counter_residents].state + " / " + states[variables.ulm_chip_presence_counter_guests].state;
+      if (!!variables.mui_chip_presence_counter_guests) {
+        return "🏠 " +  states[variables.mui_chip_presence_counter_residents].state + " / " + states[variables.mui_chip_presence_counter_guests].state;
       } else {
-        return "🏠 " +  states[variables.ulm_chip_presence_counter_residents].state;
+        return "🏠 " +  states[variables.mui_chip_presence_counter_residents].state;
       }
     ]]]

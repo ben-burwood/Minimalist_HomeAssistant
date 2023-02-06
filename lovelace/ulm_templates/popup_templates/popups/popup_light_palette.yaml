@@ -39,7 +39,7 @@ popup_light_palette:
         type: "custom:button-card"
         template: "list_3_items"
         variables:
-          ulm_card_light_color_palette: "[[[ return variables?.ulm_card_light_color_palette ]]]"
+          mui_card_light_color_palette: "[[[ return variables?.mui_card_light_color_palette ]]]"
         styles:
           custom_fields:
             item3:
@@ -52,7 +52,7 @@ popup_light_palette:
                       if (entity.attributes.effect_list){
                           areas.push("item1");
                       }
-                      if (variables?.ulm_card_light_color_palette) {
+                      if (variables?.mui_card_light_color_palette) {
                           areas.push("item2");
                       }
                       return "\"" + areas.join(" ") + "\"";
@@ -63,7 +63,7 @@ popup_light_palette:
                       if (entity.attributes.effect_list) {
                           columns.push("1fr");
                       }
-                      if (variables?.ulm_card_light_color_palette) {
+                      if (variables?.mui_card_light_color_palette) {
                           columns.push("1fr");
                       }
                       return columns.join(" ");
@@ -114,7 +114,7 @@ popup_light_palette:
                       template: "popup_light_effect"
                       entity: "[[[ return entity.entity_id; ]]]"
                       variables:
-                        ulm_card_light_color_palette: "[[[ return variables?.ulm_card_light_color_palette ]]]"
+                        mui_card_light_color_palette: "[[[ return variables?.mui_card_light_color_palette ]]]"
           item2:
             card:
               icon: "mdi:palette"

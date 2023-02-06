@@ -1,63 +1,31 @@
-"""Constants for UI Lovelace Minimalist."""
+"""Constants for Minimalist UI"""
 from typing import TypeVar
 
 # Base component constants
-NAME = "UI Lovelace Minimalist"
-DOMAIN = "ui_lovelace_minimalist"
+NAME = "Minimalist UI"
+DOMAIN = "minimalist_ui"
 DOMAIN_DATA = f"{DOMAIN}_data"
 VERSION = "0.0.1"
 CLIENT_ID = "c1603968d9d29a2492df"
 
 TV = TypeVar("TV")
 
-PACKAGE_NAME = "custom_components.ui_lovelace_minimlist"
+PACKAGE_NAME = "custom_components.minimalist_UI"
 
 ATTRIBUTION = "Data provided by http://jsonplaceholder.typicode.com/"
 ISSUE_URL = "https://github.com/stokkie90/ui-lovelace-minimalist/issues"
 
-GITHUB_REPO = "UI-Lovelace-Minimalist/UI"
+GITHUB_REPO = "benbur98/Minimalist_HomeAssistant"
 COMMUNITY_CARDS_FOLDER = "custom_cards"
 
 LANGUAGES = {
-    "Czech": "cs",
-    "Danish": "da",
-    "German": "de",
     "English (GB)": "en",
-    "Spanish": "es",
-    "French": "fr",
-    "Italian": "it",
-    "Dutch": "nl",
-    "Norwegian": "no",
-    "Polish": "pl",
-    "Portuguese": "pt",
-    "Portuguese (Brazil)": "pt-BR",
-    "Slovenian": "sl",
-    "Slovak": "sk",
-    "Swedish": "sv",
-    "Turkish": "tr",
-    "Russian": "ru",
 }
-
 CONF_LANGUAGE = "language"
 CONF_LANGUAGES = [
-    "Czech",
-    "Danish",
-    "German",
     "English (GB)",
-    "Spanish",
-    "French",
-    "Italian",
-    "Dutch",
-    "Norwegian",
-    "Polish",
-    "Portuguese",
-    "Portuguese (Brazil)",
-    "Slovenian",
-    "Slovak",
-    "Swedish",
-    "Turkish",
-    "Russian",
 ]
+
 CONF_SIDEPANEL_ENABLED = "sidepanel_enabled"
 CONF_SIDEPANEL_TITLE = "sidepanel_title"
 CONF_SIDEPANEL_ICON = "sidepanel_icon"
@@ -96,10 +64,10 @@ DEFAULT_NAME = DOMAIN
 DEFAULT_LANGUAGE = "English (GB)"
 DEFAULT_SIDEPANEL_ENABLED = True
 DEFAULT_SIDEPANEL_TITLE = NAME
-DEFAULT_SIDEPANEL_ICON = "mdi:flower"
+DEFAULT_SIDEPANEL_ICON = "mdi:monitor-dashboard"
 DEFAULT_SIDEPANEL_ADV_ENABLED = False
 DEFAULT_SIDEPANEL_ADV_TITLE = NAME
-DEFAULT_SIDEPANEL_ADV_ICON = "mdi:flower"
+DEFAULT_SIDEPANEL_ADV_ICON = "mdi:monitor-dashboard"
 DEFAULT_THEME = "minimalist-desktop"
 DEFAULT_THEME_PATH = "themes/"
 DEFAULT_INCLUDE_OTHER_CARDS = False

@@ -3,13 +3,13 @@
 chip_temperature:
   template:
     - "chips"
-    - "ulm_actions_card"
+    - "mui_actions_card"
   variables:
-    ulm_card_weather_enable_popup: false
+    mui_card_weather_enable_popup: false
   triggers_update: "all"
   label: |
     [[[
-      var state = states[variables.ulm_chip_temperature_weather].state;
+      var state = states[variables.mui_chip_temperature_weather].state;
       var icon = {
         "clear-night": "🌙",
         "cloudy": "☁️",
@@ -33,10 +33,10 @@ chip_temperature:
         }
         return temp;
       }
-      var outside_temp = states[variables.ulm_chip_temperature_outside].state;
+      var outside_temp = states[variables.mui_chip_temperature_outside].state;
       var inside_temp = null;
-      if (variables.ulm_chip_temperature_inside) {
-        inside_temp = states[variables.ulm_chip_temperature_inside].state;
+      if (variables.mui_chip_temperature_inside) {
+        inside_temp = states[variables.mui_chip_temperature_inside].state;
       }
       var label = (icon[state] || icon["default"]) + " " + convertTemperature(outside_temp) + "°";
       if (inside_temp) {

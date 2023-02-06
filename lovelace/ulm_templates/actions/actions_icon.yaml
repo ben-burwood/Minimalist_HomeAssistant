@@ -1,10 +1,10 @@
 ---
 ### Actions icon ###
-ulm_actions_icon:
+mui_actions_icon:
   tap_action:
     action: >
       [[[
-        var action = variables.ulm_icon_tap_action != null ? variables.ulm_icon_tap_action : 'toggle';
+        var action = variables.mui_icon_tap_action != null ? variables.mui_icon_tap_action : 'toggle';
         let domain = (entity != null) ? entity.entity_id.substr(0, entity.entity_id.indexOf(".")) : "";
 
         if (domain == "binary_sensor" || domain == "sensor" || domain == ""){
@@ -12,7 +12,7 @@ ulm_actions_icon:
             action = 'none';
         }
 
-        if (action == 'adaptive' && !(variables.ulm_input_select_option) ){
+        if (action == 'adaptive' && !(variables.mui_input_select_option) ){
           action = 'popup'
         }
         if (action == 'adaptive'){
@@ -21,8 +21,8 @@ ulm_actions_icon:
         if (domain == "media_player" && action == 'toggle'){
           action = 'call-service';
         }
-        if (action == 'popup' && (variables.ulm_custom_popup != null )){
-          let popup_config = variables.ulm_custom_popup;
+        if (action == 'popup' && (variables.mui_custom_popup != null )){
+          let popup_config = variables.mui_custom_popup;
           if ((typeof popup_config === 'object') && 'template' in popup_config) {
             action = 'fire-dom-event';
           }
@@ -34,11 +34,11 @@ ulm_actions_icon:
 
         return action;
       ]]]
-    navigation_path: "[[[ return variables.ulm_icon_tap_action == 'navigate' ? variables.ulm_icon_tap_navigate_path : '/0' ]]]"
-    haptic: "[[[ return variables.ulm_icon_tap_haptic != null ? variables.ulm_icon_tap_haptic : 'none' ]]]"
+    navigation_path: "[[[ return variables.mui_icon_tap_action == 'navigate' ? variables.mui_icon_tap_navigate_path : '/0' ]]]"
+    haptic: "[[[ return variables.mui_icon_tap_haptic != null ? variables.mui_icon_tap_haptic : 'none' ]]]"
     service: >
       [[[
-        var action = variables.ulm_icon_tap_action;
+        var action = variables.mui_icon_tap_action;
 
         if (action == 'adaptive'){
           return 'input_select.select_option';
@@ -46,16 +46,16 @@ ulm_actions_icon:
         if(entity.entity_id.startsWith("media_player.")){
           return 'media_player.media_play_pause';
         }
-        return variables.ulm_icon_tap_service;
+        return variables.mui_icon_tap_service;
       ]]]
     service_data: >
       [[[
-        var action = variables.ulm_icon_tap_action;
+        var action = variables.mui_icon_tap_action;
 
         if (action == 'adaptive'){
           return {
-            'option': variables.ulm_input_select_option,
-            'entity_id': variables.ulm_input_select
+            'option': variables.mui_input_select_option,
+            'entity_id': variables.mui_input_select
           };
         }
         if(entity.entity_id.startsWith("media_player.")){
@@ -63,7 +63,7 @@ ulm_actions_icon:
             'entity_id': entity.entity_id
           };
         }
-        return variables.ulm_icon_tap_service_data;
+        return variables.mui_icon_tap_service_data;
       ]]]
     browser_mod:
       service: "browser_mod.popup"
@@ -90,8 +90,8 @@ ulm_actions_icon:
           type: "custom:button-card"
           template: >
             [[[
-              if (variables.ulm_custom_popup != null ){
-                let popup_config = variables.ulm_custom_popup;
+              if (variables.mui_custom_popup != null ){
+                let popup_config = variables.mui_custom_popup;
                 if ((typeof popup_config === 'object') && 'template' in popup_config) {
                   return popup_config.template;
                 }
@@ -99,8 +99,8 @@ ulm_actions_icon:
             ]]]
           entity: >
             [[[
-              if (variables.ulm_custom_popup != null ){
-                let popup_config = variables.ulm_custom_popup;
+              if (variables.mui_custom_popup != null ){
+                let popup_config = variables.mui_custom_popup;
                 if ((typeof popup_config === 'object') && 'entity' in popup_config) {
                   return popup_config.entity;
                 }
@@ -109,8 +109,8 @@ ulm_actions_icon:
             ]]]
           variables: >
             [[[
-              if (variables.ulm_custom_popup != null ){
-                let popup_config = variables.ulm_custom_popup;
+              if (variables.mui_custom_popup != null ){
+                let popup_config = variables.mui_custom_popup;
                 if ((typeof popup_config === 'object') && 'popup_variables' in popup_config) {
                   return popup_config.popup_variables;
                 }
@@ -120,7 +120,7 @@ ulm_actions_icon:
   hold_action:
     action: >
       [[[
-        var action = variables.ulm_icon_hold_action != null ? variables.ulm_icon_hold_action : 'more_info';
+        var action = variables.mui_icon_hold_action != null ? variables.mui_icon_hold_action : 'more_info';
         let domain = (entity != null) ? entity.entity_id.substr(0, entity.entity_id.indexOf(".")) : "";
 
         if (domain == "binary_sensor" || domain == "sensor" || domain == ""){
@@ -128,7 +128,7 @@ ulm_actions_icon:
             action = 'none';
         }
 
-        if (action == 'adaptive' && !(variables.ulm_input_select_option) ){
+        if (action == 'adaptive' && !(variables.mui_input_select_option) ){
           action = 'popup'
         }
         if (action == 'adaptive'){
@@ -137,8 +137,8 @@ ulm_actions_icon:
         if (domain == "media_player" && action == 'toggle'){
           action = 'call-service';
         }
-        if (action == 'popup' && (variables.ulm_custom_popup != null )){
-          let popup_config = variables.ulm_custom_popup;
+        if (action == 'popup' && (variables.mui_custom_popup != null )){
+          let popup_config = variables.mui_custom_popup;
           if ((typeof popup_config === 'object') && 'template' in popup_config) {
             action = 'fire-dom-event';
           }
@@ -150,11 +150,11 @@ ulm_actions_icon:
 
         return action;
       ]]]
-    navigation_path: "[[[ return variables.ulm_icon_hold_action == 'navigate' ? variables.ulm_icon_hold_navigate_path : '/0' ]]]"
-    haptic: "[[[ return variables.ulm_icon_hold_haptic != null ? variables.ulm_icon_hold_haptic : 'none' ]]]"
+    navigation_path: "[[[ return variables.mui_icon_hold_action == 'navigate' ? variables.mui_icon_hold_navigate_path : '/0' ]]]"
+    haptic: "[[[ return variables.mui_icon_hold_haptic != null ? variables.mui_icon_hold_haptic : 'none' ]]]"
     service: >
       [[[
-        var action = variables.ulm_icon_hold_action;
+        var action = variables.mui_icon_hold_action;
 
         if (action == 'adaptive'){
           return 'input_select.select_option';
@@ -162,16 +162,16 @@ ulm_actions_icon:
         if(entity.entity_id.startsWith("media_player.")){
           return 'media_player.media_play_pause';
         }
-        return variables.ulm_icon_hold_service;
+        return variables.mui_icon_hold_service;
       ]]]
     service_data: >
       [[[
-        var action = variables.ulm_icon_hold_action;
+        var action = variables.mui_icon_hold_action;
 
         if (action == 'adaptive'){
           return {
-            'option': variables.ulm_input_select_option,
-            'entity_id': variables.ulm_input_select
+            'option': variables.mui_input_select_option,
+            'entity_id': variables.mui_input_select
           };
         }
         if(entity.entity_id.startsWith("media_player.")){
@@ -179,7 +179,7 @@ ulm_actions_icon:
             'entity_id': entity.entity_id
           };
         }
-        return variables.ulm_icon_hold_service_data;
+        return variables.mui_icon_hold_service_data;
       ]]]
     browser_mod:
       service: "browser_mod.popup"
@@ -206,8 +206,8 @@ ulm_actions_icon:
           type: "custom:button-card"
           template: >
             [[[
-              if (variables.ulm_custom_popup != null ){
-                let popup_config = variables.ulm_custom_popup;
+              if (variables.mui_custom_popup != null ){
+                let popup_config = variables.mui_custom_popup;
                 if ((typeof popup_config === 'object') && 'template' in popup_config) {
                   return popup_config.template;
                 }
@@ -215,8 +215,8 @@ ulm_actions_icon:
             ]]]
           entity: >
             [[[
-              if (variables.ulm_custom_popup != null ){
-                let popup_config = variables.ulm_custom_popup;
+              if (variables.mui_custom_popup != null ){
+                let popup_config = variables.mui_custom_popup;
                 if ((typeof popup_config === 'object') && 'entity' in popup_config) {
                   return popup_config.entity;
                 }
@@ -226,8 +226,8 @@ ulm_actions_icon:
             ]]]
           variables: >
             [[[
-              if (variables.ulm_custom_popup != null ){
-                let popup_config = variables.ulm_custom_popup;
+              if (variables.mui_custom_popup != null ){
+                let popup_config = variables.mui_custom_popup;
                 if ((typeof popup_config === 'object') && 'popup_variables' in popup_config) {
                   return popup_config.popup_variables;
                 }
@@ -237,7 +237,7 @@ ulm_actions_icon:
   double_tap_action:
     action: >
       [[[
-        var action = variables.ulm_icon_double_tap_action != null ? variables.ulm_icon_double_tap_action : 'adaptive';
+        var action = variables.mui_icon_double_tap_action != null ? variables.mui_icon_double_tap_action : 'adaptive';
         let domain = (entity != null) ? entity.entity_id.substr(0, entity.entity_id.indexOf(".")) : "";
 
         if (domain == "binary_sensor" || domain == "sensor" || domain == ""){
@@ -245,7 +245,7 @@ ulm_actions_icon:
             action = 'none';
         }
 
-        if (action == 'adaptive' && !(variables.ulm_input_select_option) ){
+        if (action == 'adaptive' && !(variables.mui_input_select_option) ){
           action = 'popup'
         }
         if (action == 'adaptive'){
@@ -254,12 +254,12 @@ ulm_actions_icon:
         if (domain == "media_player" && action == 'toggle'){
           action = 'call-service';
         }
-        if (action == 'popup' && (variables.ulm_card_light_enable_popup || variables.ulm_card_media_player_enable_popup || variables.ulm_card_thermostat_enable_popup || variables.ulm_card_cover_enable_popup)){
+        if (action == 'popup' && (variables.mui_card_light_enable_popup || variables.mui_card_media_player_enable_popup || variables.mui_card_thermostat_enable_popup || variables.mui_card_cover_enable_popup)){
           action = 'fire-dom-event'
         }
 
-        if (action == 'popup' && (variables.ulm_custom_popup != null )){
-          let popup_config = variables.ulm_custom_popup;
+        if (action == 'popup' && (variables.mui_custom_popup != null )){
+          let popup_config = variables.mui_custom_popup;
           if ((typeof popup_config === 'object') && 'template' in popup_config) {
             action = 'fire-dom-event';
           }
@@ -271,11 +271,11 @@ ulm_actions_icon:
 
         return action;
       ]]]
-    navigation_path: "[[[ return variables.ulm_icon_double_tap_action == 'navigate' ? variables.ulm_icon_double_tap_navigate_path : '/0' ]]]"
-    haptic: "[[[ return variables.ulm_icon_double_tap_haptic != null ? variables.ulm_icon_double_tap_haptic : 'none' ]]]"
+    navigation_path: "[[[ return variables.mui_icon_double_tap_action == 'navigate' ? variables.mui_icon_double_tap_navigate_path : '/0' ]]]"
+    haptic: "[[[ return variables.mui_icon_double_tap_haptic != null ? variables.mui_icon_double_tap_haptic : 'none' ]]]"
     service: >
       [[[
-        var action = variables.ulm_icon_double_tap_action;
+        var action = variables.mui_icon_double_tap_action;
 
         if (action == 'adaptive'){
           return 'input_select.select_option';
@@ -283,16 +283,16 @@ ulm_actions_icon:
         if(entity.entity_id.startsWith("media_player.")){
           return 'media_player.media_play_pause';
         }
-        return variables.ulm_icon_double_tap_service;
+        return variables.mui_icon_double_tap_service;
       ]]]
     service_data: >
       [[[
-        var action = variables.ulm_icon_double_tap_action;
+        var action = variables.mui_icon_double_tap_action;
 
         if (action == 'adaptive'){
           return {
-            'option': variables.ulm_input_select_option,
-            'entity_id': variables.ulm_input_select
+            'option': variables.mui_input_select_option,
+            'entity_id': variables.mui_input_select
           };
         }
         if(entity.entity_id.startsWith("media_player.")){
@@ -300,7 +300,7 @@ ulm_actions_icon:
             'entity_id': entity.entity_id
           };
         }
-        return variables.ulm_icon_double_tap_service_data;
+        return variables.mui_icon_double_tap_service_data;
       ]]]
     browser_mod:
       service: "browser_mod.popup"
@@ -327,8 +327,8 @@ ulm_actions_icon:
           type: "custom:button-card"
           template: >
             [[[
-              if (variables.ulm_custom_popup != null ){
-                let popup_config = variables.ulm_custom_popup;
+              if (variables.mui_custom_popup != null ){
+                let popup_config = variables.mui_custom_popup;
                 if ((typeof popup_config === 'object') && 'template' in popup_config) {
                   return popup_config.template;
                 }
@@ -336,8 +336,8 @@ ulm_actions_icon:
             ]]]
           entity: >
             [[[
-              if (variables.ulm_custom_popup != null ){
-                let popup_config = variables.ulm_custom_popup;
+              if (variables.mui_custom_popup != null ){
+                let popup_config = variables.mui_custom_popup;
                 if ((typeof popup_config === 'object') && 'entity' in popup_config) {
                   return popup_config.entity;
                 }
@@ -347,8 +347,8 @@ ulm_actions_icon:
             ]]]
           variables: >
             [[[
-              if (variables.ulm_custom_popup != null ){
-                let popup_config = variables.ulm_custom_popup;
+              if (variables.mui_custom_popup != null ){
+                let popup_config = variables.mui_custom_popup;
                 if ((typeof popup_config === 'object') && 'popup_variables' in popup_config) {
                   return popup_config.popup_variables;
                 }

@@ -3,7 +3,7 @@ card_input_datetime:
   show_name: false
   show_icon: false
   variables:
-    ulm_card_input_datetime_name: "n/a"
+    mui_card_input_datetime_name: "n/a"
   triggers_update: "all"
   styles:
     grid:
@@ -21,12 +21,12 @@ card_input_datetime:
         type: "custom:button-card"
         template:
           - "icon_info"
-          - "ulm_translation_engine"
+          - "mui_translation_engine"
           - "input_datetime"
         tap_action:
           action: "more-info"
         entity: "[[[ return entity.entity_id ]]]"
-        name: "[[[ return variables.ulm_card_input_datetime_name ]]]"
+        name: "[[[ return variables.mui_card_input_datetime_name ]]]"
     item2:
       card:
         type: "custom:button-card"
@@ -151,11 +151,11 @@ widget_text:
   tap_action:
     action: "toggle"
   template:
-    - "ulm_translation_engine"
+    - "mui_translation_engine"
   show_icon: false
   show_label: true
   show_name: false
-  label: "[[[ return variables.ulm_translation_state_unit ]]]"
+  label: "[[[ return variables.mui_translation_state_unit ]]]"
   styles:
     grid:
       - grid-template-areas: "'l'"

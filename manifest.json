@@ -1,6 +1,6 @@
 {
     "codeowners": [
-        "@stokkie90"
+        "@benbur98"
     ],
     "config_flow": true,
     "dependencies": [
@@ -9,13 +9,12 @@
         "frontend"
     ],
     "documentation": "https://ui-lovelace-minimalist.github.io/UI/",
-    "domain": "ui_lovelace_minimalist",
+    "domain": "minimalist_ui",
     "iot_class": "calculated",
-    "issue_tracker": "https://github.com/UI-Lovelace-Minimalist/UI/issues",
-    "name": "UI Lovelace Minimalist",
+    "name": "Minimalist UI",
     "requirements": [
         "aiofiles==0.8.0",
         "aiogithubapi>=22.2.4"
     ],
-    "version": "v1.1.6-hotfix"
+    "version": "v1.0"
 }

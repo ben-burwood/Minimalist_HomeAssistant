@@ -1,7 +1,7 @@
 ---
 card_room:
   template:
-    - "ulm_translation_engine"
+    - "mui_translation_engine"
   variables:
     label_use_temperature: true
     label_use_brightness: false
@@ -9,8 +9,8 @@ card_room:
     action: "call-service"
     service: "input_select.select_option"
     service_data:
-      option: "[[[ return variables.ulm_input_select_option ]]]"
-      entity_id: "[[[ return variables.ulm_input_select ]]]"
+      option: "[[[ return variables.mui_input_select_option ]]]"
+      entity_id: "[[[ return variables.mui_input_select ]]]"
   color: "var(--google-grey-500)"
   size: "45%"
   aspect_ratio: "1/1"
@@ -26,7 +26,7 @@ card_room:
         let bri = Math.round(entity?.attributes?.brightness / 2.55);
         return (bri ? bri : "0") + "%";
       }
-      return variables.ulm_translation_state;
+      return variables.mui_translation_state;
     ]]]
   state:
     - value: "unavailable"

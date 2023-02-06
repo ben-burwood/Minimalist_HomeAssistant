@@ -27,8 +27,8 @@ Version: 1.1.0
   template:
     - card_input_number
   variables:
-    ulm_card_input_number_name: "YOUR_NAME"
-    ulm_card_input_number_entity: "input_number.YOUR_INPUT_NUMBER"
+    mui_card_input_number_name: "YOUR_NAME"
+    mui_card_input_number_entity: "input_number.YOUR_INPUT_NUMBER"
 ```
 
 ```yaml
@@ -37,7 +37,7 @@ Version: 1.1.0
   template: card_input_number
   entity: input_number.YOUR_INPUT_NUMBER_ENTITY
   variables:
-    ulm_card_input_number_name: "YOUR_CARD_NAME"
+    mui_card_input_number_name: "YOUR_CARD_NAME"
 ```
 
 </details>
@@ -50,9 +50,9 @@ Adds ability to work with counter entities. Compatibility with input number enti
 </details>
 <details>
 <summary>1.0.1</summary>
-Added option to leave ulm_card_input_number_name empty (takes the friendly_name of the entity)
+Added option to leave mui_card_input_number_name empty (takes the friendly_name of the entity)
 Removed background from middle text (because it is not a button).
-Removed variables ulm_card_input_number_entity.
+Removed variables mui_card_input_number_entity.
 </details>
 <details>
 <summary>1.0.0</summary>
@@ -66,7 +66,7 @@ Initial release
   template: card_input_number
   entity: input_number.YOUR_INPUT_NUMBER
   variables:
-    ulm_card_input_number_name: "YOUR_NAME"
+    mui_card_input_number_name: "YOUR_NAME"
 ```
 
 ## Requirements
@@ -83,7 +83,7 @@ n/a
 <th>Explanation</th>
 </tr>
 <tr>
-<td>ulm_card_input_number_name</td>
+<td>mui_card_input_number_name</td>
 <td>Bathroom Ceiling Fan Threshold</td>
 <td>false</td>
 <td>The name to display on your card</td>

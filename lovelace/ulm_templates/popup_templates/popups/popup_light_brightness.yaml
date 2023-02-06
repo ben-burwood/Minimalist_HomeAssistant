@@ -376,7 +376,7 @@ popup_light_brightness:
         type: "custom:button-card"
         template: >
           [[[
-            if(entity.attributes?.effect_list || variables?.ulm_card_light_color_palette){
+            if(entity.attributes?.effect_list || variables?.mui_card_light_color_palette){
               return 'list_3_items';
             }
             return 'popup_list_items'
@@ -388,7 +388,7 @@ popup_light_brightness:
             - background: "none"
           custom_fields:
             item3:
-              - display: "[[[return (entity.attributes?.effect_list || variables?.ulm_card_light_color_palette) ? 'block' : 'none'  ]]]"
+              - display: "[[[return (entity.attributes?.effect_list || variables?.mui_card_light_color_palette) ? 'block' : 'none'  ]]]"
         custom_fields:
           item1:
             card:
@@ -405,7 +405,7 @@ popup_light_brightness:
               entity: "[[[ return entity.entity_id ]]]"
               template: "popup_button_light_more_options"
               variables:
-                ulm_card_light_color_palette: "[[[ return variables?.ulm_card_light_color_palette ]]]"
+                mui_card_light_color_palette: "[[[ return variables?.mui_card_light_color_palette ]]]"
     content3:
       card:
         type: "custom:light-entity-card"
@@ -438,7 +438,7 @@ popup_light_brightness:
                 'template': 'popup_light_effect_row',
                 'entity': entity.entity_id,
                 'variables': {
-                  'ulm_popup_light_effect_entity_idx': index
+                  'mui_popup_light_effect_entity_idx': index
                 }
               };
               return row;
@@ -469,15 +469,15 @@ popup_light_brightness:
               var row = {
                 'type': 'custom:button-card',
                 'template': 'popup_light_palette_row',
-                'entity': variables?.ulm_card_light_color_palette,
+                'entity': variables?.mui_card_light_color_palette,
                 'variables': {
-                  'ulm_popup_light_palette_entity_idx': index
+                  'mui_popup_light_palette_entity_idx': index
                 }
               };
               return row;
             }
 
-            let option_list = states[variables?.ulm_card_light_color_palette]?.attributes?.options;
+            let option_list = states[variables?.mui_card_light_color_palette]?.attributes?.options;
 
             let length_list = option_list?.length
             let index = 0;

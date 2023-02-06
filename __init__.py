@@ -1,4 +1,4 @@
-"""Custom Integration to setup UI Lovelace Minimalist."""
+"""Custom Integration to setup Minimalist UI"""
 from __future__ import annotations
 
 import logging
@@ -11,9 +11,9 @@ from homeassistant.core import Config, HomeAssistant
 from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.loader import async_get_integration
 
-from .base import UlmBase
+from .base import MuiBase
 from .const import DOMAIN, NAME
-from .enums import ConfigurationType, UlmDisabledReason
+from .enums import ConfigurationType, muiDisabledReason
 
 _LOGGER: logging.Logger = logging.getLogger(__package__)
 
@@ -25,15 +25,15 @@ async def async_initialize_integration(
     config: dict[str, Any] | None = None,
 ) -> bool:
     """Initialize the integration."""
-    hass.data[DOMAIN] = ulm = UlmBase()
-    ulm.enable_ulm()
+    hass.data[DOMAIN] = mui = MuiBase()
+    mui.enable_mui()
 
     if config is not None:
         if DOMAIN not in config:
             return True
-        if ulm.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
+        if mui.configuration.config_type == ConfigurationType.CONFIG_ENTRY:
             return True
-        ulm.configuration.update_from_dict(
+        mui.configuration.update_from_dict(
             {
                 "config_type": ConfigurationType.YAML,
                 **config[DOMAIN],
@@ -49,7 +49,7 @@ async def async_initialize_integration(
             )
             return False
 
-        ulm.configuration.update_from_dict(
+        mui.configuration.update_from_dict(
             {
                 "config_entry": config_entry,
                 "config_type": ConfigurationType.CONFIG_ENTRY,
@@ -62,43 +62,43 @@ async def async_initialize_integration(
 
     clientsession = async_get_clientsession(hass)
 
-    ulm.integration = integration
-    ulm.version = integration.version
-    ulm.session = clientsession
-    ulm.hass = hass
-    ulm.system.running = True
-    ulm.githubapi = GitHubAPI(
-        token=ulm.configuration.token,
+    mui.integration = integration
+    mui.version = integration.version
+    mui.session = clientsession
+    mui.hass = hass
+    mui.system.running = True
+    mui.githubapi = GitHubAPI(
+        token=mui.configuration.token,
         session=clientsession,
-        **{"client_name": "ULM"},
+        **{"client_name": "MUI"},
     )
 
     async def async_startup():
-        """ULM Startup tasks."""
+        """MUI Startup tasks."""
 
         if (
-            ulm.configuration.community_cards_enabled
-            and ulm.configuration.token is None
+            mui.configuration.community_cards_enabled
+            and mui.configuration.token is None
         ):
-            ulm.disable_ulm(UlmDisabledReason.INVALID_TOKEN)
-            ulm.log.error(
+            mui.disable_mui(muiDisabledReason.INVALID_TOKEN)
+            mui.log.error(
                 "Github token is not set up yet, please reconfigure the integration."
             )
             return False
-        if ulm.configuration.community_cards_enabled:
-            await ulm.fetch_cards()
-            await ulm.configure_community_cards()
+        if mui.configuration.community_cards_enabled:
+            await mui.fetch_cards()
+            await mui.configure_community_cards()
 
         if (
-            not await ulm.configure_ulm()
-            or not await ulm.configure_plugins()
-            or not await ulm.configure_dashboard()
+            not await mui.configure_mui()
+            or not await mui.configure_plugins()
+            or not await mui.configure_dashboard()
         ):
             return False
 
-        ulm.enable_ulm()
+        mui.enable_mui()
 
-        return not ulm.system.disabled
+        return not mui.system.disabled
 
     try:
         startup_result = await async_startup()
@@ -107,7 +107,7 @@ async def async_initialize_integration(
     if not startup_result:
         return False
 
-    ulm.enable_ulm()
+    mui.enable_mui()
 
     return True
 
@@ -131,7 +131,7 @@ async def async_remove_entry(hass: HomeAssistant, config_entry: ConfigEntry):
     # TODO cleanup:
     #  - themes
     #  - blueprints
-    frontend.async_remove_panel(hass, "ui-lovelace-minimalist")
+    frontend.async_remove_panel(hass, "minimalist-ui")
 
 
 async def async_reload_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> None:

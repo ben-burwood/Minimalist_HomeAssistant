@@ -2,14 +2,14 @@
 ### VERTICAL BUTTONS (fka SCENES) ###
 card_vertical_button:
   variables:
-    ulm_card_vertical_button_color: "blue"
-    ulm_card_vertical_button_state: "on"
+    mui_card_vertical_button_color: "blue"
+    mui_card_vertical_button_state: "on"
   show_label: true
   label: ""
   name: |
     [[[
       if( entity.entity_id.startsWith("input_select.") )
-        return variables.ulm_card_vertical_button_state;
+        return variables.mui_card_vertical_button_state;
       else if( entity.entity_id.startsWith("input_boolean.") )
         return "";
       return entity.state;
@@ -45,19 +45,19 @@ card_vertical_button:
     - operator: "template"
       value: |
         [[[
-          return entity.state == variables.ulm_card_vertical_button_state;
+          return entity.state == variables.mui_card_vertical_button_state;
         ]]]
       styles:
         icon:
-          - color: "[[[ return `rgba(var(--color-${variables.ulm_card_vertical_button_color}), 1)`; ]]]"
+          - color: "[[[ return `rgba(var(--color-${variables.mui_card_vertical_button_color}), 1)`; ]]]"
         label:
-          - color: "[[[ return `rgba(var(--color-${variables.ulm_card_vertical_button_color}-text), 1)`; ]]]"
+          - color: "[[[ return `rgba(var(--color-${variables.mui_card_vertical_button_color}-text), 1)`; ]]]"
         name:
-          - color: "[[[ return `rgba(var(--color-${variables.ulm_card_vertical_button_color}-text), 1)`; ]]]"
+          - color: "[[[ return `rgba(var(--color-${variables.mui_card_vertical_button_color}-text), 1)`; ]]]"
         img_cell:
-          - background-color: "[[[ return `rgba(var(--color-${variables.ulm_card_vertical_button_color}), 0.2)`; ]]]"
+          - background-color: "[[[ return `rgba(var(--color-${variables.mui_card_vertical_button_color}), 0.2)`; ]]]"
         card:
-          - background-color: "[[[ return `rgba(var(--color-background-${variables.ulm_card_vertical_button_color}), var(--opacity-bg))`; ]]]"
+          - background-color: "[[[ return `rgba(var(--color-background-${variables.mui_card_vertical_button_color}), var(--opacity-bg))`; ]]]"
   tap_action:
     action: "call-service"
     service: |
@@ -81,7 +81,7 @@ card_vertical_button:
       [[[
         var obj;
         if( entity.entity_id.startsWith("input_select.") )
-          obj = { entity_id: entity.entity_id, option: variables.ulm_card_vertical_button_state };
+          obj = { entity_id: entity.entity_id, option: variables.mui_card_vertical_button_state };
         else
           obj = { entity_id: entity.entity_id };
         return obj;

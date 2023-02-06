@@ -13,7 +13,7 @@ popup_weather_row:
     icon:
       - color: >
           [[[
-            var state = entity.attributes.forecast[variables.ulm_popup_weather_entity_idx].condition;
+            var state = entity.attributes.forecast[variables.mui_popup_weather_entity_idx].condition;
             var icon = {
               "clear-night": "rgba(var(--color-yellow),1)",
               "cloudy": "rgba(var(--color-blue),1)",
@@ -36,7 +36,7 @@ popup_weather_row:
     img_cell:
       - background-color: >
           [[[
-            var state = entity.attributes.forecast[variables.ulm_popup_weather_entity_idx].condition;
+            var state = entity.attributes.forecast[variables.mui_popup_weather_entity_idx].condition;
             var icon = {
               "clear-night": "rgba(var(--color-yellow),0.2)",
               "cloudy": "rgba(var(--color-blue),0.2)",
@@ -82,14 +82,14 @@ popup_weather_row:
     date: |
       [[[
         const userLocale = navigator.languages && navigator.languages.length ? navigator.languages[0] : navigator.language;
-        const date = new Date(entity.attributes.forecast[variables.ulm_popup_weather_entity_idx].datetime);
+        const date = new Date(entity.attributes.forecast[variables.mui_popup_weather_entity_idx].datetime);
         return date.toLocaleDateString(userLocale, {weekday: 'long',});
       ]]]
-    templow: "[[[ return entity.attributes.forecast[variables.ulm_popup_weather_entity_idx].templow + '°' ]]]"
-    tempmax: "[[[ return entity.attributes.forecast[variables.ulm_popup_weather_entity_idx].temperature + '°' ]]]"
+    templow: "[[[ return entity.attributes.forecast[variables.mui_popup_weather_entity_idx].templow + '°' ]]]"
+    tempmax: "[[[ return entity.attributes.forecast[variables.mui_popup_weather_entity_idx].temperature + '°' ]]]"
   icon: |
     [[[
-      var state = entity.attributes.forecast[variables.ulm_popup_weather_entity_idx].condition;
+      var state = entity.attributes.forecast[variables.mui_popup_weather_entity_idx].condition;
       var icon = {
         "clear-night": "mdi:weather-night",
         "cloudy": "mdi:weather-cloudy",

@@ -10,9 +10,9 @@ class ConfigurationType(str, Enum):
     CONFIG_ENTRY = "config_entry"
 
 
-class UlmDisabledReason(str, Enum):
-    """Reasons to disable ULM."""
+class muiDisabledReason(str, Enum):
+    """Reasons to disable MUI."""
 
     RATE_LIMIT = "rate_limit"
     INVALID_TOKEN = "invalid_token"  # nosec B105
-    LOAD_ULM = "load_ulm"
+    LOAD_MUI = "load_mui"

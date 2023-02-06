@@ -6,14 +6,14 @@ chip_icon_state:
   label: |
     [[[
       var icon = "❔";
-      if (variables.ulm_chip_icon_state_icon){
-        var icon = variables.ulm_chip_icon_state_icon;
+      if (variables.mui_chip_icon_state_icon){
+        var icon = variables.mui_chip_icon_state_icon;
       }
       var state = "";
-      if (states[variables.ulm_chip_icon_state_entity].state){
-        var state = states[variables.ulm_chip_icon_state_entity].state;
-        if (states[variables.ulm_chip_icon_state_entity].attributes.unit_of_measurement){
-          state += states[variables.ulm_chip_icon_state_entity].attributes.unit_of_measurement;
+      if (states[variables.mui_chip_icon_state_entity].state){
+        var state = states[variables.mui_chip_icon_state_entity].state;
+        if (states[variables.mui_chip_icon_state_entity].attributes.unit_of_measurement){
+          state += states[variables.mui_chip_icon_state_entity].attributes.unit_of_measurement;
         }
       }
       return icon + " " + state;

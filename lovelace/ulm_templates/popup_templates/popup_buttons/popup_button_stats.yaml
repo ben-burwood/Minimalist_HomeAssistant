@@ -1,4 +1,4 @@
 ---
 popup_button_stats:
-  template: "ulm_translation_engine"
-  name: "[[[ return variables.ulm_translation_statistics ]]]"
+  template: "mui_translation_engine"
+  name: "[[[ return variables.mui_translation_statistics ]]]"

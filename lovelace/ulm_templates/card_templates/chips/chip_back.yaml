@@ -3,13 +3,13 @@
 chip_back:
   template: "chips"
   variables:
-    ulm_chip_back_path: >
+    mui_chip_back_path: >
       [[[
         return hass["panelUrl"];
       ]]]
   tap_action:
     action: "navigate"
-    navigation_path: "[[[ return variables.ulm_chip_back_path; ]]]"
+    navigation_path: "[[[ return variables.mui_chip_back_path; ]]]"
   show_icon: true
   icon: "mdi:arrow-left"
   styles:

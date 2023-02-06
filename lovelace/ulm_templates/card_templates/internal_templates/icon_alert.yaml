@@ -10,7 +10,7 @@ icon_alert:
       value: >
         [[[
           var check_state = 'on';
-          if (variables.ulm_icon_alert_invert_state) {
+          if (variables.mui_icon_alert_invert_state) {
             check_state = 'off';
           }
           if (entity.state == 'unavailable' || entity.state == check_state){ return true; }
@@ -62,7 +62,7 @@ icon_alert:
     notification: >
       [[[
         var check_state = 'on';
-          if (variables.ulm_icon_alert_invert_state) {
+          if (variables.mui_icon_alert_invert_state) {
             check_state = 'off';
           }
         if (entity.state == "unavailable" || entity.state == check_state){

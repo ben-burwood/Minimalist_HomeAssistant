@@ -1,0 +1,121 @@
+---
+card_remote:
+  triggers_update: "all"
+  styles:
+    grid:
+      - grid-template-areas: "'item1' 'item2'"
+      - grid-template-columns: "1fr"
+      - grid-template-rows: "1fr"
+      - row-gap: "0px"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "12px"
+    custom_fields:
+      item2:
+        - display: >
+            [[[
+              if(states[variables.remote_power].state == 'on'){
+                return "block";
+              } else if(states[variables.remote_power].state == 'off'){
+                return "none";
+              }
+            ]]]
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        template:
+          - "icon_info"
+          - "green"
+        entity: "[[[ return variables.remote_power ]]]"
+        label: >
+          [[[
+            if (states[variables.remote_power].state == "on"){
+              return "On";
+            }
+            else if (states[variables.remote_power].state == "off"){
+              return "Off";
+            }
+          ]]]
+    item2:
+      card:
+        type: "vertical-stack"
+        cards:
+          - type: "custom:button-card"
+            color_type: blank-card
+            card_size: 4
+          - type: "horizontal-stack"
+            cards:
+              - type: "custom:button-card"
+                template: "widget_icon"
+                name: Volume Mute
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: "[[[ return variables.mqtt_topic ]]]"
+                    payload: 4
+                icon: "mdi:volume-mute"
+              - type: "custom:button-card"
+                template: "widget_icon"
+                name: Volume Down
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: "[[[ return variables.mqtt_topic ]]]"
+                    payload: 2
+                icon: "mdi:volume-minus"
+              - type: "custom:button-card"
+                template: "widget_icon"
+                name: Volume Up
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: "[[[ return variables.mqtt_topic ]]]"
+                    payload: 3
+                icon: "mdi:volume-plus"
+          - type: "custom:button-card"
+            template: "widget_icon"
+            name: Source Select
+            tap_action:
+              action: call-service
+              service: mqtt.publish
+              service_data:
+                topic: "[[[ return variables.mqtt_topic ]]]"
+                payload: 5
+            icon: "mdi:video-input-hdmi"
+          - type: "horizontal-stack"
+            cards:
+              - type: "custom:button-card"
+                template: "widget_icon"
+                name: Menu Down
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: "[[[ return variables.mqtt_topic ]]]"
+                    payload: 8
+                icon: "mdi:chevron-down-circle"
+              - type: "custom:button-card"
+                template: "widget_icon"
+                name: Menu Ok
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: "[[[ return variables.mqtt_topic ]]]"
+                    payload: 6
+                icon: "mdi:check-circle"
+              - type: "custom:button-card"
+                template: "widget_icon"
+                name: Menu Up
+                tap_action:
+                  action: call-service
+                  service: mqtt.publish
+                  service_data:
+                    topic: "[[[ return variables.mqtt_topic ]]]"
+                    payload: 7
+                icon: "mdi:chevron-up-circle"

@@ -2,9 +2,9 @@
 popup_button_volume:
   template:
     - "popup_button"
-    - "ulm_language_variables"
+    - "mui_language_variables"
   icon: "mdi:volume-high"
-  name: "[[[ return variables.ulm_volume; ]]]"
+  name: "[[[ return variables.mui_volume; ]]]"
   styles:
     name:
       - text-transform: "uppercase"

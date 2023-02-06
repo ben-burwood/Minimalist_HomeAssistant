@@ -73,9 +73,9 @@ popup_power_outlet_history:
                       template: "popup_power_outlet_stats"
                       entity: "[[[ return entity.entity_id ]]]"
                       variables:
-                        ulm_popup_power_outlet_sensor1: "[[[ return variables.ulm_popup_power_outlet_sensor1 ]]]"
-                        ulm_popup_power_outlet_sensor2: "[[[ return variables.ulm_popup_power_outlet_sensor2 ]]]"
-                        ulm_popup_power_outlet_graph_sensor: "[[[ return variables.ulm_popup_power_outlet_graph_sensor ]]]"
+                        mui_popup_power_outlet_sensor1: "[[[ return variables.mui_popup_power_outlet_sensor1 ]]]"
+                        mui_popup_power_outlet_sensor2: "[[[ return variables.mui_popup_power_outlet_sensor2 ]]]"
+                        mui_popup_power_outlet_graph_sensor: "[[[ return variables.mui_popup_power_outlet_graph_sensor ]]]"
           item2:
             card:
               icon: "mdi:history"

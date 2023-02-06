@@ -4,12 +4,12 @@ card_power_outlet:
   template:
     - "icon_more_info_new"
     - "yellow"
-    - "ulm_translation_engine"
+    - "mui_translation_engine"
   variables:
-    ulm_card_power_outlet_consumption_sensor:
-    ulm_card_power_outlet_name: "[[[ return entity.attributes.friendly_name ]]]"
-    ulm_card_power_outlet_icon: "[[[ return entity.attributes.icon ]]]"
-    ulm_outlet_power_enable_popup: false
+    mui_card_power_outlet_consumption_sensor:
+    mui_card_power_outlet_name: "[[[ return entity.attributes.friendly_name ]]]"
+    mui_card_power_outlet_icon: "[[[ return entity.attributes.icon ]]]"
+    mui_outlet_power_enable_popup: false
   triggers_update: "all"
   custom_fields:
     item1:
@@ -24,17 +24,17 @@ card_power_outlet:
               template:
                 - "yellow"
               entity: "[[[ return entity.entity_id ]]]"
-              icon: "[[[ return variables.ulm_card_power_outlet_icon ]]]"
+              icon: "[[[ return variables.mui_card_power_outlet_icon ]]]"
               variables: >
                 [[[
                   let vars = variables;
 
-                  if(variables.ulm_outlet_power_enable_popup) {
-                    vars.ulm_custom_popup = {
+                  if(variables.mui_outlet_power_enable_popup) {
+                    vars.mui_custom_popup = {
                       'template': 'popup_power_outlet_stats',
-                      'popup_variables': {'ulm_popup_power_outlet_sensor1': variables.ulm_popup_power_outlet_sensor1,
-                        'ulm_popup_power_outlet_sensor2': variables.ulm_popup_power_outlet_sensor2,
-                        'ulm_popup_power_outlet_graph_sensor': variables.ulm_popup_power_outlet_graph_sensor}
+                      'popup_variables': {'mui_popup_power_outlet_sensor1': variables.mui_popup_power_outlet_sensor1,
+                        'mui_popup_power_outlet_sensor2': variables.mui_popup_power_outlet_sensor2,
+                        'mui_popup_power_outlet_graph_sensor': variables.mui_popup_power_outlet_graph_sensor}
                     };
                   }
                   return vars;
@@ -45,25 +45,25 @@ card_power_outlet:
               template:
                 - "yellow_no_card"
               entity: "[[[ return entity.entity_id ]]]"
-              name: "[[[ return variables.ulm_card_power_outlet_name ]]]"
+              name: "[[[ return variables.mui_card_power_outlet_name ]]]"
               label: |-
                 [[[
-                  if (entity.state === "on" && variables.ulm_card_power_outlet_consumption_sensor !== null) {
-                    return variables.ulm_translation_state + " • " + states[variables.ulm_card_power_outlet_consumption_sensor].state + "W";
+                  if (entity.state === "on" && variables.mui_card_power_outlet_consumption_sensor !== null) {
+                    return variables.mui_translation_state + " • " + states[variables.mui_card_power_outlet_consumption_sensor].state + "W";
                   } else {
-                    return variables.ulm_translation_state;
+                    return variables.mui_translation_state;
                   }
                 ]]]
               variables: >
                 [[[
                   let vars = variables;
 
-                  if(variables.ulm_outlet_power_enable_popup) {
-                    vars.ulm_custom_popup = {
+                  if(variables.mui_outlet_power_enable_popup) {
+                    vars.mui_custom_popup = {
                       'template': 'popup_power_outlet_stats',
-                      'popup_variables': {'ulm_popup_power_outlet_sensor1': variables.ulm_popup_power_outlet_sensor1,
-                        'ulm_popup_power_outlet_sensor2': variables.ulm_popup_power_outlet_sensor2,
-                        'ulm_popup_power_outlet_graph_sensor': variables.ulm_popup_power_outlet_graph_sensor}
+                      'popup_variables': {'mui_popup_power_outlet_sensor1': variables.mui_popup_power_outlet_sensor1,
+                        'mui_popup_power_outlet_sensor2': variables.mui_popup_power_outlet_sensor2,
+                        'mui_popup_power_outlet_graph_sensor': variables.mui_popup_power_outlet_graph_sensor}
                     };
                   }
                   return vars;

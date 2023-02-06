@@ -1,0 +1,110 @@
+---
+button_card_templates: !include_dir_merge_named "../../custom_components/ui_lovelace_minimalist/__ui_minimalist__/mui_templates/"
+
+title: "Minimalist"
+background: "var(--background-image)"
+views:
+  - title: "Home"
+    path: 0
+
+    cards:
+      - type: "custom:button-card"
+        template: "card_main"
+        variables:
+          mui_card_collapse: input_boolean.card_collapse
+          mui_weather: weather.homeassistant
+          mui_weather_primary: extrema
+          mui_weather_secondary: precipitation
+
+      - type: "custom:button-card"
+        template: card_title
+        label: "Lights"
+
+      #- type: "custom:button-card"
+      #  template: card_group_lights
+      #  variables:
+      #    light1: light.headlight
+      #    light2: light.sidelight
+      #    group_light: light.bedroom_lights
+
+      - type: "custom:button-card"
+        template: card_light
+        entity: light.bedroom_lights
+        variables:
+          mui_card_light_enable_horizontal: true
+          mui_card_light_enable_collapse: true
+          mui_card_light_enable_slider: true
+          mui_card_light_enable_color: true
+
+      - type: "horizontal-stack"
+        cards:
+          - type: "custom:button-card"
+            template: card_light_brightness
+            entity: light.0x842e14fffe6b01b1
+            variables:
+              mui_card_light_enable_brightness: true
+              brightness_low: 2
+              brightness_medium: 128
+              brightness_high: 255
+              mui_card_light_enable_color: true
+          - type: "custom:button-card"
+            template: card_light_brightness
+            entity: light.reading_lamp
+            variables:
+              mui_card_light_enable_brightness: true
+              brightness_low: 2
+              brightness_medium: 128
+              brightness_high: 255
+              mui_card_light_enable_color: true
+
+      - type: "custom:button-card"
+        template: card_power_outlet
+        entity: switch.switch_relay
+        variables:
+          mui_card_power_outlet_name: "String Lights"
+          mui_card_power_outlet_icon: "mdi:string-lights"
+
+      #- type: "custom:button-card"
+      #  template: card_light
+      #  entity: light.bed_led
+      #  variables:
+      #    mui_card_light_enable_collapse: true
+      #    mui_card_light_enable_slider: true
+      #    mui_card_light_enable_color: true
+
+      - type: "custom:button-card"
+        template: card_title
+        label: "Media"
+
+      - type: "custom:button-card"
+        template: card_alarm_time
+        variables:
+          alarm_toggle: input_boolean.morning_alarm_toggle
+          alarm_set: input_datetime.morning_alarm_time
+
+      - type: "custom:button-card"
+        template: card_media_player
+        entity: media_player.ben_speaker
+        name: Sonos - Bedroom Speaker Pair
+        tap_action:
+          action: more-info
+          entity: media_player.ben_speaker
+        variables:
+          mui_card_media_player_icon: "mdi:cast-audio"
+          mui_card_media_player_enable_art: true
+          mui_card_media_player_more_info: true
+          mui_card_media_player_enable_controls: true
+          mui_card_media_player_collapsible: true
+          mui_card_media_player_enable_popup: true
+          mui_icon_tap_action:
+            action: more-info
+            entity: media_player.ben_speaker
+          mui_name_tap_action:
+            action: more-info
+            entity: media_player.ben_speaker
+
+      #- type: "custom:button-card"
+      #  template: card_remote
+      #  variables:
+      #    remote_power: input_boolean.projector_power
+      #    mqtt_topic: "IRremote"

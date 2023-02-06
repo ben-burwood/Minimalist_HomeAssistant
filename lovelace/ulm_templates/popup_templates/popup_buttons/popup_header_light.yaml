@@ -2,13 +2,13 @@
 popup_header_light:
   template:
     - "popup_button"
-    - "ulm_translation_engine"
+    - "mui_translation_engine"
   label: |-
     [[[
       if (entity.state == 'off') {
-        return variables.ulm_translation_state;
+        return variables.mui_translation_state;
       } else {
-        return variables.ulm_translation_state + ' • ' + Math.round(states[entity.entity_id].attributes.brightness / 2.55) + '%';
+        return variables.mui_translation_state + ' • ' + Math.round(states[entity.entity_id].attributes.brightness / 2.55) + '%';
       }
     ]]]
   show_name: true

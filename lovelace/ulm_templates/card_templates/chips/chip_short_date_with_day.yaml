@@ -2,14 +2,14 @@
 chip_short_date_with_day:
   template: "chips"
   variables:
-    ulm_language: >
+    mui_language: >
       [[[
         return hass["language"];
       ]]]
   triggers_update: "all"
   label: |
     [[[
-      var locale = variables.ulm_language;
+      var locale = variables.mui_language;
       let dt = new Intl.DateTimeFormat(locale , {
         weekday: "short",
         day: "numeric",

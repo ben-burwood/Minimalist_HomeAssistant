@@ -5,8 +5,8 @@ chip_icon_only:
   label: |
     [[[
       var icon = "❔";
-      if (variables.ulm_chip_icon_only){
-        var icon = variables.ulm_chip_icon_only;
+      if (variables.mui_chip_icon_only){
+        var icon = variables.mui_chip_icon_only;
       }
       return icon;
     ]]]

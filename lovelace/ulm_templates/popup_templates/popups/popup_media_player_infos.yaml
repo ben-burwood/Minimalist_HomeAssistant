@@ -314,7 +314,7 @@ popup_media_player_infos:
                 'template': 'popup_media_player_row',
                 'entity': entity.entity_id,
                 'variables': {
-                  'ulm_popup_media_entity_idx': index
+                  'mui_popup_media_entity_idx': index
                 }
               };
               return row;

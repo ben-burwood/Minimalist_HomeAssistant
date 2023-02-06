@@ -3,21 +3,21 @@
 card_light:
   template:
     - "icon_more_info_new"
-    - "ulm_translation_engine"
+    - "mui_translation_engine"
   variables:
-    ulm_card_light_name: "[[[ return entity.attributes.friendly_name ]]]"
-    ulm_card_light_icon: "[[[ return entity.attributes.icon ]]]"
-    ulm_card_light_enable_collapse: false
-    ulm_card_light_enable_slider: false
-    ulm_card_light_enable_slider_minSet: 0
-    ulm_card_light_enable_slider_maxSet: 100
-    ulm_card_light_enable_horizontal: false
-    ulm_card_light_enable_horizontal_wide: false
-    ulm_card_light_enable_color: false
-    ulm_card_light_force_background_color: false
-    ulm_card_light_enable_popup: false
-    ulm_card_light_enable_popup_tap: false
-    ulm_card_light_color_palette: ""
+    mui_card_light_name: "[[[ return entity.attributes.friendly_name ]]]"
+    mui_card_light_icon: "[[[ return entity.attributes.icon ]]]"
+    mui_card_light_enable_collapse: false
+    mui_card_light_enable_slider: false
+    mui_card_light_enable_slider_minSet: 0
+    mui_card_light_enable_slider_maxSet: 100
+    mui_card_light_enable_horizontal: false
+    mui_card_light_enable_horizontal_wide: false
+    mui_card_light_enable_color: false
+    mui_card_light_force_background_color: false
+    mui_card_light_enable_popup: false
+    mui_card_light_enable_popup_tap: false
+    mui_card_light_color_palette: ""
   show_icon: false
   show_name: false
   show_label: false
@@ -28,8 +28,8 @@ card_light:
           - background-color: >-
               [[[
                   var color = entity.attributes.rgb_color;
-                  if (variables.ulm_card_light_enable_color == true){
-                    if(variables.ulm_card_light_force_background_color == true || hass.themes.darkMode){
+                  if (variables.mui_card_light_enable_color == true){
+                    if(variables.mui_card_light_force_background_color == true || hass.themes.darkMode){
                       if (color){
                         return 'rgba(' + color + ',0.1)'
                       } else {
@@ -43,11 +43,11 @@ card_light:
     grid:
       - grid-template-areas: >
           [[[
-                if (variables.ulm_card_light_enable_collapse && entity.state != "on") {
+                if (variables.mui_card_light_enable_collapse && entity.state != "on") {
                     return "\"item1\"";
-                } else if (variables.ulm_card_light_enable_horizontal) {
+                } else if (variables.mui_card_light_enable_horizontal) {
                     return "\"item1 item2\"";
-                } else if (variables.ulm_card_light_enable_slider) {
+                } else if (variables.mui_card_light_enable_slider) {
                     return "\"item1\" \"item2\"";
                 } else {
                     return "\"item1\"";
@@ -55,10 +55,10 @@ card_light:
           ]]]
       - grid-template-columns: >
           [[[
-                if (variables.ulm_card_light_enable_collapse && entity.state != "on") {
+                if (variables.mui_card_light_enable_collapse && entity.state != "on") {
                     return "1fr";
-                } else if (variables.ulm_card_light_enable_horizontal) {
-                  if(variables.ulm_card_light_enable_horizontal_wide){
+                } else if (variables.mui_card_light_enable_horizontal) {
+                  if(variables.mui_card_light_enable_horizontal_wide){
                     return "1fr 2fr";
                     } else {
                       return "1fr 1fr";
@@ -69,9 +69,9 @@ card_light:
           ]]]
       - grid-template-rows: >
           [[[
-                if (variables.ulm_card_light_enable_collapse && entity.state != "on") {
+                if (variables.mui_card_light_enable_collapse && entity.state != "on") {
                     return "1fr";
-                } else if (variables.ulm_card_light_enable_slider && !variables.ulm_card_light_enable_horizontal) {
+                } else if (variables.mui_card_light_enable_slider && !variables.mui_card_light_enable_horizontal) {
                     return "min-content min-content";
                 } else {
                     return "1fr";
@@ -86,9 +86,9 @@ card_light:
       item2:
         - display: >
             [[[
-                  if (variables.ulm_card_light_enable_collapse && entity.state != "on") {
+                  if (variables.mui_card_light_enable_collapse && entity.state != "on") {
                       return "none";
-                  } else if (variables.ulm_card_light_enable_slider) {
+                  } else if (variables.mui_card_light_enable_slider) {
                       return "block";
                   } else {
                       return "none";
@@ -103,14 +103,14 @@ card_light:
             card:
               type: "custom:button-card"
               entity: "[[[ return entity.entity_id ]]]"
-              icon: "[[[ return variables.ulm_card_light_icon ]]]"
+              icon: "[[[ return variables.mui_card_light_icon ]]]"
               variables: >
                 [[[
                   let vars = variables;
-                  if(variables.ulm_card_light_enable_popup) {
-                    vars.ulm_custom_popup = {
+                  if(variables.mui_card_light_enable_popup) {
+                    vars.mui_custom_popup = {
                       'template': 'popup_light_brightness',
-                      'popup_variables': {'ulm_card_light_color_palette': variables.ulm_card_light_color_palette }
+                      'popup_variables': {'mui_card_light_color_palette': variables.mui_card_light_color_palette }
                     };
                   }
                   return vars;
@@ -123,7 +123,7 @@ card_light:
                           if (entity.state != "on"){
                             return 'rgba(var(--color-theme),0.2)';
                           }
-                          else if (color && variables.ulm_card_light_enable_color){
+                          else if (color && variables.mui_card_light_enable_color){
                             return 'rgba(' + color + ',1)'
                           }
                           else{
@@ -137,7 +137,7 @@ card_light:
                           if (entity.state != "on"){
                             return 'rgba(var(--color-theme),0.05)';
                           }
-                          else if (color && variables.ulm_card_light_enable_color){
+                          else if (color && variables.mui_card_light_enable_color){
                             return 'rgba(' + color + ',0.2)';
                           }
                           else{
@@ -151,18 +151,18 @@ card_light:
               variables: >
                 [[[
                   let vars = variables;
-                  if(variables.ulm_card_light_enable_popup) {
-                    vars.ulm_custom_popup = {
+                  if(variables.mui_card_light_enable_popup) {
+                    vars.mui_custom_popup = {
                       'template': 'popup_light_brightness',
-                      'popup_variables': {'ulm_card_light_color_palette': variables.ulm_card_light_color_palette }
+                      'popup_variables': {'mui_card_light_color_palette': variables.mui_card_light_color_palette }
                     };
                   }
                   return vars;
                 ]]]
-              name: "[[[ return variables.ulm_card_light_name ]]]"
+              name: "[[[ return variables.mui_card_light_name ]]]"
               label: >-
                 [[[
-                  var label = variables.ulm_translation_state
+                  var label = variables.mui_translation_state
                     if (entity.attributes.brightness != null && entity.state === 'on'){
                       var bri = Math.round(entity.attributes.brightness / 2.55);
                       var label = (bri ? bri : "0") + "%";
@@ -176,8 +176,8 @@ card_light:
                       - color: >-
                           [[[
                               var color = entity.attributes.rgb_color;
-                              if (variables.ulm_card_light_enable_color == true){
-                                if(variables.ulm_card_light_force_background_color == true || hass.themes.darkMode){
+                              if (variables.mui_card_light_enable_color == true){
+                                if(variables.mui_card_light_force_background_color == true || hass.themes.darkMode){
                                   if (color){
                                     return 'rgba(' + color + ',1)'
                                   } else {
@@ -191,8 +191,8 @@ card_light:
                       - color: >-
                           [[[
                               var color = entity.attributes.rgb_color;
-                              if (variables.ulm_card_light_enable_color == true){
-                                if(variables.ulm_card_light_force_background_color == true || hass.themes.darkMode){
+                              if (variables.mui_card_light_enable_color == true){
+                                if(variables.mui_card_light_force_background_color == true || hass.themes.darkMode){
                                   if (color){
                                     return 'rgba(' + color + ',1)'
                                   } else {
@@ -208,15 +208,15 @@ card_light:
         entity: "[[[ return entity.entity_id ]]]"
         radius: "14px"
         height: "42px"
-        minSet: "[[[ return variables.ulm_card_light_enable_slider_minSet ]]]"
-        maxSet: "[[[ return variables.ulm_card_light_enable_slider_maxSet ]]]"
+        minSet: "[[[ return variables.mui_card_light_enable_slider_minSet ]]]"
+        maxSet: "[[[ return variables.mui_card_light_enable_slider_maxSet ]]]"
         mainSliderColor: >
           [[[
               var color = entity.attributes.rgb_color;
               if (entity.state == "unavailable"){
                 return "rgba(var(--color-grey),1)";
               }
-              else if (color && variables.ulm_card_light_enable_color){
+              else if (color && variables.mui_card_light_enable_color){
                 return "rgba(" + color + ",1)";
               }
               else{
@@ -229,7 +229,7 @@ card_light:
               if (entity.state == "unavailable"){
                 return "rgba(var(--color-grey),0.2)";
               }
-              else if (color && variables.ulm_card_light_enable_color){
+              else if (color && variables.mui_card_light_enable_color){
                 return "rgba(" + color + ",0.2)";
               }
               else{
@@ -242,7 +242,7 @@ card_light:
               if (entity.state == "unavailable"){
                 return "rgba(var(--color-grey),1)";
               }
-              else if (color && variables.ulm_card_light_enable_color){
+              else if (color && variables.mui_card_light_enable_color){
                 return "rgba(" + color + ",1)";
               }
               else{

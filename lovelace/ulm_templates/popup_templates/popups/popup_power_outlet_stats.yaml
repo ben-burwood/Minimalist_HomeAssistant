@@ -56,9 +56,9 @@ popup_power_outlet_stats:
         square: false
         cards:
           - type: "custom:button-card"
-            entity: "[[[ return variables.ulm_popup_power_outlet_sensor1 ]]]"
+            entity: "[[[ return variables.mui_popup_power_outlet_sensor1 ]]]"
             label: >
-              [[[ return states[variables.ulm_popup_power_outlet_sensor1].state + states[variables.ulm_popup_power_outlet_sensor1].attributes.unit_of_measurement
+              [[[ return states[variables.mui_popup_power_outlet_sensor1].state + states[variables.mui_popup_power_outlet_sensor1].attributes.unit_of_measurement
               ]]]
             template:
               - "icon_info_bg"
@@ -74,9 +74,9 @@ popup_power_outlet_stats:
                 }
               }
           - type: "custom:button-card"
-            entity: "[[[ return variables.ulm_popup_power_outlet_sensor2 ]]]"
+            entity: "[[[ return variables.mui_popup_power_outlet_sensor2 ]]]"
             label: >
-              [[[ return states[variables.ulm_popup_power_outlet_sensor2].state + states[variables.ulm_popup_power_outlet_sensor2].attributes.unit_of_measurement
+              [[[ return states[variables.mui_popup_power_outlet_sensor2].state + states[variables.mui_popup_power_outlet_sensor2].attributes.unit_of_measurement
               ]]]
             template:
               - "icon_info_bg"
@@ -89,7 +89,7 @@ popup_power_outlet_stats:
       card:
         type: "custom:mini-graph-card"
         entities:
-          - entity: "[[[ return variables.ulm_popup_power_outlet_graph_sensor ]]]"
+          - entity: "[[[ return variables.mui_popup_power_outlet_graph_sensor ]]]"
         line_color: "var(--info-color)"
         height: 276
         hours_to_show: 168
@@ -159,9 +159,9 @@ popup_power_outlet_stats:
                       template: "popup_power_outlet_history"
                       entity: "[[[ return entity.entity_id ]]]"
                       variables:
-                        ulm_popup_power_outlet_sensor1: "[[[ return variables.ulm_popup_power_outlet_sensor1 ]]]"
-                        ulm_popup_power_outlet_sensor2: "[[[ return variables.ulm_popup_power_outlet_sensor2 ]]]"
-                        ulm_popup_power_outlet_graph_sensor: "[[[ return variables.ulm_popup_power_outlet_graph_sensor ]]]"
+                        mui_popup_power_outlet_sensor1: "[[[ return variables.mui_popup_power_outlet_sensor1 ]]]"
+                        mui_popup_power_outlet_sensor2: "[[[ return variables.mui_popup_power_outlet_sensor2 ]]]"
+                        mui_popup_power_outlet_graph_sensor: "[[[ return variables.mui_popup_power_outlet_graph_sensor ]]]"
     footer:
       card:
         type: "custom:button-card"

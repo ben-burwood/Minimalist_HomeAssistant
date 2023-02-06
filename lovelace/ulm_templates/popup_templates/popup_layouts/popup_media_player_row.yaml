@@ -3,12 +3,12 @@ popup_media_player_row:
   template: "popup_row_layout"
   name: >
     [[[
-      var name = entity.attributes.source_list[variables.ulm_popup_media_entity_idx];
+      var name = entity.attributes.source_list[variables.mui_popup_media_entity_idx];
       return name;
     ]]]
   state:
     - operator: "template"
-      value: "[[[ return entity.attributes.source == entity.attributes.source_list[variables.ulm_popup_media_entity_idx]; ]]]"
+      value: "[[[ return entity.attributes.source == entity.attributes.source_list[variables.mui_popup_media_entity_idx]; ]]]"
       styles:
         card:
           - background-color: "rgba(var(--color-blue),0.1)"
@@ -20,4 +20,4 @@ popup_media_player_row:
     service: "media_player.select_source"
     service_data:
       entity_id: "[[[ return entity.entity_id; ]]]"
-      source: "[[[ return entity.attributes.source_list[variables.ulm_popup_media_entity_idx]; ]]]"
+      source: "[[[ return entity.attributes.source_list[variables.mui_popup_media_entity_idx]; ]]]"

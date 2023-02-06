@@ -5,7 +5,7 @@ popup_vacuum_map:
   show_label: false
   show_units: false
   variables:
-    ulm_card_vacuum_camera: "[[[ return variables.ulm_card_vacuum_camera; ]]]"
+    mui_card_vacuum_camera: "[[[ return variables.mui_card_vacuum_camera; ]]]"
   styles:
     grid:
       - grid-template-areas: "'header' 'content1' 'footer'"
@@ -41,7 +41,7 @@ popup_vacuum_map:
         entity: "[[[ return entity.entity_id ]]]"
         image: "default"
         compact_view: false
-        map: "[[[ return variables.ulm_card_vacuum_camera !='' ? variables.ulm_card_vacuum_camera : 'null'; ]]]"
+        map: "[[[ return variables.mui_card_vacuum_camera !='' ? variables.mui_card_vacuum_camera : 'null'; ]]]"
         card_mod:
           style: |
             ha-card {

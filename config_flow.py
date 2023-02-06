@@ -1,4 +1,4 @@
-"""Adds Config Flow to UI Lovelace Minimalist Integration."""
+"""Adds Config Flow to Minimalist UI Integration."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ from homeassistant.helpers.event import async_call_later
 from homeassistant.loader import async_get_integration
 import voluptuous as vol
 
-from .base import UlmBase
+from .base import MuiBase
 from .const import (  # CONF_COMMUNITY_CARDS_ALL,
     CLIENT_ID,
     CONF_COMMUNITY_CARDS,
@@ -52,10 +52,10 @@ from .enums import ConfigurationType
 _LOGGER: logging.Logger = logging.getLogger(__name__)
 
 
-async def ulm_config_option_schema(options: dict = {}) -> dict:
-    """Return a schema for ULM configuration options."""
+async def mui_config_option_schema(options: dict = {}) -> dict:
+    """Return a schema for MUI configuration options."""
 
-    # Also update base.py UlmConfiguration
+    # Also update base.py MuiConfiguration
     return {
         vol.Optional(
             CONF_LANGUAGE, default=options.get(CONF_LANGUAGE, DEFAULT_LANGUAGE)
@@ -106,8 +106,8 @@ async def ulm_config_option_schema(options: dict = {}) -> dict:
     }
 
 
-class UlmFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
-    """Config flow for UI Lovelace Minimalist."""
+class MuiFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
+    """Config flow for Minimalist UI"""
 
     VERSION = 1
 
@@ -160,7 +160,7 @@ class UlmFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                 self.device = GitHubDeviceAPI(
                     client_id=CLIENT_ID,
                     session=aiohttp_client.async_get_clientsession(self.hass),
-                    **{"client_name": f"ULM/{integration.version}"},
+                    **{"client_name": f"MUI/{integration.version}"},
                 )
             async_call_later(self.hass, 1, _wait_for_activation)
             try:
@@ -233,12 +233,12 @@ class UlmFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     @staticmethod
     @callback
     def async_get_options_flow(config_entry):
-        """ULM config flow options hanlder."""
-        return UlmOptionFlowHandler(config_entry)
+        """MUI config flow options hanlder."""
+        return MuiOptionFlowHandler(config_entry)
 
 
-class UlmOptionFlowHandler(config_entries.OptionsFlow):
-    """ULM config flow option handler (Edit Flow)."""
+class MuiOptionFlowHandler(config_entries.OptionsFlow):
+    """MUI config flow option handler (Edit Flow)."""
 
     def __init__(self, config_entry: config_entries.ConfigEntry) -> None:
         """Initialize."""
@@ -250,36 +250,36 @@ class UlmOptionFlowHandler(config_entries.OptionsFlow):
 
     async def async_step_user(self, user_input=None):
         """Handle a flow initilized by the user."""
-        ulm: UlmBase = self.hass.data.get(DOMAIN)
+        mui: MuiBase = self.hass.data.get(DOMAIN)
         errors: dict[str, str] = {}
 
         if user_input is not None:
             if CONF_COMMUNITY_CARDS in user_input and user_input[CONF_COMMUNITY_CARDS]:
                 for card in user_input[CONF_COMMUNITY_CARDS]:
-                    if card not in ulm.configuration.all_community_cards:
+                    if card not in mui.configuration.all_community_cards:
                         user_input[CONF_COMMUNITY_CARDS].remove(card)
             return self.async_create_entry(title=NAME, data=user_input)
 
-        if ulm is None or ulm.configuration is None:
+        if mui is None or mui.configuration is None:
             return self.async_abort(reason="not_setup")
 
-        if ulm.configuration.config_type == ConfigurationType.YAML:
+        if mui.configuration.config_type == ConfigurationType.YAML:
             schema = {vol.Optional("not_in_use", default=""): str}
         else:
-            schema = await ulm_config_option_schema(ulm.configuration.to_dict())
+            schema = await mui_config_option_schema(mui.configuration.to_dict())
 
-        if ulm.configuration.community_cards_enabled:
-            await ulm.fetch_cards()
+        if mui.configuration.community_cards_enabled:
+            await mui.fetch_cards()
             schema.update(
                 {
                     vol.Optional(
                         CONF_COMMUNITY_CARDS,
                         default=list(
-                            ulm.configuration.to_dict().get(
+                            mui.configuration.to_dict().get(
                                 CONF_COMMUNITY_CARDS, DEFAULT_COMMUNITY_CARDS
                             )
                         ),
-                    ): cv.multi_select(ulm.configuration.all_community_cards)
+                    ): cv.multi_select(mui.configuration.all_community_cards)
                 }
             )
 

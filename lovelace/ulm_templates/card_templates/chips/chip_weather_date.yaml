@@ -1,9 +1,9 @@
 ---
 chip_weather_date:
   template: "chips"
-  entity: "[[[ return variables.ulm_weather]]]"
+  entity: "[[[ return variables.mui_weather]]]"
   variables:
-    ulm_language: >
+    mui_language: >
       [[[
         return hass["language"];
       ]]]
@@ -14,9 +14,9 @@ chip_weather_date:
     [[[
       const event = new Date();
       const options = {month: 'short', day: 'numeric' };
-      var locale = variables.ulm_language;
+      var locale = variables.mui_language;
       let formatted_date = event.toLocaleDateString(locale, options);
-      var state = states[variables.ulm_weather].state;
+      var state = states[variables.mui_weather].state;
       var icon = {
         "clear-night": "🌙",
         "cloudy": "☁️",

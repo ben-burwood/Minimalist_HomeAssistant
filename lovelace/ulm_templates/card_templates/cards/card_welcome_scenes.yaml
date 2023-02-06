@@ -1,8 +1,8 @@
 ---
 card_welcome_scenes:
   variables:
-    ulm_weather: "[[[ return variables.ulm_weather]]]"
-    ulm_language: "[[[ return hass['language']; ]]]"
+    mui_weather: "[[[ return variables.mui_weather]]]"
+    mui_language: "[[[ return hass['language']; ]]]"
     entity_1:
       entity_id: ""
       color: >
@@ -60,8 +60,8 @@ card_welcome_scenes:
           return color;
         ]]]
   template:
-    - "ulm_language_variables"
-    - "ulm_translation_engine"
+    - "mui_language_variables"
+    - "mui_translation_engine"
   show_icon: false
   show_name: false
   show_label: true
@@ -69,7 +69,7 @@ card_welcome_scenes:
     grid:
       - grid-template-areas: >
           [[[
-            if(variables.ulm_card_welcome_scenes_collapse && states[variables.ulm_card_welcome_scenes_collapse].state == 'on'){
+            if(variables.mui_card_welcome_scenes_collapse && states[variables.mui_card_welcome_scenes_collapse].state == 'on'){
               return "\'item1\' \'item2\' ";
             } else {
               return "\'item1\' \'item2\' \'item3\' \'item4\'";
@@ -86,7 +86,7 @@ card_welcome_scenes:
       item3:
         - display: >
             [[[
-              if(variables.ulm_card_welcome_scenes_collapse && states[variables.ulm_card_welcome_scenes_collapse].state == 'on'){
+              if(variables.mui_card_welcome_scenes_collapse && states[variables.mui_card_welcome_scenes_collapse].state == 'on'){
                 return "none";
               } else {
                 return "block";
@@ -95,7 +95,7 @@ card_welcome_scenes:
       item4:
         - display: >
             [[[
-              if(variables.ulm_card_welcome_scenes_collapse && states[variables.ulm_card_welcome_scenes_collapse].state == 'on'){
+              if(variables.mui_card_welcome_scenes_collapse && states[variables.mui_card_welcome_scenes_collapse].state == 'on'){
                 return "none";
               } else {
                 return "block";
@@ -107,9 +107,9 @@ card_welcome_scenes:
         type: "custom:button-card"
         template: "card_topbar_welcome"
         variables:
-          ulm_card_welcome_scenes_collapse: "[[[ return variables.ulm_card_welcome_scenes_collapse ]]]"
-          ulm_weather: "[[[ return variables.ulm_weather]]]"
-          ulm_language: "[[[ return variables.ulm_language ]]]"
+          mui_card_welcome_scenes_collapse: "[[[ return variables.mui_card_welcome_scenes_collapse ]]]"
+          mui_weather: "[[[ return variables.mui_weather]]]"
+          mui_language: "[[[ return variables.mui_language ]]]"
         styles:
           card:
             - border-radius: "none"
@@ -128,13 +128,13 @@ card_welcome_scenes:
             var time = today.getHours()
             let welcome = '';
             if (time >= '18'){
-              welcome = variables.ulm_evening;
+              welcome = variables.mui_evening;
             } else if (time >= '12'){
-              welcome = variables.ulm_afternoon;
+              welcome = variables.mui_afternoon;
             } else if (time >= '5'){
-              welcome = variables.ulm_morning;
+              welcome = variables.mui_morning;
             } else {
-              welcome = variables.ulm_hello;
+              welcome = variables.mui_hello;
             }
             return welcome + ', ' + '   <br>' + user.name + '!';
           ]]]
@@ -160,7 +160,7 @@ card_welcome_scenes:
         show_label: true
         show_name: true
         show_entity_picture: false
-        name: "[[[ return variables.ulm_translation_scenes ]]]"
+        name: "[[[ return variables.mui_translation_scenes ]]]"
         icon: "mdi:dots-vertical"
         styles:
           icon:
@@ -426,7 +426,7 @@ card_topbar_welcome:
       card:
         type: "custom:button-card"
         template: "chips"
-        entity: "[[[ return variables.ulm_card_welcome_scenes_collapse ]]]"
+        entity: "[[[ return variables.mui_card_welcome_scenes_collapse ]]]"
         icon: "mdi:chevron-up"
         show_icon: true
         styles:
@@ -451,15 +451,15 @@ card_topbar_welcome:
           action: "call-service"
           service: "input_boolean.toggle"
           service_data:
-            entity_id: "[[[ return variables.ulm_card_welcome_scenes_collapse ]]]"
+            entity_id: "[[[ return variables.mui_card_welcome_scenes_collapse ]]]"
     item2:
       card:
         type: "custom:button-card"
         template: "chip_weather_date"
-        entity: "[[[ return variables.ulm_weather]]]"
+        entity: "[[[ return variables.mui_weather]]]"
         variables:
-          ulm_weather: "[[[ return variables.ulm_weather ]]]"
-          ulm_language: "[[[ return variables.ulm_language ]]]"
+          mui_weather: "[[[ return variables.mui_weather ]]]"
+          mui_language: "[[[ return variables.mui_language ]]]"
         styles:
           card:
             - width: "100px"
@@ -479,7 +479,7 @@ card_topbar_welcome:
           navigation_path: "/config/dashboard"
         template: "chip_mdi_icon_only"
         variables:
-          ulm_chip_mdi_icon_only_icon: "mdi:cog-outline"
+          mui_chip_mdi_icon_only_icon: "mdi:cog-outline"
         styles:
           card:
             - align-self: "end"

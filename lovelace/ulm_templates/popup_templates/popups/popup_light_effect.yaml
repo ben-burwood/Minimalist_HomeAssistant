@@ -2,12 +2,12 @@
 popup_light_effect:
   template:
     - "popup_light_brightness"
-    - "ulm_language_variables"
+    - "mui_language_variables"
   styles:
     grid:
       - grid-template-areas: >
           [[[
-            if(entity.attributes?.effect_list && variables?.ulm_card_light_color_palette){
+            if(entity.attributes?.effect_list && variables?.mui_card_light_color_palette){
               return "'header header' 'title_effect title_palette' 'content4 content5'  'footer footer'"
             }
             if(entity.attributes?.effect_list){
@@ -17,14 +17,14 @@ popup_light_effect:
           ]]]
       - grid-template-columns: >
           [[[
-            if(entity.attributes?.effect_list && variables?.ulm_card_light_color_palette){
+            if(entity.attributes?.effect_list && variables?.mui_card_light_color_palette){
               return '1fr 1fr'
             }
             return '1fr'
           ]]]
       - grid-template-rows: >
           [[[
-            if(entity.attributes?.effect_list && variables?.ulm_card_light_color_palette){
+            if(entity.attributes?.effect_list && variables?.mui_card_light_color_palette){
               return "16vh min-content calc(56vh - 54px) 14vh"
             }
             return "16vh 56vh 14vh"
@@ -48,13 +48,13 @@ popup_light_effect:
         - overflow-x: "hidden"
         - justify-self: "center"
         - align-self: "start"
-        - height: "[[[ return (entity.attributes?.effect_list && variables?.ulm_card_light_color_palette)? 'calc(56vh - 54px)' : '56vh' ]]]"
+        - height: "[[[ return (entity.attributes?.effect_list && variables?.mui_card_light_color_palette)? 'calc(56vh - 54px)' : '56vh' ]]]"
         - padding-bottom: "12px"
         - max-width: "42vh"
       content5:
         - display: >
             [[[
-              if(variables?.ulm_card_light_color_palette){
+              if(variables?.mui_card_light_color_palette){
                 return 'grid'
               }
               return 'none'
@@ -62,13 +62,13 @@ popup_light_effect:
         - overflow-x: "hidden"
         - justify-self: "center"
         - align-self: "start"
-        - height: "[[[ return (entity.attributes?.effect_list && variables?.ulm_card_light_color_palette)? 'calc(56vh - 54px)' : '56vh' ]]]"
+        - height: "[[[ return (entity.attributes?.effect_list && variables?.mui_card_light_color_palette)? 'calc(56vh - 54px)' : '56vh' ]]]"
         - padding-bottom: "12px"
         - max-width: "42vh"
       title_effect:
         - display: >
             [[[
-              if(entity.attributes?.effect_list && variables?.ulm_card_light_color_palette){
+              if(entity.attributes?.effect_list && variables?.mui_card_light_color_palette){
                 return 'block'
               }
               return 'none'
@@ -76,7 +76,7 @@ popup_light_effect:
       title_palette:
         - display: >
             [[[
-              if(entity.attributes?.effect_list && variables?.ulm_card_light_color_palette){
+              if(entity.attributes?.effect_list && variables?.mui_card_light_color_palette){
                 return 'block'
               }
               return 'none'
@@ -127,7 +127,7 @@ popup_light_effect:
         type: "custom:button-card"
         template: "list_3_items"
         variables:
-          ulm_card_light_color_palette: "[[[ return variables?.ulm_card_light_color_palette ]]]"
+          mui_card_light_color_palette: "[[[ return variables?.mui_card_light_color_palette ]]]"
         styles:
           card:
             - margin-left: "6px"
@@ -142,7 +142,7 @@ popup_light_effect:
                       if (entity.attributes.effect_list){
                           areas.push("item1");
                       }
-                      if (variables?.ulm_card_light_color_palette) {
+                      if (variables?.mui_card_light_color_palette) {
                           areas.push("item2");
                       }
                       return "\"" + areas.join(" ") + "\"";
@@ -153,7 +153,7 @@ popup_light_effect:
                       if (entity.attributes.effect_list) {
                           columns.push("1fr");
                       }
-                      if (variables?.ulm_card_light_color_palette) {
+                      if (variables?.mui_card_light_color_palette) {
                           columns.push("1fr");
                       }
                       return columns.join(" ");
@@ -178,7 +178,7 @@ popup_light_effect:
                 card:
                   - display: >
                       [[[;
-                            if (variables?.ulm_card_light_color_palette) {
+                            if (variables?.mui_card_light_color_palette) {
                                 return "block";
                             }
                             return "none";
@@ -212,7 +212,7 @@ popup_light_effect:
                       template: "popup_light_palette"
                       entity: "[[[ return entity.entity_id; ]]]"
                       variables:
-                        ulm_card_light_color_palette: "[[[ return variables?.ulm_card_light_color_palette ]]]"
+                        mui_card_light_color_palette: "[[[ return variables?.mui_card_light_color_palette ]]]"
     title_effect:
       card:
         type: "custom:button-card"
@@ -221,7 +221,7 @@ popup_light_effect:
         entity: "[[[ return entity.entity_id; ]]]"
         icon: "mdi:auto-fix"
         name: "[[[ return hass.resources[hass['language']]['ui.card.light.effect']; ]]]"
-        label: "[[[ return variables.ulm_popup_total + ': ' + entity?.attributes?.effect_list?.length ]]]"
+        label: "[[[ return variables.mui_popup_total + ': ' + entity?.attributes?.effect_list?.length ]]]"
         styles:
           card:
             - margin-bottom: "12px"
@@ -237,8 +237,8 @@ popup_light_effect:
         template:
           - "icon_info"
         icon: "mdi:palette"
-        name: "[[[ return variables.ulm_popups_color; ]]]"
-        label: "[[[ return variables.ulm_popup_total + ': ' + states[variables?.ulm_card_light_color_palette]?.attributes?.options?.length ]]]"
+        name: "[[[ return variables.mui_popups_color; ]]]"
+        label: "[[[ return variables.mui_popup_total + ': ' + states[variables?.mui_card_light_color_palette]?.attributes?.options?.length ]]]"
         styles:
           card:
             - margin-bottom: "12px"

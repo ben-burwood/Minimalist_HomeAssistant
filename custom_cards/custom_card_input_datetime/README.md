@@ -29,7 +29,7 @@ Initial release
     - card_input_datetime
   entity: input_number.YOUR_INPUT_NUMBER_ENTITY
   variables:
-    ulm_card_input_datetime_name: "YOUR_NAME"
+    mui_card_input_datetime_name: "YOUR_NAME"
 ```
 
 ## Requirements

@@ -1,4 +1,4 @@
-"""Base UI Lovelace Minimalist class."""
+"""Base Minimalist UI class."""
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass, field
@@ -37,28 +37,28 @@ from .const import (
     LANGUAGES,
     TV,
 )
-from .enums import ConfigurationType, UlmDisabledReason
+from .enums import ConfigurationType, muiDisabledReason
 from .utils.decode import decode_content
 
 _LOGGER: logging.Logger = logging.getLogger(__name__)
 
 
 @dataclass
-class UlmSystem:
-    """ULM System info."""
+class MuiSystem:
+    """MUI System info."""
 
-    disabled_reason: UlmDisabledReason | None = None
+    disabled_reason: muiDisabledReason | None = None
     running: bool = False
 
     @property
     def disabled(self) -> bool:
-        """Return if ULM is disabled."""
+        """Return if MUI is disabled."""
         return self.disabled_reason is not None
 
 
 @dataclass
-class UlmConfiguration:
-    """UlmConfiguration class."""
+class MuiConfiguration:
+    """MuiConfiguration class."""
 
     config: dict[str, Any] = field(default_factory=dict)
     config_entry: ConfigEntry | None = None
@@ -96,54 +96,54 @@ class UlmConfiguration:
             self.__setattr__(key, data[key])
 
 
-class UlmBase:
-    """Base UI Lovelace Minimalist."""
+class MuiBase:
+    """Base Minimalist UI"""
 
     integration: Integration | None = None
-    configuration = UlmConfiguration()
+    configuration = MuiConfiguration()
     hass: HomeAssistant | None = None
     log: logging.Logger = _LOGGER
     githubapi: GitHubAPI | None = None
-    system = UlmSystem()
+    system = MuiSystem()
     version: str | None = None
 
     @property
     def integration_dir(self) -> pathlib.Path:
-        """Return the ULM integration dir."""
+        """Return the MUI integration dir."""
         return self.integration.file_path
 
     @property
     def templates_dir(self) -> pathlib.Path:
         """Return the Button Cards Template dir."""
-        return pathlib.Path(f"{self.integration_dir}/__ui_minimalist__/ulm_templates")
+        return pathlib.Path(f"{self.integration_dir}/__ui_minimalist__/mui_templates")
 
     @property
     def community_cards_dir(self) -> pathlib.Path:
         """Return the Comminty cards dir inside Template dir."""
         return pathlib.Path(f"{self.templates_dir}/community_cards")
 
-    def disable_ulm(self, reason: UlmDisabledReason) -> None:
-        """Disable Ulm."""
+    def disable_mui(self, reason: muiDisabledReason) -> None:
+        """Disable Mui."""
 
         if self.system.disabled_reason == reason:
             return
 
         self.system.disabled_reason = reason
-        if reason == UlmDisabledReason.INVALID_TOKEN:
+        if reason == muiDisabledReason.INVALID_TOKEN:
             self.configuration.config_entry.state = ConfigEntryState.SETUP_ERROR
             self.configuration.config_entry.reason = "Authentiation Failed"
             self.hass.add_job(
                 self.configuration.config_entry.async_start_reauth, self.hass
             )
 
-    def enable_ulm(self) -> None:
-        """Enable Ulm."""
+    def enable_mui(self) -> None:
+        """Enable Mui"""
         if self.system.disabled_reason is not None:
             self.system.disabled_reason = None
-            self.log.info("ULM is enabled")
+            self.log.info("MUI is enabled")
 
     async def async_save_file(self, file_path: str, content: Any) -> bool:
-        """Save a file."""
+        """Save a file"""
 
         self.log.debug("Saving file: %s" % file_path)
 
@@ -178,7 +178,7 @@ class UlmBase:
         return decode_content(response.data.content)
 
     async def async_github_get_tree(self, path: str) -> list:
-        """Get teh content of a directory."""
+        """Get the content of a directory."""
         self.log.debug("Fetching github tree: %s" % path)
         response = await self.async_github_api_method(
             method=self.githubapi.repos.contents.get, repository=GITHUB_REPO, path=path
@@ -200,7 +200,7 @@ class UlmBase:
         try:
             return await method(*args, **kwargs)
         except GitHubAuthenticationException as exception:
-            self.disable_ulm(UlmDisabledReason.INVALID_TOKEN)
+            self.disable_mui(muiDisabledReason.INVALID_TOKEN)
             _exception = exception
         except GitHubRatelimitException as exception:
             _exception = exception
@@ -300,7 +300,7 @@ class UlmBase:
                                         )
 
     async def configure_plugins(self) -> bool:
-        """Configure the Plugins ULM depends on."""
+        """Configure the Plugins MUI depends on."""
         self.log.debug("Checking Dependencies.")
 
         try:
@@ -309,7 +309,7 @@ class UlmBase:
             ):
                 self.log.error('HACS Integration repo "browser mod" is not installed!')
 
-            depenceny_resource_paths = [
+            dependency_resource_paths = [
                 "button-card",
                 "light-entity-card",
                 "lovelace-card-mod",
@@ -322,7 +322,7 @@ class UlmBase:
                 "lovelace-state-switch",
                 "weather-radar-card",
             ]
-            for p in depenceny_resource_paths:
+            for p in dependency_resource_paths:
                 if not self.configuration.include_other_cards:
                     if not os.path.exists(self.hass.config.path(f"www/community/{p}")):
                         self.log.error(
@@ -335,34 +335,34 @@ class UlmBase:
                         )
 
             if self.configuration.include_other_cards:
-                for c in depenceny_resource_paths:
+                for c in dependency_resource_paths:
                     add_extra_js_url(
-                        self.hass, f"/ui_lovelace_minimalist/cards/{c}/{c}.js"
+                        self.hass, f"/minimalist_ui/cards/{c}/{c}.js"
                     )
 
             # Register
             self.hass.http.register_static_path(
-                "/ui_lovelace_minimalist/cards",
+                "/minimalist_ui/cards",
                 self.hass.config.path(f"{self.integration_dir}/cards"),
                 True,
             )
 
         except Exception as exception:
             self.log.error(exception)
-            self.disable_ulm(UlmDisabledReason.LOAD_ULM)
+            self.disable_mui(muiDisabledReason.LOAD_MUI)
             return False
 
         return True
 
     async def configure_dashboard(self) -> bool:
-        """Configure the ULM Dashboards."""
+        """Configure the MUI Dashboards."""
 
-        dashboard_url = "ui-lovelace-minimalist"
+        dashboard_url = "minimalist-ui"
         dashboard_config = {
             "mode": "yaml",
             "icon": self.configuration.sidepanel_icon,
             "title": self.configuration.sidepanel_title,
-            "filename": "ui_lovelace_minimalist/dashboard/ui-lovelace.yaml",
+            "filename": "minimalist_ui/dashboard/ui.yaml",
             "show_in_sidebar": True,
             "require_admin": False,
         }
@@ -372,7 +372,7 @@ class UlmBase:
             "mode": "yaml",
             "icon": self.configuration.adaptive_ui_icon,
             "title": self.configuration.adaptive_ui_title,
-            "filename": "ui_lovelace_minimalist/dashboard/adaptive-dash/adaptive-ui.yaml",
+            "filename": "minimalist_ui/dashboard/adaptive-dash/adaptive-ui.yaml",
             "show_in_sidebar": True,
             "require_admin": False,
         }
@@ -389,7 +389,7 @@ class UlmBase:
                 )
             else:
                 if dashboard_url in self.hass.data["lovelace"]["dashboards"]:
-                    async_remove_panel(self.hass, "ui-lovelace-minimalist")
+                    async_remove_panel(self.hass, "minimalis-ui")
 
             if self.configuration.adaptive_ui_enabled:
                 self.hass.data["lovelace"]["dashboards"][
@@ -405,14 +405,14 @@ class UlmBase:
 
         except Exception as exception:
             self.log.error(exception)
-            self.disable_ulm(UlmDisabledReason.LOAD_ULM)
+            self.disable_mui(muiDisabledReason.LOAD_MUI)
             return False
 
         return True
 
-    async def configure_ulm(self) -> bool:
+    async def configure_mui(self) -> bool:
         """Configure initial dashboard & cards directory."""
-        self.log.info("Setup ULM Configuration")
+        self.log.info("Setup MUI Configuration")
 
         try:
 
@@ -478,7 +478,7 @@ class UlmBase:
                 )
                 # Copy over cards from integration
                 shutil.copytree(
-                    f"{self.integration_dir}/lovelace/ulm_templates",
+                    f"{self.integration_dir}/lovelace/mui_templates",
                     f"{self.templates_dir}",
                     dirs_exist_ok=True,
                 )
@@ -501,19 +501,19 @@ class UlmBase:
                     dirs_exist_ok=True,
                 )
 
-            self.hass.bus.async_fire("ui_lovelace_minimalist_reload")
+            self.hass.bus.async_fire("minimalist_ui_reload")
 
             async def handle_reload(call):
-                _LOGGER.debug("Reload UI Lovelace Minimalist Configuration")
+                _LOGGER.debug("Reload Minimalist UI Configuration")
 
                 self.reload_configuration()
 
-            # Register servcie ui_lovelace_minimalist.reload
+            # Register servcie minimalist_ui.reload
             self.hass.services.async_register(DOMAIN, "reload", handle_reload)
 
         except Exception as exception:
             self.log.error(exception)
-            self.disable_ulm(UlmDisabledReason.LOAD_ULM)
+            self.disable_mui(muiDisabledReason.LOAD_MUI)
             return False
 
         return True
@@ -534,4 +534,4 @@ class UlmBase:
                 f"{self.templates_dir}/custom_actions",
                 dirs_exist_ok=True,
             )
-        self.hass.bus.async_fire("ui_lovelace_minimalist_reload")
+        self.hass.bus.async_fire("minimalist_ui_reload")

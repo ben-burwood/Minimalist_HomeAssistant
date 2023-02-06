@@ -1,0 +1,193 @@
+---
+card_main:
+  triggers_update: "all"
+  variables:
+    mui_language: "[[[ return hass['language']; ]]]"
+  template:
+    - "mui_language_variables"
+    - "mui_translation_engine"
+  show_icon: false
+  show_name: false
+  show_label: true
+  styles:
+    grid:
+      - grid-template-areas: >
+          [[[
+            if(states[variables.mui_card_collapse].state == 'on'){
+              return "\'item1\' \'item2\' ";
+            } else {
+              return "\'item1\' \'item2\' \'item3\' ";
+            }
+          ]]]
+      - grid-template-columns: "1fr"
+      - grid-template-rows: "min-content min-content"
+      - row-gap: "0px"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "10px"
+    custom_fields:
+      item3:
+        - display: >
+            [[[
+              if(states[variables.mui_card_collapse].state == 'on'){
+                return "none";
+              } else if(states[variables.mui_card_collapse].state == 'off'){
+                return "block";
+              }
+            ]]]
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        template: "card_topbar"
+        variables:
+          mui_card_collapse: "[[[ return variables.mui_card_collapse ]]]"
+          mui_weather: "[[[ return variables.mui_weather]]]"
+          mui_language: "[[[ return variables.mui_language ]]]"
+        styles:
+          card:
+            - border-radius: "none"
+            - box-shadow: "none"
+            - padding: "4px"
+    item2:
+      card:
+        type: "custom:button-card"
+        show_icon: false
+        show_entity_picture: false
+        show_label: false
+        show_name: true
+        tap_action:
+          action: "call-service"
+          service: "input_boolean.toggle"
+          service_data:
+            entity_id: "[[[ return variables.mui_card_collapse ]]]"
+        name: |
+          [[[
+            var today = new Date();
+            var time = today.getHours()
+            let welcome = '';
+            if (time >= '18'){
+              welcome = variables.mui_evening;
+            } else if (time >= '12'){
+              welcome = variables.mui_afternoon;
+            } else if (time >= '5'){
+              welcome = variables.mui_morning;
+            } else {
+              welcome = variables.mui_hello;
+            }
+            return welcome + ' Ben';
+          ]]]
+        styles:
+          name:
+            - align-self: "start"
+            - justify-self: "start"
+            - font-weight: "bold"
+            - font-size: "24px"
+            - margin-left: "16px"
+          grid:
+            - grid-template-areas: "'i n' 'i l'"
+            - grid-template-columns: "min-content auto"
+            - grid-template-rows: "min-content min-content"
+            - text-align: "start"
+          card:
+            - box-shadow: "none"
+            - padding-bottom: "8px"
+    item3:
+      card:
+        type: "custom:button-card"
+        template: card_weather
+        entity: "[[[ return variables.mui_weather]]]"
+        variables:
+          mui_card_weather_name: " "
+          mui_card_weather_primary_info: "[[[ return variables.mui_weather_primary ]]]"
+          mui_card_weather_secondary_info: "[[[ return variables.mui_weather_secondary ]]]"
+          mui_card_weather_backdrop: false
+        styles:
+          card:
+            - box-shadow: "none"
+
+card_topbar:
+  show_icon: false
+  show_name: false
+  show_label: false
+  styles:
+    grid:
+      - grid-template-areas: "item1 item2 item3"
+      - justify-content: "space-between"
+      - display: "flex"
+    card:
+      - border-radius: "none"
+      - box-shadow: "none"
+      - padding: "12px"
+      - background: "none"
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        template: "chips"
+        entity: "[[[ return variables.mui_card_collapse ]]]"
+        icon: "mdi:chevron-up"
+        show_icon: true
+        styles:
+          grid:
+            - grid-template-areas: "'i'"
+          card:
+            - box-shadow: >
+                [[[
+                  if (hass.themes.darkMode){
+                    return "0px 2px 4px 0px rgba(0,0,0,0.80)";
+                  } else {
+                    return "var(--box-shadow)";
+                  }
+                ]]]
+        state:
+          - value: "on"
+            icon: "mdi:chevron-down"
+            styles:
+              icon:
+                - color: "rgb(var(--color-theme))"
+        tap_action:
+          action: "call-service"
+          service: "input_boolean.toggle"
+          service_data:
+            entity_id: "[[[ return variables.mui_card_collapse ]]]"
+    item2:
+      card:
+        type: "custom:button-card"
+        template: "chip_weather_date"
+        entity: "[[[ return variables.mui_weather]]]"
+        variables:
+          mui_weather: "[[[ return variables.mui_weather ]]]"
+          mui_language: "[[[ return variables.mui_language ]]]"
+        styles:
+          card:
+            - width: "100px"
+            - box-shadow: >
+                [[[
+                  if (hass.themes.darkMode){
+                    return "0px 2px 4px 0px rgba(0,0,0,0.80)";
+                  } else {
+                    return "var(--box-shadow)";
+                  }
+                ]]]
+    item3:
+      card:
+        type: "custom:button-card"
+        tap_action:
+          action: "navigate"
+          navigation_path: "/config/dashboard"
+        template: "chip_mdi_icon_only"
+        variables:
+          mui_chip_mdi_icon_only_icon: "mdi:cog-outline"
+        styles:
+          card:
+            - align-self: "end"
+            - box-shadow: >
+                [[[
+                  if (hass.themes.darkMode){
+                    return "0px 2px 4px 0px rgba(0,0,0,0.80)";
+                  } else {
+                    return "var(--box-shadow)";
+                  }
+                ]]]

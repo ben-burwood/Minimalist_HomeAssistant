@@ -1,0 +1,139 @@
+---
+card_alarm_time:
+  triggers_update: "all"
+  #state:
+  # - value: "on"
+  #   styles:
+  #     card:
+  #       - background-color: >-
+  #           [[[
+  #               if(variables.mui_card_light_force_background_color == true || hass.themes.darkMode){
+  #                 if (variables.mui_card_alarm_time_colour != false){
+  #                   var color = variables.mui_card_alarm_time_colour;
+  #                 } else {
+  #                   var color = rgba(var(--color-theme),0.9);
+  #                 }
+  #               }
+  #               return 'rgba(' + color + ',0.1)';
+  #           ]]]
+  styles:
+    grid:
+      - grid-template-areas: "'item1' 'item2'"
+      - grid-template-columns: "1fr"
+      - grid-template-rows: "1fr"
+      - row-gap: "0px"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "12px"
+    custom_fields:
+      item2:
+        - display: >
+            [[[
+              if(states[variables.alarm_toggle].state == 'on'){
+                return "block";
+              } else if(states[variables.alarm_toggle].state == 'off'){
+                return "none";
+              }
+            ]]]
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        template:
+          - "icon_info"
+          - "blue"
+        entity: "[[[ return variables.alarm_toggle ]]]"
+        label: >
+          [[[
+            if (states[variables.alarm_toggle].state == "on"){
+              return "On";
+            }
+            else if (states[variables.alarm_toggle].state == "off"){
+              return "Off";
+            }
+          ]]]
+    item2:
+      card:
+        type: "vertical-stack"
+        cards:
+          - type: "custom:button-card"
+            color_type: blank-card
+            card_size: 4
+          - type: "horizontal-stack"
+            cards:
+              - type: "custom:button-card"
+                template: "widget_icon"
+                tap_action:
+                  action: call-service
+                  service: "input_datetime.set_datetime"
+                  service_data:
+                    entity_id: "[[[ return variables.alarm_set ]]]"
+                    time: >
+                      [[[
+                        var timestamp = states[variables.alarm_set].attributes.timestamp
+                        let unix_timestamp = timestamp - 4500;
+                        // Create a new JavaScript Date object based on the timestamp
+                        // multiplied by 1000 so that the argument is in milliseconds, not seconds.
+                        var date = new Date(unix_timestamp * 1000);
+                        // Hours part from the timestamp
+                        var hours = date.getHours();
+                        // Minutes part from the timestamp
+                        var minutes = "0" + date.getMinutes();
+                        // Seconds part from the timestamp
+                        var seconds = "0" + date.getSeconds();
+                        // Will display time in 10:30:23 format
+                        var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                        return formattedTime;
+                      ]]]
+                icon: "mdi:arrow-down"
+              - type: "custom:button-card"
+                template: "widget_time"
+                entity: "[[[ return variables.alarm_set ]]]"
+                tap_action:
+                  action: more-info
+              - type: "custom:button-card"
+                template: "widget_icon"
+                tap_action:
+                  action: call-service
+                  service: "input_datetime.set_datetime"
+                  service_data:
+                    entity_id: "[[[ return variables.alarm_set ]]]"
+                    time: >
+                      [[[
+                        var timestamp = states[variables.alarm_set].attributes.timestamp
+                        let unix_timestamp = timestamp - 2700;
+                        var date = new Date(unix_timestamp * 1000);
+                        var hours = date.getHours();
+                        var minutes = "0" + date.getMinutes();
+                        var seconds = "0" + date.getSeconds();
+                        var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
+                        return formattedTime;
+                      ]]]
+                icon: "mdi:arrow-up"
+
+widget_time:
+  tap_action:
+    action: none
+  show_icon: false
+  show_label: true
+  show_name: false
+  label: >-
+    [[[
+      var unit = entity.attributes.unit_of_measurement != null ? ' ' + entity.attributes.unit_of_measurement : ''
+      return entity.state + unit;
+    ]]]
+  styles:
+    grid:
+      - grid-template-areas: "'l'"
+    card:
+      - box-shadow: "none"
+      - padding: "0px"
+      - background-color: "rgba(var(--color-theme),0.05)"
+      - border-radius: "14px"
+      - place-self: "center"
+      - height: "42px"
+    state:
+      - color: "rgba(var(--color-theme),0.9)"
+  size: "20px"
+  color: "var(--google-grey)"

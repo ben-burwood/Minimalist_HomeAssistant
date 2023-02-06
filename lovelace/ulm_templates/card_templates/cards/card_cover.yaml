@@ -3,19 +3,19 @@
 card_cover:
   template:
     - "icon_more_info_new"
-    - "ulm_translation_engine"
+    - "mui_translation_engine"
   show_last_changed: false
   variables:
-    ulm_card_cover_name: "[[[ return entity.attributes.friendly_name ]]]"
-    ulm_card_cover_display_left_right: false
-    ulm_card_curtain_display_collapse_expand: false
-    ulm_card_cover_garage: false
-    ulm_card_cover_gate: false
-    ulm_card_cover_enable_controls: false
-    ulm_card_cover_enable_slider: false
-    ulm_card_cover_enable_horizontal: false
-    ulm_card_cover_enable_popup: false
-    ulm_show_last_changed: false
+    mui_card_cover_name: "[[[ return entity.attributes.friendly_name ]]]"
+    mui_card_cover_display_left_right: false
+    mui_card_curtain_display_collapse_expand: false
+    mui_card_cover_garage: false
+    mui_card_cover_gate: false
+    mui_card_cover_enable_controls: false
+    mui_card_cover_enable_slider: false
+    mui_card_cover_enable_horizontal: false
+    mui_card_cover_enable_popup: false
+    mui_show_last_changed: false
   show_icon: false
   show_name: false
   show_label: false
@@ -24,18 +24,18 @@ card_cover:
       - grid-template-areas: >
           [[[
                 var areas = [];
-                if (variables.ulm_card_cover_enable_horizontal) {
-                  if ( variables.ulm_card_cover_enable_slider) {
+                if (variables.mui_card_cover_enable_horizontal) {
+                  if ( variables.mui_card_cover_enable_slider) {
                       return "\"item1 item3\"";
                   } else {
                     return "\"item1 item2\"";
                   }
                 } else {
                   areas.push("item1 item1");
-                  if ( variables.ulm_card_cover_enable_controls) {
+                  if ( variables.mui_card_cover_enable_controls) {
                       areas.push("item2 item2");
                   }
-                  if ( variables.ulm_card_cover_enable_slider) {
+                  if ( variables.mui_card_cover_enable_slider) {
                       areas.push("item3 item3");
                   }
               }
@@ -46,13 +46,13 @@ card_cover:
           [[[
                 var rows = [];
                 rows.push("min-content");
-                if (variables.ulm_card_cover_enable_horizontal) {
+                if (variables.mui_card_cover_enable_horizontal) {
                   return "min-content";
                 } else {
-                  if ( variables.ulm_card_cover_enable_controls) {
+                  if ( variables.mui_card_cover_enable_controls) {
                       rows.push("min-content");
                   }
-                  if ( variables.ulm_card_cover_enable_slider) {
+                  if ( variables.mui_card_cover_enable_slider) {
                       rows.push("min-content");
                   }
                 }
@@ -67,7 +67,7 @@ card_cover:
       item2:
         - display: >
             [[[
-                  if (variables.ulm_card_cover_enable_controls) {
+                  if (variables.mui_card_cover_enable_controls) {
                       return "block";
                   } else {
                       return "none";
@@ -76,7 +76,7 @@ card_cover:
       item3:
         - display: >
             [[[
-                  if (variables.ulm_card_cover_enable_slider) {
+                  if (variables.mui_card_cover_enable_slider) {
                       return "block";
                   } else {
                       return "none";
@@ -94,8 +94,8 @@ card_cover:
               variables: >
                 [[[
                   let vars = variables;
-                  if(variables.ulm_card_cover_enable_popup) {
-                    vars.ulm_custom_popup = {
+                  if(variables.mui_card_cover_enable_popup) {
+                    vars.mui_custom_popup = {
                       'template': 'popup_cover'
                     };
                   }
@@ -106,39 +106,39 @@ card_cover:
                     var icon = "mdi:help-circle";
                     if (typeof states[entity.entity_id].attributes.current_position === "undefined"){
                       if (states[entity.entity_id].state == "closed"){
-                        if (variables.ulm_card_curtain_display_collapse_expand){
+                        if (variables.mui_card_curtain_display_collapse_expand){
                           var icon = "mdi:curtains-closed";
-                        } else if (variables.ulm_card_cover_garage){
+                        } else if (variables.mui_card_cover_garage){
                           var icon = "mdi:garage-variant";
-                        } else if (variables.ulm_card_cover_gate){
+                        } else if (variables.mui_card_cover_gate){
                           var icon = "mdi:gate";
                         } else
                           var icon = "mdi:roller-shade-closed";
                       } else
-                        if (variables.ulm_card_curtain_display_collapse_expand){
+                        if (variables.mui_card_curtain_display_collapse_expand){
                           var icon = "mdi:curtains";
-                        } else if (variables.ulm_card_cover_garage){
+                        } else if (variables.mui_card_cover_garage){
                           var icon = "mdi:garage-open-variant";
-                        } else if (variables.ulm_card_cover_gate){
+                        } else if (variables.mui_card_cover_gate){
                           var icon = "mdi:gate-open";
                         }else
                           var icon = "mdi:roller-shade";
                     } else {
                       if (states[entity.entity_id].attributes.current_position == 0){
-                        if (variables.ulm_card_curtain_display_collapse_expand){
+                        if (variables.mui_card_curtain_display_collapse_expand){
                           var icon = "mdi:curtains-closed";
-                        } else if (variables.ulm_card_cover_garage){
+                        } else if (variables.mui_card_cover_garage){
                           var icon = "mdi:garage-variant";
-                        } else if(variables.ulm_card_cover_gate){
+                        } else if(variables.mui_card_cover_gate){
                           var icon = "mdi:gate";
                         } else
                           var icon = "mdi:roller-shade-closed";
                       } else
-                        if (variables.ulm_card_curtain_display_collapse_expand){
+                        if (variables.mui_card_curtain_display_collapse_expand){
                           var icon = "mdi:curtains";
-                        } else if(variables.ulm_card_cover_garage){
+                        } else if(variables.mui_card_cover_garage){
                           var icon = "mdi:garage-open-variant";
-                        } else if(variables.ulm_card_cover_gate){
+                        } else if(variables.mui_card_cover_gate){
                           var icon = "mdi:gate-open";
                         }
                         else
@@ -186,34 +186,34 @@ card_cover:
               variables: >
                 [[[
                   let vars = variables;
-                  if(variables.ulm_card_cover_enable_popup) {
-                    vars.ulm_custom_popup = {
+                  if(variables.mui_card_cover_enable_popup) {
+                    vars.mui_custom_popup = {
                       'template': 'popup_cover'
                     };
                   }
                   return vars;
                 ]]]
-              name: "[[[ return variables.ulm_card_cover_name ]]]"
+              name: "[[[ return variables.mui_card_cover_name ]]]"
               label: >-
                 [[[
                     if (entity.state !="unavailable"){
                       if (typeof states[entity.entity_id].attributes.current_position === "undefined"){
                         if (states[entity.entity_id].state == "closed"){
-                          return variables.ulm_translation_state;
+                          return variables.mui_translation_state;
                         } else
-                          return variables.ulm_translation_state;
+                          return variables.mui_translation_state;
                       } else {
                         if (states[entity.entity_id].attributes.current_position == 0){
-                          return variables.ulm_translation_state;
+                          return variables.mui_translation_state;
                         } else {
-                          return variables.ulm_translation_state + " • " + (states[entity.entity_id].attributes.current_position) + "%" ;
+                          return variables.mui_translation_state + " • " + (states[entity.entity_id].attributes.current_position) + "%" ;
                         }
                       }
                   } else {
-                    return variables.ulm_translation_state;
+                    return variables.mui_translation_state;
                   }
                 ]]]
-              show_last_changed: "[[[ return variables.ulm_show_last_changed; ]]]"
+              show_last_changed: "[[[ return variables.mui_show_last_changed; ]]]"
     item2:
       card:
         type: "custom:button-card"
@@ -255,10 +255,10 @@ card_cover:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: >-
                 [[[
-                  if (variables.ulm_card_cover_display_left_right){
+                  if (variables.mui_card_cover_display_left_right){
                     return "mdi:arrow-left";
                   }
-                  if (variables.ulm_card_curtain_display_collapse_expand || variables.ulm_card_cover_gate){
+                  if (variables.mui_card_curtain_display_collapse_expand || variables.mui_card_cover_gate){
                     return "mdi:arrow-collapse-horizontal";
                   }
                   return "mdi:arrow-down";
@@ -309,10 +309,10 @@ card_cover:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: >-
                 [[[
-                  if (variables.ulm_card_cover_display_left_right){
+                  if (variables.mui_card_cover_display_left_right){
                     return "mdi:arrow-right";
                   }
-                  if (variables.ulm_card_curtain_display_collapse_expand || variables.ulm_card_cover_gate){
+                  if (variables.mui_card_curtain_display_collapse_expand || variables.mui_card_cover_gate){
                     return "mdi:arrow-expand-horizontal";
                   }
                   return "mdi:arrow-up";

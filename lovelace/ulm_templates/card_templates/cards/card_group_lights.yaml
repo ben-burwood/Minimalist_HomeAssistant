@@ -1,0 +1,81 @@
+---
+card_group_lights:
+  triggers_update: "all"
+  styles:
+    grid:
+      - grid-template-areas: "'item1' 'item2'"
+      - grid-template-columns: "1fr"
+      - grid-template-rows: "1fr"
+      - row-gap: "0px"
+    card:
+      - border-radius: "var(--border-radius)"
+      - box-shadow: "var(--box-shadow)"
+      - padding: "12px"
+    custom_fields:
+      item2:
+        - display: >
+            [[[
+              if(states[variables.group_light].state == 'on'){
+                return "block";
+              } else if(states[variables.group_light].state == 'off'){
+                return "none";
+              }
+            ]]]
+  custom_fields:
+    item1:
+      card:
+        type: "custom:button-card"
+        template:
+        - "icon_info"
+        - "yellow"
+        entity: "[[[ return variables.group_light ]]]"
+        label: >
+          [[[
+            if (states[variables.group_light].state == "on"){
+              return "On";
+            }
+            else if (states[variables.group_light].state == "off"){
+              return "Off";
+            }
+          ]]]
+    item2:
+      card:
+        type: "vertical-stack"
+        cards:
+          - type: "custom:button-card"
+            color_type: blank-card
+            card_size: 4
+          - type: "custom:button-card"
+            styles:
+              grid:
+                - grid-template-areas: "'item1 item2'"
+                - grid-template-columns: "1fr 1fr"
+                - grid-template-rows: "1fr"
+                - justify-items: "center"
+              card:
+                - border-radius: "none"
+                - box-shadow: "none"
+                - padding: "0px"
+            custom_fields:
+              item1:
+                card:
+                  type: "custom:button-card"
+                  template: card_light
+                  entity: "[[[ return variables.light1]]]"
+                  variables:
+                    mui_card_light_enable_color: true
+                  styles:
+                    card:
+                    - border-radius: "none"
+                    - box-shadow: "none"
+              item2:
+                card:
+                  type: "custom:button-card"
+                  template: card_light
+                  entity: "[[[ return variables.light2 ]]]"
+                  variables:
+                    mui_card_light_enable_color: true
+                  styles:
+                    card:
+                    - border-radius: "none"
+                    - box-shadow: "none"

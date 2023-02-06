@@ -2,8 +2,8 @@
 popup_button_light_more_options:
   template:
     - "popup_button"
-    - "ulm_translation_engine"
-  name: "[[[ return variables.ulm_translation_more_options; ]]]"
+    - "mui_translation_engine"
+  name: "[[[ return variables.mui_translation_more_options; ]]]"
   icon: "mdi:dots-horizontal-circle-outline"
   styles:
     name:
@@ -44,10 +44,10 @@ popup_button_light_more_options:
               if(entity.attributes?.effect_list){
                 return 'popup_light_effect'
               }
-              if(variables?.ulm_card_light_color_palette){
+              if(variables?.mui_card_light_color_palette){
                 return 'popup_light_palette'
               }
             ]]]
           entity: "[[[ return entity.entity_id; ]]]"
           variables:
-            ulm_card_light_color_palette: "[[[ return variables?.ulm_card_light_color_palette ]]]"
+            mui_card_light_color_palette: "[[[ return variables?.mui_card_light_color_palette ]]]"

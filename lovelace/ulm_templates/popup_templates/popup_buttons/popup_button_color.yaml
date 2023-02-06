@@ -1,4 +1,4 @@
 ---
 popup_button_color:
-  template: "ulm_language_variables"
-  name: "[[[ return variables.ulm_popups_color; ]]]"
+  template: "mui_language_variables"
+  name: "[[[ return variables.mui_popups_color; ]]]"

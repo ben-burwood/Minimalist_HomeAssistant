@@ -1,7 +1,7 @@
 ---
 card_input_number:
   variables:
-    ulm_card_input_number_name: "[[[ return entity.attributes.friendly_name ]]]"
+    mui_card_input_number_name: "[[[ return entity.attributes.friendly_name ]]]"
   triggers_update: "all"
   show_icon: false
   show_label: false
@@ -22,12 +22,12 @@ card_input_number:
         type: "custom:button-card"
         template:
           - "icon_info"
-          - "ulm_translation_engine"
+          - "mui_translation_engine"
           - "input_number"
         tap_action:
           action: "more-info"
         entity: "[[[ return entity.entity_id ]]]"
-        name: "[[[ return variables.ulm_card_input_number_name ]]]"
+        name: "[[[ return variables.mui_card_input_number_name ]]]"
     item2:
       card:
         type: "custom:button-card"
@@ -87,11 +87,11 @@ widget_text:
   tap_action:
     action: "toggle"
   template:
-    - "ulm_translation_engine"
+    - "mui_translation_engine"
   show_icon: false
   show_label: true
   show_name: false
-  label: "[[[ return variables.ulm_translation_state_unit ]]]"
+  label: "[[[ return variables.mui_translation_state_unit ]]]"
   styles:
     grid:
       - grid-template-areas: "'l'"

@@ -1,9 +1,9 @@
 ---
 ### Overlay to enable custom actions card over other cards ###
-ulm_actions_card_overlay:
+mui_actions_card_overlay:
   template:
-    - "ulm_custom_actions"
-    - "ulm_actions_card"
+    - "mui_custom_actions"
+    - "mui_actions_card"
   styles:
     grid:
       - position: "relative"
@@ -22,7 +22,7 @@ ulm_actions_card_overlay:
       card:
         type: "custom:button-card"
         template:
-          - "ulm_actions_card"
+          - "mui_actions_card"
         entity: "[[[ return (entity != null) ? entity.entity_id : null; ]]]"
         show_icon: false
         show_name: false
@@ -32,15 +32,15 @@ ulm_actions_card_overlay:
             - height: "100%"
             - background: "none"
         variables:
-          ulm_input_select_option: "[[[ return variables.ulm_input_select_option; ]]]"
-          ulm_input_select: "[[[ return variables.ulm_input_select; ]]]"
-          ulm_card_tap_action: "[[[ return variables.ulm_card_tap_action; ]]]"
-          ulm_card_tap_haptic: "[[[ return variables.ulm_card_tap_haptic; ]]]"
-          ulm_card_tap_navigate_path: "[[[ return variables.ulm_card_tap_navigate_path; ]]]"
-          ulm_card_hold_action: "[[[ return variables.ulm_card_hold_action; ]]]"
-          ulm_card_hold_haptic: "[[[ return variables.ulm_card_hold_haptic; ]]]"
-          ulm_card_hold_navigate_path: "[[[ return variables.ulm_card_hold_navigate_path; ]]]"
-          ulm_card_double_tap_action: "[[[ return variables.ulm_card_double_tap_action; ]]]"
-          ulm_card_double_tap_haptic: "[[[ return variables.ulm_card_double_tap_haptic; ]]]"
-          ulm_card_double_tap_navigate_path: "[[[ return variables.ulm_card_double_tap_navigate_path; ]]]"
-          ulm_custom_popup: "[[[ return variables.ulm_custom_popup; ]]]"
+          mui_input_select_option: "[[[ return variables.mui_input_select_option; ]]]"
+          mui_input_select: "[[[ return variables.mui_input_select; ]]]"
+          mui_card_tap_action: "[[[ return variables.mui_card_tap_action; ]]]"
+          mui_card_tap_haptic: "[[[ return variables.mui_card_tap_haptic; ]]]"
+          mui_card_tap_navigate_path: "[[[ return variables.mui_card_tap_navigate_path; ]]]"
+          mui_card_hold_action: "[[[ return variables.mui_card_hold_action; ]]]"
+          mui_card_hold_haptic: "[[[ return variables.mui_card_hold_haptic; ]]]"
+          mui_card_hold_navigate_path: "[[[ return variables.mui_card_hold_navigate_path; ]]]"
+          mui_card_double_tap_action: "[[[ return variables.mui_card_double_tap_action; ]]]"
+          mui_card_double_tap_haptic: "[[[ return variables.mui_card_double_tap_haptic; ]]]"
+          mui_card_double_tap_navigate_path: "[[[ return variables.mui_card_double_tap_navigate_path; ]]]"
+          mui_custom_popup: "[[[ return variables.mui_custom_popup; ]]]"

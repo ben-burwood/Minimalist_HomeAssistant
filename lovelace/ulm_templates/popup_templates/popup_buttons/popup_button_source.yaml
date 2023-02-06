@@ -2,9 +2,9 @@
 popup_button_source:
   template:
     - "popup_button"
-    - "ulm_translation_engine"
+    - "mui_translation_engine"
   icon: "mdi:playlist-music"
-  name: "[[[ return variables.ulm_translation_source ]]]"
+  name: "[[[ return variables.mui_translation_source ]]]"
   styles:
     name:
       - text-transform: "uppercase"
