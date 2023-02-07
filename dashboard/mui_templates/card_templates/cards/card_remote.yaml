@@ -1,4 +1,5 @@
 ---
+### Card Remote ###
 card_remote:
   triggers_update: "all"
   styles:
