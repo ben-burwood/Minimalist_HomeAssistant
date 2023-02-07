@@ -1,118 +1,110 @@
 ---
 button_card_templates: !include_dir_merge_named "../../custom_components/minimalist_ui/__ui_minimalist__/mui_templates/"
 
-title: "Minimalist UI"
-theme: "minimalist-desktop"
+title: "Minimalist"
 background: "var(--background-image)"
-# views: !include_dir_merge_list "views/"
 views:
-  - title: "Example View"
+  - title: "Home"
     path: 0
-    icon: "mdi:flower"
+
     cards:
-      - type: "vertical-stack"
+      - type: "custom:button-card"
+        template: "card_main"
+        variables:
+          mui_card_collapse: input_boolean.card_collapse
+          mui_weather: weather.homeassistant
+          mui_weather_primary: extrema
+          mui_weather_secondary: precipitation
+
+      - type: "custom:button-card"
+        template: card_title
+        label: "Lights"
+
+      #- type: "custom:button-card"
+      #  template: card_group_lights
+      #  variables:
+      #    light1: light.headlight
+      #    light2: light.sidelight
+      #    group_light: light.bedroom_lights
+
+      - type: "custom:button-card"
+        template: card_light
+        entity: light.bedroom_lights
+        variables:
+          mui_card_light_enable_horizontal: true
+          mui_card_light_enable_collapse: true
+          mui_card_light_enable_slider: true
+          mui_card_light_enable_color: true
+
+      - type: "horizontal-stack"
         cards:
           - type: "custom:button-card"
-            template: "card_title"
-            name: "Congrats with your installation 🎉"
-            label: "Explore some of the wonderful 'Minimalistic-UI' cards we offer here"
-          - type: "custom:auto-entities"
-            card:
-              type: "grid"
-              columns: 1
-              square: false
-            card_param: "cards"
-            sort:
-              count: 1
-            filter:
-              include:
-                - domain: "weather"
-                  options:
-                    type: "custom:button-card"
-                    template: "card_welcome_scenes"
-                    variables:
-                      mui_weather: "this.entity_id"
+            template: card_light_brightness
+            entity: light.0x842e14fffe6b01b1
+            variables:
+              mui_card_light_enable_brightness: true
+              brightness_low: 2
+              brightness_medium: 128
+              brightness_high: 255
+              mui_card_light_enable_color: true
           - type: "custom:button-card"
-            template: "card_title"
-            name: "[[[ hass.resources[hass['language']]['ui.panel.lovelace.editor.card.light.name'] ]]]"
-            label: "This is the Minimalist-light-card"
-          - type: "custom:auto-entities"
-            card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              count: 4
-            filter:
-              include:
-                - domain: "light"
-                  options:
-                    type: "custom:button-card"
-                    template: "card_light"
-                    variables:
-                      mui_card_light_enable_slider: true
-                      mui_card_light_enable_color: true
-                      mui_card_light_enable_popup: true
-          - type: "custom:button-card"
-            template: "card_title"
-            name: "Binary Sensors"
-            label: "This is the Minimalist-binary_sensor-card"
-          - type: "custom:auto-entities"
-            card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              count: 4
-            filter:
-              include:
-                - domain: "binary_sensor"
-                  options:
-                    type: "custom:button-card"
-                    template: "card_binary_sensor_alert"
-                    variables:
-                      - mui_card_binary_sensor_alert: true
-          - type: "custom:button-card"
-            template: "card_title"
-            name: "[[[ hass.resources[hass['language']]['ui.panel.lovelace.editor.card.sensor.name'] ]]]"
-            label: "This is the Minimalist-sensor-card"
-          - type: "custom:auto-entities"
-            card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              count: 4
-            filter:
-              include:
-                - domain: "sensor"
-                  options:
-                    type: "custom:button-card"
-                    template: "card_generic"
-          - type: "custom:button-card"
-            template: "card_title"
-            name: "[[[ hass.resources[hass['language']]['ui.dialogs.entity_registry.editor.device_classes.binary_sensor.battery'] ]]]"
-            label: "This is the Minimalist-battery-card"
-          - type: "custom:auto-entities"
-            card:
-              type: "grid"
-              columns: 2
-              square: false
-            card_param: "cards"
-            sort:
-              count: 4
-            filter:
-              include:
-                - attributes:
-                    unit_of_measurement: "%"
-                    device_class: "battery"
-                  options:
-                    type: "custom:button-card"
-                    template: "card_battery"
-                    variables:
-                      mui_card_battery_battery_state_entity_id: "this.entity_id"
-                      mui_card_battery_battery_level_danger: 30
-                      mui_card_battery_battery_level_warning: 80
+            template: card_light_brightness
+            entity: light.reading_lamp
+            variables:
+              mui_card_light_enable_brightness: true
+              brightness_low: 2
+              brightness_medium: 128
+              brightness_high: 255
+              mui_card_light_enable_color: true
+
+      - type: "custom:button-card"
+        template: card_power_outlet
+        entity: switch.switch_relay
+        variables:
+          mui_card_power_outlet_name: "String Lights"
+          mui_card_power_outlet_icon: "mdi:string-lights"
+
+      #- type: "custom:button-card"
+      #  template: card_light
+      #  entity: light.bed_led
+      #  variables:
+      #    mui_card_light_enable_collapse: true
+      #    mui_card_light_enable_slider: true
+      #    mui_card_light_enable_color: true
+
+      - type: "custom:button-card"
+        template: card_title
+        label: "Media"
+
+      - type: "custom:button-card"
+        template: card_alarm_time
+        variables:
+          alarm_toggle: input_boolean.morning_alarm_toggle
+          alarm_set: input_datetime.morning_alarm_time
+
+      - type: "custom:button-card"
+        template: card_media_player
+        entity: media_player.ben_speaker
+        name: Sonos - Bedroom Speaker Pair
+        tap_action:
+          action: more-info
+          entity: media_player.ben_speaker
+        variables:
+          mui_card_media_player_icon: "mdi:cast-audio"
+          mui_card_media_player_enable_art: true
+          mui_card_media_player_more_info: true
+          mui_card_media_player_enable_controls: true
+          mui_card_media_player_collapsible: true
+          mui_card_media_player_enable_popup: true
+          mui_icon_tap_action:
+            action: more-info
+            entity: media_player.ben_speaker
+          mui_name_tap_action:
+            action: more-info
+            entity: media_player.ben_speaker
+
+      #- type: "custom:button-card"
+      #  template: card_remote
+      #  variables:
+      #    remote_power: input_boolean.projector_power
+      #    mqtt_topic: "IRremote"

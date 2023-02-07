@@ -187,13 +187,13 @@ class MuiBase:
             if self.configuration.include_other_cards:
                 for c in dependency_resource_paths:
                     add_extra_js_url(
-                        self.hass, f"/minimalist_ui/cards/{c}/{c}.js"
+                        self.hass, f"/minimalist_ui/ext_dependencies/{c}/{c}.js"
                     )
 
             # Register
             self.hass.http.register_static_path(
-                "/minimalist_ui/cards",
-                self.hass.config.path(f"{self.integration_dir}/cards"),
+                "/minimalist_ui/ext_dependencies",
+                self.hass.config.path(f"{self.integration_dir}/ext_dependencies"),
                 True,
             )
 
