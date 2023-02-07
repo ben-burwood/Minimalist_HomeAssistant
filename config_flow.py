@@ -92,23 +92,16 @@ async def mui_config_option_schema(options: dict = {}) -> dict:
         vol.Optional(
             CONF_THEME_PATH,
             default=options.get(CONF_THEME_PATH, DEFAULT_THEME_PATH),
-        ): str#,
+        ): str,
         #vol.Optional(
         #    CONF_INCLUDE_OTHER_CARDS,
         #    default=options.get(CONF_INCLUDE_OTHER_CARDS, DEFAULT_INCLUDE_OTHER_CARDS),
-        #): bool,
-        #vol.Optional(
-        #    CONF_COMMUNITY_CARDS_ENABLED,
-        #    default=options.get(
-        #        CONF_COMMUNITY_CARDS_ENABLED, DEFAULT_COMMUNITY_CARDS_ENABLED
-        #    ),
         #): bool,
     }
 
 
 class MuiFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
     """Config flow for Minimalist UI"""
-
     VERSION = 1
 
     def __init__(self) -> None:

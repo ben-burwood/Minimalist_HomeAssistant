@@ -4,11 +4,9 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-from aiogithubapi import AIOGitHubAPIException, GitHubAPI
 from homeassistant.components import frontend
 from homeassistant.config_entries import SOURCE_IMPORT, ConfigEntry
 from homeassistant.core import Config, HomeAssistant
-from homeassistant.helpers.aiohttp_client import async_get_clientsession
 from homeassistant.loader import async_get_integration
 
 from .base import MuiBase
@@ -60,35 +58,13 @@ async def async_initialize_integration(
 
     integration = await async_get_integration(hass, DOMAIN)
 
-    clientsession = async_get_clientsession(hass)
-
     mui.integration = integration
     mui.version = integration.version
-    mui.session = clientsession
     mui.hass = hass
     mui.system.running = True
-    mui.githubapi = GitHubAPI(
-        token=mui.configuration.token,
-        session=clientsession,
-        **{"client_name": "MUI"},
-    )
 
     async def async_startup():
         """MUI Startup tasks."""
-
-        if (
-            mui.configuration.community_cards_enabled
-            and mui.configuration.token is None
-        ):
-            mui.disable_mui(muiDisabledReason.INVALID_TOKEN)
-            mui.log.error(
-                "Github token is not set up yet, please reconfigure the integration."
-            )
-            return False
-        if mui.configuration.community_cards_enabled:
-            await mui.fetch_cards()
-            await mui.configure_community_cards()
-
         if (
             not await mui.configure_mui()
             or not await mui.configure_plugins()
@@ -126,7 +102,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 async def async_remove_entry(hass: HomeAssistant, config_entry: ConfigEntry):
     """Remove Integration."""
     _LOGGER.debug(f"{NAME} is now uninstalled")
-
+    
     # TODO cleanup:
     #  - themes
     #  - blueprints
