@@ -282,7 +282,7 @@ class MuiBase:
 
                 # Copy default language file over to config dir
                 shutil.copy2(
-                    f"{self.integration_dir}/lovelace/translations/default.yaml",
+                    f"{self.integration_dir}/dashboard/translations/default.yaml",
                     f"{self.templates_dir}/default.yaml",
                 )
                 # Copy example dashboard file over to user config dir if not exists
@@ -291,7 +291,7 @@ class MuiBase:
                         self.hass.config.path(f"{DOMAIN}/dashboard/ui.yaml")
                     ):
                         shutil.copy2(
-                            f"{self.integration_dir}/lovelace/ui.yaml",
+                            f"{self.integration_dir}/dashboard/ui.yaml",
                             self.hass.config.path(
                                 f"{DOMAIN}/dashboard/ui.yaml"
                             ),
@@ -302,7 +302,7 @@ class MuiBase:
                 #        self.hass.config.path(f"{DOMAIN}/dashboard/adaptive-dash")
                 #    ):
                 #        shutil.copytree(
-                #            f"{self.integration_dir}/lovelace/adaptive-dash",
+                #            f"{self.integration_dir}/dashboard/adaptive-dash",
                 #            self.hass.config.path(f"{DOMAIN}/dashboard/adaptive-dash"),
                 #        )
                 # Copy example custom actions file over to user config dir if not exists
@@ -312,19 +312,19 @@ class MuiBase:
                     )
                 ):
                     shutil.copy2(
-                        f"{self.integration_dir}/lovelace/custom_actions.yaml",
+                        f"{self.integration_dir}/dashboard/custom_actions.yaml",
                         self.hass.config.path(
                             f"{DOMAIN}/custom_actions/custom_actions.yaml"
                         ),
                     )
                 # Copy chosen language file over to config dir
                 shutil.copy2(
-                    f"{self.integration_dir}/lovelace/translations/{language}.yaml",
+                    f"{self.integration_dir}/dashboard/translations/{language}.yaml",
                     f"{self.templates_dir}/language.yaml",
                 )
                 # Copy over cards from integration
                 shutil.copytree(
-                    f"{self.integration_dir}/lovelace/mui_templates",
+                    f"{self.integration_dir}/dashboard/mui_templates",
                     f"{self.templates_dir}",
                     dirs_exist_ok=True,
                 )
@@ -336,7 +336,7 @@ class MuiBase:
                 )
                 # Copy over themes to defined themes folder
                 shutil.copytree(
-                    f"{self.integration_dir}/lovelace/themefiles",
+                    f"{self.integration_dir}/dashboard/themefiles",
                     self.hass.config.path(f"{self.configuration.theme_path}/"),
                     dirs_exist_ok=True,
                 )
