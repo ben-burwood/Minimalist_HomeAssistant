@@ -86,13 +86,13 @@ async def mui_config_option_schema(options: dict = {}) -> dict:
         #    CONF_SIDEPANEL_ADV_ICON,
         #    default=options.get(CONF_SIDEPANEL_ADV_ICON, DEFAULT_SIDEPANEL_ADV_ICON),
         #): str,
-        vol.Optional(
-            CONF_THEME, default=options.get(CONF_THEME, DEFAULT_THEME)
-        ): vol.In(CONF_THEME_OPTIONS),
-        vol.Optional(
-            CONF_THEME_PATH,
-            default=options.get(CONF_THEME_PATH, DEFAULT_THEME_PATH),
-        ): str,
+        #vol.Optional(
+        #    CONF_THEME, default=options.get(CONF_THEME, DEFAULT_THEME)
+        #): vol.In(CONF_THEME_OPTIONS),
+        #vol.Optional(
+        #    CONF_THEME_PATH,
+        #    default=options.get(CONF_THEME_PATH, DEFAULT_THEME_PATH),
+        #): str,
         #vol.Optional(
         #    CONF_INCLUDE_OTHER_CARDS,
         #    default=options.get(CONF_INCLUDE_OTHER_CARDS, DEFAULT_INCLUDE_OTHER_CARDS),
