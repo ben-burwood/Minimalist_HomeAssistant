@@ -15,7 +15,7 @@ ATTRIBUTION = "Data provided by http://jsonplaceholder.typicode.com/"
 ISSUE_URL = "https://github.com/stokkie90/ui-lovelace-minimalist/issues"
 
 GITHUB_REPO = "benbur98/Minimalist_HomeAssistant"
-#COMMUNITY_CARDS_FOLDER = "custom_cards"
+COMMUNITY_CARDS_FOLDER = "custom_cards"
 
 LANGUAGES = {"English (GB)": "en"}
 CONF_LANGUAGE = "language"
@@ -36,23 +36,23 @@ CONF_THEME_OPTIONS = [
     "HA selected theme",
 ]
 CONF_INCLUDE_OTHER_CARDS = "include_other_cards"
-#CONF_COMMUNITY_CARDS_ENABLED = "community_cards_enabled"
-#CONF_COMMUNITY_CARDS = "community_cards"
-#CONF_COMMUNITY_CARDS_ALL = [
-#    "card-1",
-#    "card-2",
-#    "card-3",
-#    "card-4",
-#    "card-5",
-#    "card-6",
-#    "card-7",
-#    "card-8",
-#    "card-9",
-#    "card-9",
-#    "card-0",
-#    "card-11",
-#    "card-12",
-#]
+CONF_COMMUNITY_CARDS_ENABLED = "community_cards_enabled"
+CONF_COMMUNITY_CARDS = "community_cards"
+CONF_COMMUNITY_CARDS_ALL = [
+    "card-1",
+    "card-2",
+    "card-3",
+    "card-4",
+    "card-5",
+    "card-6",
+    "card-7",
+    "card-8",
+    "card-9",
+    "card-9",
+    "card-0",
+    "card-11",
+    "card-12",
+]
 
 # Defaults
 DEFAULT_NAME = DOMAIN
@@ -66,8 +66,8 @@ DEFAULT_SIDEPANEL_ADV_ICON = "mdi:monitor-dashboard"
 DEFAULT_THEME = "minimalist-desktop"
 DEFAULT_THEME_PATH = "themes/"
 DEFAULT_INCLUDE_OTHER_CARDS = False
-#DEFAULT_COMMUNITY_CARDS_ENABLED = False
-#DEFAULT_COMMUNITY_CARDS = []
+DEFAULT_COMMUNITY_CARDS_ENABLED = False
+DEFAULT_COMMUNITY_CARDS = []
 
 STARTUP_MESSAGE = f"""
 -------------------------------------------------------------------

@@ -5,8 +5,8 @@ from __future__ import annotations
 import logging
 from typing import Any
 
-#from aiogithubapi import GitHubDeviceAPI, GitHubException
-#from aiogithubapi.common.const import OAUTH_USER_LOGIN
+from aiogithubapi import GitHubDeviceAPI, GitHubException
+from aiogithubapi.common.const import OAUTH_USER_LOGIN
 from homeassistant import config_entries
 from homeassistant.core import callback
 from homeassistant.helpers import aiohttp_client
@@ -18,8 +18,8 @@ import voluptuous as vol
 from .base import MuiBase
 from .const import (
     CLIENT_ID,
-    #CONF_COMMUNITY_CARDS,
-    #CONF_COMMUNITY_CARDS_ENABLED,
+    CONF_COMMUNITY_CARDS,
+    CONF_COMMUNITY_CARDS_ENABLED,
     CONF_INCLUDE_OTHER_CARDS,
     CONF_LANGUAGE,
     CONF_LANGUAGES,
@@ -32,8 +32,8 @@ from .const import (
     CONF_THEME,
     CONF_THEME_OPTIONS,
     CONF_THEME_PATH,
-    #DEFAULT_COMMUNITY_CARDS,
-    #DEFAULT_COMMUNITY_CARDS_ENABLED,
+    DEFAULT_COMMUNITY_CARDS,
+    DEFAULT_COMMUNITY_CARDS_ENABLED,
     DEFAULT_INCLUDE_OTHER_CARDS,
     DEFAULT_LANGUAGE,
     DEFAULT_SIDEPANEL_ENABLED,
