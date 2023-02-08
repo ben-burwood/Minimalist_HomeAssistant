@@ -1,61 +1,105 @@
 ---
 ### Card Generic ###
+### Switch or Sensor ###
 card_generic:
   template:
     - "icon_more_info_new"
     - "mui_translation_engine"
+  show_last_changed: false
   variables:
     mui_card_generic_icon: "[[[ return entity.attributes.icon ]]]"
     mui_card_generic_name: "[[[ return entity.attributes.friendly_name ]]]"
-    mui_outlet_power_enable_popup: false
+    #mui_card_generic_swap: false
+    mui_card_generic_states: true
+    mui_card_generic_colour: false
+    mui_card_generic_force_background_colour: false
   custom_fields:
     item1:
       card:
         type: "custom:button-card"
+        styles:
+          card:
+            - background-color: >
+                [[[
+                    if (variables.mui_card_generic_states && variables.mui_card_generic_colour && (variables.mui_card_generic_force_background_colour || hass.themes.darkMode)) {
+                      if (entity.state == "on") {
+                        var colour = variables.mui_card_generic_colour;
+                        return 'rgba(var(--color-background-' + colour + '),var(--opacity-bg))';
+                      }
+                    }
+                    return "rgba(0,0,0,0)";
+                ]]]
         custom_fields:
           item1:
             card:
               type: "custom:button-card"
               entity: "[[[ return entity.entity_id ]]]"
               icon: "[[[ return variables.mui_card_generic_icon; ]]]"
-              variables: >
-                [[[
-                  let vars = variables;
-
-                  if(variables.mui_outlet_power_enable_popup) {
-                    vars.mui_custom_popup = {
-                      'template': 'popup_power_outlet_stats',
-                      'popup_variables': {
-                        'mui_popup_power_outlet_sensor1': variables.mui_popup_power_outlet_sensor1,
-                        'mui_popup_power_outlet_sensor2': variables.mui_popup_power_outlet_sensor2,
-                        'mui_popup_power_outlet_graph_sensor': variables.mui_popup_power_outlet_graph_sensor
-                      }
-                    };
-                  }
-                  return vars;
-                ]]]
               styles:
                 icon:
-                  - color: "rgba(var(--color-theme),0.9)"
+                  - color: >
+                      [[[
+                          if (variables.mui_card_generic_states) {
+                            if (entity.state == "on") {
+                              if (variables.mui_card_generic_colour) {
+                                var colour = variables.mui_card_generic_colour;
+                                return 'rgba(var(--color-' + colour + '),1)';
+                              }
+                            } else {
+                              return 'rgba(var(--color-theme),0.2)';
+                            }
+                          } else {
+                            if (variables.mui_card_generic_colour) {
+                              var colour = variables.mui_card_generic_colour;
+                              return 'rgba(var(--color-' + colour + '),1)';
+                            }
+                          }
+                          return 'rgba(var(--color-theme),1)';
+                      ]]]
+                img_cell:
+                  - background-color: >
+                      [[[
+                          if (variables.mui_card_generic_states) {
+                            if (entity.state == "on") {
+                              if (variables.mui_card_generic_colour) {
+                                var colour = variables.mui_card_generic_colour;
+                                return 'rgba(var(--color-' + colour + '),0.2)';
+                              }
+                            }
+                          } else {
+                            if (variables.mui_card_generic_colour) {
+                              var colour = variables.mui_card_generic_colour;
+                              return 'rgba(var(--color-' + colour + '),0.2)';
+                            }
+                          }
+                          return 'rgba(var(--color-theme),0.05)';
+                      ]]]
           item2:
             card:
               type: "custom:button-card"
               entity: "[[[ return entity.entity_id ]]]"
-              name: "[[[ return variables.mui_translation_state_unit ]]]"
-              label: "[[[ return variables.mui_card_generic_name ]]]"
-              variables: >
-                [[[
-                  let vars = variables;
-
-                  if(variables.mui_outlet_power_enable_popup) {
-                    vars.mui_custom_popup = {
-                      'template': 'popup_power_outlet_stats',
-                      'popup_variables': {
-                        'mui_popup_power_outlet_sensor1': variables.mui_popup_power_outlet_sensor1,
-                        'mui_popup_power_outlet_sensor2': variables.mui_popup_power_outlet_sensor2,
-                        'mui_popup_power_outlet_graph_sensor': variables.mui_popup_power_outlet_graph_sensor
-                      }
-                    };
-                  }
-                  return vars;
-                ]]]
+              name: "[[[ return variables.mui_card_generic_name ]]]"
+              label: "[[[ return variables.mui_translation_state_unit ]]]"
+              styles:
+                name:
+                  - color: >
+                      [[[
+                          if (variables.mui_card_generic_states && variables.mui_card_generic_colour && (variables.mui_card_generic_force_background_colour || hass.themes.darkMode)) {
+                            if (entity.state == "on") {
+                              var colour = variables.mui_card_generic_colour;
+                              return 'rgba(var(--color-' + colour + '-text),1)';
+                            }
+                          }
+                          return 'rgba(var(--color-theme),1)';
+                      ]]]
+                label:
+                  - color: >
+                      [[[
+                        if (variables.mui_card_generic_states && variables.mui_card_generic_colour && (variables.mui_card_generic_force_background_colour || hass.themes.darkMode)) {
+                          if (entity.state == "on") {
+                            var colour = variables.mui_card_generic_colour;
+                            return 'rgba(var(--color-' + colour + '-text),1)';
+                          }
+                        }
+                        return 'rgba(var(--color-theme),1)';
+                      ]]]

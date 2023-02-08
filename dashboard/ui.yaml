@@ -54,11 +54,13 @@ views:
               mui_card_light_enable_color: true
 
       - type: "custom:button-card"
-        template: card_power_outlet
+        template: card_generic
         entity: switch.switch_relay
         variables:
-          mui_card_power_outlet_name: "String Lights"
-          mui_card_power_outlet_icon: "mdi:string-lights"
+          mui_card_generic_name: "String Lights"
+          mui_card_generic_icon: "mdi:string-lights"
+          mui_card_generic_colour: "yellow"
+          mui_card_generic_states: true
 
       #- type: "custom:button-card"
       #  template: card_light
@@ -69,15 +71,14 @@ views:
       #    mui_card_light_enable_color: true
 
       - type: "custom:button-card"
-        template: card_title
-        label: "Media"
-
-      - type: "custom:button-card"
         template: card_alarm_time
         entity: input_boolean.morning_alarm_toggle
         variables:
-          mui_card_alarm_time_enable_horizontal: true
           alarm_set: input_datetime.morning_alarm_time
+
+      - type: "custom:button-card"
+        template: card_title
+        label: "Media"
 
       - type: "custom:button-card"
         template: card_media_player

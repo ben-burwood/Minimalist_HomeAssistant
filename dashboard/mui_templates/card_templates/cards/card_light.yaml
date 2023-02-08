@@ -7,8 +7,8 @@ card_light:
   variables:
     mui_card_light_name: "[[[ return entity.attributes.friendly_name ]]]"
     mui_card_light_icon: "[[[ return entity.attributes.icon ]]]"
-    mui_card_light_enable_horizontal: false
-    mui_card_light_enable_horizontal_wide: false
+    mui_card_light_horizontal: false
+    mui_card_light_horizontal_wide: false
     mui_card_light_enable_color: false
     mui_card_light_color_palette: ""
     mui_card_light_force_background_color: false
@@ -32,8 +32,8 @@ card_light:
           - background-color: >-
               [[[
                   var color = entity.attributes.rgb_color;
-                  if (variables.mui_card_light_enable_color == true){
-                    if(variables.mui_card_light_force_background_color == true){
+                  if (variables.mui_card_light_enable_color){
+                    if(variables.mui_card_light_force_background_color || hass.themes.darkMode){
                       if (color){
                         return 'rgba(' + color + ',0.1)'
                       } else {
@@ -49,7 +49,7 @@ card_light:
           [[[
                 if (variables.mui_card_light_enable_collapse && entity.state != "on") {
                     return "\"item1\"";
-                } else if (variables.mui_card_light_enable_horizontal) {
+                } else if (variables.mui_card_light_horizontal) {
                     return "\"item1 item2\"";
                 } else if (variables.mui_card_light_enable_slider) {
                     return "\"item1\" \"item2\"";
@@ -63,8 +63,8 @@ card_light:
           [[[
                 if (variables.mui_card_light_enable_collapse && entity.state != "on") {
                     return "1fr";
-                } else if (variables.mui_card_light_enable_horizontal) {
-                  if(variables.mui_card_light_enable_horizontal_wide){
+                } else if (variables.mui_card_light_horizontal) {
+                  if(variables.mui_card_light_horizontal_wide){
                     return "1fr 2fr";
                     } else {
                       return "1fr 1fr";
@@ -77,7 +77,7 @@ card_light:
           [[[
                 if (variables.mui_card_light_enable_collapse && entity.state != "on") {
                     return "1fr";
-                } else if ((variables.mui_card_light_enable_slider || variables.mui_card_light_enable_brightness) && !variables.mui_card_light_enable_horizontal) {
+                } else if ((variables.mui_card_light_enable_slider || variables.mui_card_light_enable_brightness) && !variables.mui_card_light_horizontal) {
                     return "min-content min-content";
                 } else {
                     return "1fr";
@@ -193,8 +193,8 @@ card_light:
                       - color: >-
                           [[[
                               var color = entity.attributes.rgb_color;
-                              if (variables.mui_card_light_enable_color == true){
-                                if(variables.mui_card_light_force_background_color == true || hass.themes.darkMode){
+                              if (variables.mui_card_light_enable_color){
+                                if(variables.mui_card_light_force_background_color || hass.themes.darkMode){
                                   if (color){
                                     return 'rgba(' + color + ',1)'
                                   } else {
@@ -208,8 +208,8 @@ card_light:
                       - color: >-
                           [[[
                               var color = entity.attributes.rgb_color;
-                              if (variables.mui_card_light_enable_color == true){
-                                if(variables.mui_card_light_force_background_color == true || hass.themes.darkMode){
+                              if (variables.mui_card_light_enable_color){
+                                if(variables.mui_card_light_force_background_color || hass.themes.darkMode){
                                   if (color){
                                     return 'rgba(' + color + ',1)'
                                   } else {

@@ -13,7 +13,7 @@ card_cover:
     mui_card_cover_gate: false
     mui_card_cover_enable_controls: false
     mui_card_cover_enable_slider: false
-    mui_card_cover_enable_horizontal: false
+    mui_card_cover_horizontal: false
     mui_card_cover_enable_popup: false
     mui_show_last_changed: false
   show_icon: false
@@ -24,7 +24,7 @@ card_cover:
       - grid-template-areas: >
           [[[
                 var areas = [];
-                if (variables.mui_card_cover_enable_horizontal) {
+                if (variables.mui_card_cover_horizontal) {
                   if ( variables.mui_card_cover_enable_slider) {
                       return "\"item1 item3\"";
                   } else {
@@ -46,7 +46,7 @@ card_cover:
           [[[
                 var rows = [];
                 rows.push("min-content");
-                if (variables.mui_card_cover_enable_horizontal) {
+                if (variables.mui_card_cover_horizontal) {
                   return "min-content";
                 } else {
                   if ( variables.mui_card_cover_enable_controls) {

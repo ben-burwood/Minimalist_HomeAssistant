@@ -12,7 +12,7 @@ card_thermostat:
     mui_card_thermostat_enable_hvac_modes: false
     mui_card_thermostat_enable_background_color: false
     mui_card_thermostat_enable_display_temperature: false
-    mui_card_thermostat_enable_horizontal: false
+    mui_card_thermostat_horizontal: false
     mui_card_thermostat_enable_popup: false
     mui_card_thermostat_fan_entity: null
     mui_card_thermostat_minimum_temp_spread: 1
@@ -50,7 +50,7 @@ card_thermostat:
       - grid-template-areas: >
           [[[
                 var areas = [];
-                if (variables.mui_card_thermostat_enable_horizontal) {
+                if (variables.mui_card_thermostat_horizontal) {
                   return "\"item1 item2\"";
                 }
                 if (variables.mui_card_thermostat_enable_display_temperature) {
@@ -71,13 +71,13 @@ card_thermostat:
           ]]]
       - grid-template-columns: >
           [[[
-                  return variables.mui_card_thermostat_enable_horizontal ? "1fr 1fr" : "2fr 1fr";
+                  return variables.mui_card_thermostat_horizontal ? "1fr 1fr" : "2fr 1fr";
           ]]]
       - grid-template-rows: >
           [[[
                 var rows = [];
                 rows.push("min-content");
-                if (variables.mui_card_thermostat_enable_horizontal) {
+                if (variables.mui_card_thermostat_horizontal) {
                   return "min-content";
                 }
                 if ( !(variables.mui_card_thermostat_enable_collapse && entity.state == "off") && variables.mui_card_thermostat_enable_controls) {
@@ -118,7 +118,7 @@ card_thermostat:
       item3:
         - display: >
             [[[
-                if (variables.mui_card_thermostat_enable_horizontal) {
+                if (variables.mui_card_thermostat_horizontal) {
                   return "none";
                 }
                 if ( !(variables.mui_card_thermostat_enable_collapse && entity.state == "off") && variables.mui_card_thermostat_enable_hvac_modes) {
@@ -130,7 +130,7 @@ card_thermostat:
       item4:
         - display: >
             [[[
-                if (variables.mui_card_thermostat_enable_horizontal) {
+                if (variables.mui_card_thermostat_horizontal) {
                   return "none";
                 }
                 if (variables.mui_card_thermostat_enable_display_temperature) {

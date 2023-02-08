@@ -7,7 +7,7 @@ card_alarm_time:
   variables:
     mui_card_alarm_time_name: "[[[ return entity.attributes.friendly_name ]]]"
     mui_card_alarm_time_icon: "[[[ return entity.attributes.icon ]]]"
-    mui_card_alarm_time_enable_horizontal: false
+    mui_card_alarm_time_horizontal: false
     mui_card_alarm_time_step: 15
   show_icon: false
   show_name: false
@@ -23,7 +23,7 @@ card_alarm_time:
           [[[
                 if (entity.state == "off") {
                     return "\"item1\"";
-                } else if (variables.mui_card_alarm_time_enable_horizontal) {
+                } else if (variables.mui_card_alarm_time_horizontal) {
                     return "\"item1 item2\"";
                 } else {
                     return "\"item1\" \"item2\"";
@@ -31,7 +31,7 @@ card_alarm_time:
           ]]]
       - grid-template-columns: >
           [[[
-                if (variables.mui_card_alarm_time_enable_horizontal) {
+                if (variables.mui_card_alarm_time_horizontal) {
                     return "1fr 1fr";
                 } else {
                     return "1fr";
@@ -41,7 +41,7 @@ card_alarm_time:
           [[[
                 if (entity.state == "off") {
                     return "1fr";
-                } else if (!variables.mui_card_alarm_time_enable_horizontal) {
+                } else if (!variables.mui_card_alarm_time_horizontal) {
                     return "min-content min-content";
                 } else {
                     return "1fr";
