@@ -1,5 +1,5 @@
 ---
-### Widget Icon ###s
+### Widget Icon ###
 widget_icon:
   tap_action:
     action: "toggle"

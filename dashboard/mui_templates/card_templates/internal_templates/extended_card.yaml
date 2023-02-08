@@ -76,7 +76,6 @@ extended_card:
             - box-shadow: "none"
             - border-radius: "var(--border-radius) var(--border-radius) 0px 0px"
             - padding: "12px"
-
     item2:
       card:
         type: "custom:button-card"
