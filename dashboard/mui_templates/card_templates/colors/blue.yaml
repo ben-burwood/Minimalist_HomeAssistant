@@ -1,0 +1,63 @@
+---
+blue_on:
+  state:
+    - styles:
+        icon:
+          - color: "rgba(var(--color-blue),1)"
+        label:
+          - color: "rgba(var(--color-blue-text),1)"
+        name:
+          - color: "rgba(var(--color-blue-text),1)"
+        img_cell:
+          - background-color: "rgba(var(--color-blue), 0.2)"
+        card:
+          - background-color: "rgba(var(--color-background-blue), var(--opacity-bg))"
+      id: "on"
+      value: "on"
+
+blue_off:
+  state:
+    - styles:
+        icon:
+          - color: "rgba(var(--color-blue),1)"
+        label:
+          - color: "rgba(var(--color-blue-text),1)"
+        name:
+          - color: "rgba(var(--color-blue-text),1)"
+        img_cell:
+          - background-color: "rgba(var(--color-blue), 0.2)"
+      value: "off"
+      id: "off"
+
+blue_no_card:
+  state:
+    - styles:
+        icon:
+          - color: "rgba(var(--color-blue),1)"
+        label:
+          - color: "rgba(var(--color-blue-text),1)"
+        name:
+          - color: "rgba(var(--color-blue-text),1)"
+        img_cell:
+          - background-color: "rgba(var(--color-blue), 0.2)"
+        card:
+          - background-color: "rgba(0,0,0,0)"
+      id: "on"
+      value: "on"
+
+blue_no_state:
+  styles:
+    icon:
+      - color: "rgba(var(--color-blue),1)"
+    label:
+      - color: "rgba(var(--color-blue-text),1)"
+    name:
+      - color: "rgba(var(--color-blue-text),1)"
+    img_cell:
+      - background-color: "rgba(var(--color-blue), 0.2)"
+    card:
+      - background-color: "rgba(var(--color-background-blue), var(--opacity-bg))"
+
+# Legacy
+blue:
+  template: "blue_on"

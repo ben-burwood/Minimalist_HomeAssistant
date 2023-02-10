@@ -1,0 +1,78 @@
+---
+yellow_on:
+  state:
+    - styles:
+        icon:
+          - color: "rgba(var(--color-yellow),1)"
+        label:
+          - color: "rgba(var(--color-yellow-text),1)"
+        name:
+          - color: "rgba(var(--color-yellow-text),1)"
+        img_cell:
+          - background-color: "rgba(var(--color-yellow), 0.2)"
+        card:
+          - background-color: "rgba(var(--color-background-yellow),var(--opacity-bg))"
+      value: "on"
+      id: "on"
+
+yellow_off:
+  state:
+    - styles:
+        icon:
+          - color: "rgba(var(--color-yellow),1)"
+        label:
+          - color: "rgba(var(--color-yellow-text),1)"
+        name:
+          - color: "rgba(var(--color-yellow-text),1)"
+        img_cell:
+          - background-color: "rgba(var(--color-yellow), 0.2)"
+        card:
+          - background-color: "rgba(var(--color-background-yellow),var(--opacity-bg))"
+      id: "off"
+      value: "off"
+    
+yellow_no_state:
+  styles:
+    icon:
+      - color: "rgba(var(--color-yellow),1)"
+    label:
+      - color: "rgba(var(--color-yellow-text),1)"
+    name:
+      - color: "rgba(var(--color-yellow-text),1)"
+    img_cell:
+      - background-color: "rgba(var(--color-yellow), 0.2)"
+
+yellow_no_card:
+  state:
+    - styles:
+        icon:
+          - color: "rgba(var(--color-yellow),1)"
+        label:
+          - color: "rgba(var(--color-yellow-text),1)"
+        name:
+          - color: "rgba(var(--color-yellow-text),1)"
+        img_cell:
+          - background-color: "rgba(var(--color-yellow), 0.2)"
+        card:
+          - background-color: "rgba(0,0,0,0)"
+      value: "on"
+      id: "on"
+
+yellow_slider:
+  state:
+    - styles:
+        icon:
+          - color: "rgba(var(--color-yellow),1)"
+        label:
+          - color: "rgba(var(--color-yellow-text),1)"
+        name:
+          - color: "rgba(var(--color-yellow-text),1)"
+        img_cell:
+          - background-color: "rgba(var(--color-yellow), 0.2)"
+        card:
+          - background-color: "rgba(0,0,0,0)"
+      value: "on"
+
+# Legacy
+yellow:
+  template: "yellow_on"
