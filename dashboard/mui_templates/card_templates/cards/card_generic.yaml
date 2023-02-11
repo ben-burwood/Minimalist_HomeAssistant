@@ -9,26 +9,35 @@ card_generic:
   variables:
     mui_card_generic_icon: "[[[ return entity.attributes.icon ]]]"
     mui_card_generic_name: "[[[ return entity.attributes.friendly_name ]]]"
-    #mui_card_generic_swap: false
+    mui_card_generic_swap: false
     mui_card_generic_states: true
     mui_card_generic_colour: false
-    mui_card_generic_force_background_colour: false
+    mui_card_generic_force_background_colour: false     
+  state:
+    - value: "on"
+      styles:
+        card:
+          - background-color: >
+              [[[
+                  var colour = variables.mui_card_generic_colour;
+                  return 'rgba(var(--color-background-' + colour + '),var(--opacity-bg))';
+              ]]]
+  #styles:
+  #  card:
+  #    - background-color: >
+  #        [[[
+  #            if (variables.mui_card_generic_colour && (variables.mui_card_generic_force_background_colour || (variables.mui_card_generic_states && (variables.mui_card_generic_force_background_colour || hass.themes.darkMode)))) {
+  #              if (entity.state == "on") {
+  #                var colour = variables.mui_card_generic_colour;
+  #                return 'rgba(var(--color-background-' + colour + '),var(--opacity-bg))';
+  #              }
+  #            }
+  #            return 'rgba(0,0,0,0)'; 'rgba(var(--color-theme)...)'
+  #        ]]]
   custom_fields:
     item1:
       card:
         type: "custom:button-card"
-        styles:
-          card:
-            - background-color: >
-                [[[
-                    if (variables.mui_card_generic_states && variables.mui_card_generic_colour && (variables.mui_card_generic_force_background_colour || hass.themes.darkMode)) {
-                      if (entity.state == "on") {
-                        var colour = variables.mui_card_generic_colour;
-                        return 'rgba(var(--color-background-' + colour + '),var(--opacity-bg))';
-                      }
-                    }
-                    return "rgba(0,0,0,0)";
-                ]]]
         custom_fields:
           item1:
             card:
@@ -78,8 +87,22 @@ card_generic:
             card:
               type: "custom:button-card"
               entity: "[[[ return entity.entity_id ]]]"
-              name: "[[[ return variables.mui_card_generic_name ]]]"
-              label: "[[[ return variables.mui_translation_state_unit ]]]"
+              name: >
+                [[[ 
+                    if (variables.mui_card_generic_swap) {
+                      return variables.mui_translation_state_unit               
+                    } else {
+                      return variables.mui_card_generic_name
+                    }
+                ]]]
+              label: >
+                [[[ 
+                    if (variables.mui_card_generic_swap) {
+                      return variables.mui_card_generic_name               
+                    } else {
+                      return variables.mui_translation_state_unit
+                    }
+                ]]]
               styles:
                 name:
                   - color: >
