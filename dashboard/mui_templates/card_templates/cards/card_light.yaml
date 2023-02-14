@@ -7,8 +7,8 @@ card_light:
   variables:
     mui_card_light_name: "[[[ return entity.attributes.friendly_name ]]]"
     mui_card_light_icon: "[[[ return entity.attributes.icon ]]]"
-    mui_card_light_horizontal: false
-    mui_card_light_horizontal_wide: false
+    mui_card_light_enable_horizontal: false
+    mui_card_light_enable_horizontal_wide: false
     mui_card_light_enable_color: false
     mui_card_light_color_palette: ""
     mui_card_light_force_background_color: false
@@ -16,7 +16,7 @@ card_light:
     mui_card_light_enable_slider: false
     mui_card_light_slider_min: 0
     mui_card_light_slider_max: 100
-    mui_card_light_enable_brightness: false
+    mui_card_light_enable_buttons: false
     mui_card_light_brightness_low: 2
     mui_card_light_brightness_medium: 128
     mui_card_light_brightness_high: 255
@@ -31,57 +31,64 @@ card_light:
         card:
           - background-color: >-
               [[[
-                  var color = entity.attributes.rgb_color;
-                  if (variables.mui_card_light_enable_color){
-                    if(variables.mui_card_light_force_background_color || hass.themes.darkMode){
-                      if (color){
-                        return 'rgba(' + color + ',0.1)'
-                      } else {
-                        return 'rgba(var(--color-yellow-text),0.1)'
-                      }
+                  if (variables.mui_card_light_enable_color) {
+                    if(variables.mui_card_light_force_background_color || hass.themes.darkMode) {
+                      var color = entity.attributes.rgb_color;
+                      return 'rgba(' + color + ',var(--opacity-bg))';
                     }
                   }
-                  return 'rgba(var(--color-background-yellow),var(--opacity-bg))';
               ]]]
   styles:
     grid:
       - grid-template-areas: >
           [[[
-                if (variables.mui_card_light_enable_collapse && entity.state != "on") {
-                    return "\"item1\"";
-                } else if (variables.mui_card_light_horizontal) {
-                    return "\"item1 item2\"";
-                } else if (variables.mui_card_light_enable_slider) {
-                    return "\"item1\" \"item2\"";
-                } else if (variables.mui_card_light_enable_brightness) {
-                    return "\"item1\" \"item3\"";
-                } else {
-                    return "\"item1\"";
-                }
+              if (variables.mui_card_light_enable_collapse && entity.state != "on") {
+                  return "\"item1\"";
+              }
+
+              var areas = [];
+              areas.push("item1");
+              if (variables.mui_card_light_enable_slider) {
+                  areas.push("item2");
+              }
+              if (variables.mui_card_light_enable_buttons) {
+                  areas.push("item3");
+              }
+
+              if (variables.mui_card_light_enable_horizontal) {
+                  areas = areas.slice(0, 2);
+                  return "\"" + areas.join(" ") + "\"";
+              }
+              return "\"" + areas.join("\" \"") + "\"";
           ]]]
       - grid-template-columns: >
           [[[
-                if (variables.mui_card_light_enable_collapse && entity.state != "on") {
-                    return "1fr";
-                } else if (variables.mui_card_light_horizontal) {
-                  if(variables.mui_card_light_horizontal_wide){
+              if (variables.mui_card_light_enable_collapse && entity.state != "on") {
+                  return "1fr";
+              }
+              if (variables.mui_card_light_enable_horizontal) {
+                  if(variables.mui_card_light_enable_horizontal_wide){
                     return "1fr 2fr";
-                    } else {
-                      return "1fr 1fr";
-                    }
-                } else {
-                    return "1fr";
-                }
+                  } else {
+                    return "1fr 1fr";
+                  }
+              }
+              return "1fr";
           ]]]
       - grid-template-rows: >
           [[[
-                if (variables.mui_card_light_enable_collapse && entity.state != "on") {
-                    return "1fr";
-                } else if ((variables.mui_card_light_enable_slider || variables.mui_card_light_enable_brightness) && !variables.mui_card_light_horizontal) {
-                    return "min-content min-content";
-                } else {
-                    return "1fr";
-                }
+              if (variables.mui_card_light_enable_horizontal || (variables.mui_card_light_enable_collapse && entity.state != "on")) {
+                  return "min-content";
+              }
+              var rows = [];
+              rows.push("min-content");
+              if (variables.mui_card_light_enable_slider) {
+                  rows.push("min-content");
+              }
+              if (variables.mui_card_light_enable_buttons) {
+                  rows.push("min-content");
+              }
+              return rows.join(" ");
           ]]]
       - row-gap: "12px"
     card:
@@ -92,24 +99,27 @@ card_light:
       item2:
         - display: >
             [[[
-                  if (variables.mui_card_light_enable_collapse && entity.state != "on") {
-                      return "none";
-                  } else if (variables.mui_card_light_enable_slider) {
-                      return "block";
-                  } else {
-                      return "none";
-                  }
+                if (variables.mui_card_light_enable_collapse && entity.state != "on") {
+                    return "none";
+                } else if (variables.mui_card_light_enable_slider) {
+                    return "block";
+                } else {
+                    return "none";
+                }
             ]]]
       item3:
         - display: >
             [[[
-                  if (variables.mui_card_light_enable_collapse && entity.state != "on") {
+                if (variables.mui_card_light_enable_collapse && entity.state != "on") {
+                    return "none";
+                } else if (variables.mui_card_light_enable_buttons) {
+                    if (variables.mui_card_light_enable_horizontal && variables.mui_card_light_enable_slider) {
                       return "none";
-                  } else if (variables.mui_card_light_enable_brightness) {
-                      return "block";
-                  } else {
-                      return "none";
-                  }
+                    }
+                    return "block";
+                } else {
+                    return "none";
+                }
             ]]]
   custom_fields:
     item1:
@@ -198,11 +208,11 @@ card_light:
                                   if (color){
                                     return 'rgba(' + color + ',1)'
                                   } else {
-                                    return 'rgba(var(--color-yellow-text),1)'
+                                    return 'rgba(var(--color-yellow),1)'
                                   }
                                 }
                               }
-                              return 'rgba(var(--color-yellow-text),1)'
+                              return 'rgba(var(--color-yellow),1)'
                           ]]]
                     label:
                       - color: >-
@@ -213,11 +223,11 @@ card_light:
                                   if (color){
                                     return 'rgba(' + color + ',1)'
                                   } else {
-                                    return 'rgba(var(--color-yellow-text),1)'
+                                    return 'rgba(var(--color-yellow),1)'
                                   }
                                 }
                               }
-                              return 'rgba(var(--color-yellow-text),1)'
+                              return 'rgba(var(--color-yellow),1)'
                           ]]]
     item2:
       card:

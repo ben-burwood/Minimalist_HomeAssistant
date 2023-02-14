@@ -2,38 +2,38 @@
 ### Card Generic ###
 ### Switch or Sensor ###
 card_generic:
+  triggers_update: "all"
   template:
     - "icon_more_info_new"
     - "mui_translation_engine"
-  show_last_changed: false
   variables:
-    mui_card_generic_icon: "[[[ return entity.attributes.icon ]]]"
     mui_card_generic_name: "[[[ return entity.attributes.friendly_name ]]]"
+    mui_card_generic_icon: "[[[ return entity.attributes.icon ]]]"
     mui_card_generic_swap: false
     mui_card_generic_states: true
-    mui_card_generic_colour: false
-    mui_card_generic_force_background_colour: false     
-  state:
-    - value: "on"
-      styles:
-        card:
-          - background-color: >
-              [[[
-                  var colour = variables.mui_card_generic_colour;
-                  return 'rgba(var(--color-background-' + colour + '),var(--opacity-bg))';
-              ]]]
-  #styles:
-  #  card:
-  #    - background-color: >
-  #        [[[
-  #            if (variables.mui_card_generic_colour && (variables.mui_card_generic_force_background_colour || (variables.mui_card_generic_states && (variables.mui_card_generic_force_background_colour || hass.themes.darkMode)))) {
-  #              if (entity.state == "on") {
-  #                var colour = variables.mui_card_generic_colour;
-  #                return 'rgba(var(--color-background-' + colour + '),var(--opacity-bg))';
-  #              }
-  #            }
-  #            return 'rgba(0,0,0,0)'; 'rgba(var(--color-theme)...)'
-  #        ]]]
+    mui_card_generic_color: false
+    mui_card_generic_force_background_color: false
+  styles:
+    card:
+      - background-color: >
+          [[[
+              if (variables.mui_card_generic_states) {
+                if (entity.state != "off") {
+                  if (variables.mui_card_generic_color) {
+                    if(variables.mui_card_generic_force_background_color || hass.themes.darkMode) {
+                      var color = variables.mui_card_generic_color;
+                      return 'rgba(var(--color-' + color + '),var(--opacity-bg))';
+                    }
+                  }
+                }
+              } else if (variables.mui_card_generic_color) {
+                if(variables.mui_card_generic_force_background_color || hass.themes.darkMode) {
+                  var color = variables.mui_card_generic_color;
+                  return 'rgba(var(--color-' + color + '),var(--opacity-bg))';
+                }
+              }
+          ]]]
+  show_last_changed: false
   custom_fields:
     item1:
       card:
@@ -49,39 +49,39 @@ card_generic:
                   - color: >
                       [[[
                           if (variables.mui_card_generic_states) {
-                            if (entity.state == "on") {
-                              if (variables.mui_card_generic_colour) {
-                                var colour = variables.mui_card_generic_colour;
-                                return 'rgba(var(--color-' + colour + '),1)';
+                            if (entity.state != "off") {
+                              if (variables.mui_card_generic_color) {
+                                var color = variables.mui_card_generic_color;
+                                return 'rgba(var(--color-' + color + '),1)';
                               }
+                              return 'rgba(var(--color-theme),1)';
                             } else {
                               return 'rgba(var(--color-theme),0.2)';
                             }
-                          } else {
-                            if (variables.mui_card_generic_colour) {
-                              var colour = variables.mui_card_generic_colour;
-                              return 'rgba(var(--color-' + colour + '),1)';
-                            }
                           }
-                          return 'rgba(var(--color-theme),1)';
+                          if (variables.mui_card_generic_color) {
+                            var color = variables.mui_card_generic_color;
+                            return 'rgba(var(--color-' + color + '),1)';
+                          }
                       ]]]
                 img_cell:
                   - background-color: >
                       [[[
                           if (variables.mui_card_generic_states) {
-                            if (entity.state == "on") {
-                              if (variables.mui_card_generic_colour) {
-                                var colour = variables.mui_card_generic_colour;
-                                return 'rgba(var(--color-' + colour + '),0.2)';
+                            if (entity.state != "off") {
+                              if (variables.mui_card_generic_color) {
+                                var color = variables.mui_card_generic_color;
+                                return 'rgba(var(--color-' + color + '),0.2)';
                               }
-                            }
-                          } else {
-                            if (variables.mui_card_generic_colour) {
-                              var colour = variables.mui_card_generic_colour;
-                              return 'rgba(var(--color-' + colour + '),0.2)';
+                              return 'rgba(var(--color-theme),0.2)';
+                            } else {
+                              return 'rgba(var(--color-theme),0.05)';
                             }
                           }
-                          return 'rgba(var(--color-theme),0.05)';
+                          if (variables.mui_card_generic_color) {
+                            var color = variables.mui_card_generic_color;
+                            return 'rgba(var(--color-' + color + '),0.2)';
+                          }
                       ]]]
           item2:
             card:
@@ -90,39 +90,37 @@ card_generic:
               name: >
                 [[[ 
                     if (variables.mui_card_generic_swap) {
-                      return variables.mui_translation_state_unit               
+                      return variables.mui_translation_state_unit;
                     } else {
-                      return variables.mui_card_generic_name
+                      return variables.mui_card_generic_name;
                     }
                 ]]]
               label: >
                 [[[ 
                     if (variables.mui_card_generic_swap) {
-                      return variables.mui_card_generic_name               
+                      return variables.mui_card_generic_name;
                     } else {
-                      return variables.mui_translation_state_unit
+                      return variables.mui_translation_state_unit;
                     }
                 ]]]
               styles:
                 name:
                   - color: >
                       [[[
-                          if (variables.mui_card_generic_states && variables.mui_card_generic_colour && (variables.mui_card_generic_force_background_colour || hass.themes.darkMode)) {
+                          if (variables.mui_card_generic_states && variables.mui_card_generic_color && (variables.mui_card_generic_force_background_color || hass.themes.darkMode)) {
                             if (entity.state == "on") {
-                              var colour = variables.mui_card_generic_colour;
-                              return 'rgba(var(--color-' + colour + '-text),1)';
+                              var color = variables.mui_card_generic_color;
+                              return 'rgba(var(--color-' + color + '),1)';
                             }
                           }
-                          return 'rgba(var(--color-theme),1)';
                       ]]]
                 label:
                   - color: >
                       [[[
-                        if (variables.mui_card_generic_states && variables.mui_card_generic_colour && (variables.mui_card_generic_force_background_colour || hass.themes.darkMode)) {
-                          if (entity.state == "on") {
-                            var colour = variables.mui_card_generic_colour;
-                            return 'rgba(var(--color-' + colour + '-text),1)';
+                          if (variables.mui_card_generic_states && variables.mui_card_generic_color && (variables.mui_card_generic_force_background_color || hass.themes.darkMode)) {
+                            if (entity.state == "on") {
+                              var color = variables.mui_card_generic_color;
+                              return 'rgba(var(--color-' + color + '),1)';
+                            }
                           }
-                        }
-                        return 'rgba(var(--color-theme),1)';
                       ]]]

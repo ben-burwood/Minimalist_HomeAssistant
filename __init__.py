@@ -92,6 +92,7 @@ async def async_setup(hass: HomeAssistant, config: Config):
     """Set up this integration using UI."""
     return await async_initialize_integration(hass=hass, config=config)
 
+
 async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> bool:
     """Set up this integration using UI."""
 
@@ -102,7 +103,7 @@ async def async_setup_entry(hass: HomeAssistant, config_entry: ConfigEntry) -> b
 async def async_remove_entry(hass: HomeAssistant, config_entry: ConfigEntry):
     """Remove Integration."""
     _LOGGER.debug(f"{NAME} is now uninstalled")
-    
+
     # TODO cleanup:
     #  - themes
     #  - blueprints

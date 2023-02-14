@@ -1,5 +1,6 @@
 """Constants for Minimalist UI"""
 from typing import TypeVar
+
 TV = TypeVar("TV")
 
 # Base component constants

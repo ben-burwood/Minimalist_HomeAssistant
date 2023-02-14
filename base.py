@@ -1,11 +1,11 @@
 """Base Minimalist UI class."""
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass, field
 import logging
 import os
 import pathlib
 import shutil
+from dataclasses import asdict, dataclass, field
 from typing import Any, Awaitable, Callable
 
 from homeassistant.components.frontend import add_extra_js_url, async_remove_panel
@@ -142,12 +142,13 @@ class MuiBase:
 
         try:
             await self.hass.async_add_executor_job(_write_file)
-        except BaseException as error:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
+        except (
+            BaseException
+        ) as error:  # lgtm [py/catch-base-exception] pylint: disable=broad-except
             self.log.error(f"Could not write data to {file_path} - {error}")
             return False
 
         return os.path.exists(file_path)
-    
 
     async def configure_plugins(self) -> bool:
         """Configure the Plugins MUI depends on."""
@@ -217,16 +218,16 @@ class MuiBase:
             "require_admin": False,
         }
 
-        #adv_dashboard_url = "adaptive-dash"
-        #adv_dashboard_config = {
+        # adv_dashboard_url = "adaptive-dash"
+        # adv_dashboard_config = {
         #    "mode": "yaml",
         #    "icon": self.configuration.adaptive_ui_icon,
         #    "title": self.configuration.adaptive_ui_title,
         #    "filename": "minimalist_ui/dashboard/adaptive-dash/adaptive-ui.yaml",
         #    "show_in_sidebar": True,
         #    "require_admin": False,
-        #}
-        
+        # }
+
         # Optional override can be done with config_flow?
         # if not dashboard_url in hass.data["lovelace"]["dashboards"]:
         try:
@@ -242,7 +243,7 @@ class MuiBase:
                 if dashboard_url in self.hass.data["lovelace"]["dashboards"]:
                     async_remove_panel(self.hass, "minimalist-ui")
 
-            #if self.configuration.adaptive_ui_enabled:
+            # if self.configuration.adaptive_ui_enabled:
             #    self.hass.data["lovelace"]["dashboards"][
             #        adv_dashboard_url
             #    ] = LovelaceYAML(self.hass, adv_dashboard_url, adv_dashboard_config)
@@ -250,7 +251,7 @@ class MuiBase:
             #    _register_panel(
             #        self.hass, adv_dashboard_url, "yaml", adv_dashboard_config, True
             #    )
-            #else:
+            # else:
             #    if adv_dashboard_url in self.hass.data["lovelace"]["dashboards"]:
             #        async_remove_panel(self.hass, "adaptive-dash")
 
@@ -266,13 +267,16 @@ class MuiBase:
         self.log.info("Setup MUI Configuration")
 
         try:
-
             # Cleanup
-            shutil.rmtree(self.hass.config.path(f"{DOMAIN}/configs"), ignore_errors=True)
+            shutil.rmtree(
+                self.hass.config.path(f"{DOMAIN}/configs"), ignore_errors=True
+            )
             shutil.rmtree(self.hass.config.path(f"{DOMAIN}/addons"), ignore_errors=True)
             # Create config dir
             os.makedirs(self.hass.config.path(f"{DOMAIN}/dashboard"), exist_ok=True)
-            os.makedirs(self.hass.config.path(f"{DOMAIN}/custom_actions"), exist_ok=True)
+            os.makedirs(
+                self.hass.config.path(f"{DOMAIN}/custom_actions"), exist_ok=True
+            )
 
             if os.path.exists(self.hass.config.path(f"{DOMAIN}/dashboard")):
                 os.makedirs(self.templates_dir, exist_ok=True)
@@ -292,12 +296,10 @@ class MuiBase:
                     ):
                         shutil.copy2(
                             f"{self.integration_dir}/dashboard/ui.yaml",
-                            self.hass.config.path(
-                                f"{DOMAIN}/dashboard/ui.yaml"
-                            ),
+                            self.hass.config.path(f"{DOMAIN}/dashboard/ui.yaml"),
                         )
                 # Copy adaptive dashboard if not exists and is selected as option
-                #if self.configuration.adaptive_ui_enabled:
+                # if self.configuration.adaptive_ui_enabled:
                 #    if not os.path.exists(
                 #        self.hass.config.path(f"{DOMAIN}/dashboard/adaptive-dash")
                 #    ):
