@@ -52,6 +52,16 @@ mui_translation_engine:
       ]]]
     mui_translation_off: "[[[ return hass.resources[hass['language']]['state.default.off']; ]]]"
     mui_translation_on: "[[[ return hass.resources[hass['language']]['state.default.on']; ]]]"
+    mui_translation_time: >
+      [[[
+        let time = entity.state;
+        if (time === "undefined") {
+          let hour = entity.attributes.hour;
+          let minute = entity.attributes.minute;
+          return (hour + ':' + minute);
+        }
+        return time;
+      ]]]
     mui_translation_state: >
       [[[
         if (typeof(entity) !== 'undefined' && entity !== undefined){

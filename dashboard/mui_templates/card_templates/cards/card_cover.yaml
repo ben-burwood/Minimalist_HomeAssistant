@@ -228,7 +228,7 @@ card_cover:
                     "opening": hass.resources[hass['language']]['component.cover.state._.closing']
                   };
 
-                  if (["unknown", "unavailable"].includes(entity.state) || position == "undefined") {
+                  if (["unknown", "unavailable"].includes(entity.state) || position === undefined) {
                     return variables.mui_translation_state;
                   }
 
@@ -264,11 +264,11 @@ card_cover:
                   entity_id: "[[[ return entity.entity_id ]]]"
               icon: >
                 [[[
-                  if (variables.mui_card_cover_display_left_right){
+                  if (variables.mui_card_cover_display_left_right) {
                       return "mdi:arrow-left";
                   }
                   var device_class = entity.attributes?.device_class;
-                  if (device_class == 'curtain' || device_class == 'gate'){
+                  if (device_class == 'curtain' || device_class == 'gate') {
                       return "mdi:arrow-collapse-horizontal";
                   }
                   return "mdi:arrow-down";
@@ -282,7 +282,7 @@ card_cover:
                 service: "cover.stop_cover"
                 service_data:
                   entity_id: "[[[ return entity.entity_id ]]]"
-              icon: "mdi:pause"
+              icon: "mdi:stop"
           item3:
             card:
               type: "custom:button-card"
@@ -311,22 +311,16 @@ card_cover:
         height: "42px"
         mainSliderColor: >
           [[[
-            //if (entity.state == "unavailable"){
-            //    return 'rgba(var(--color-grey),1)';
-            //}
             if (variables.mui_card_cover_color) {
               var color = variables.mui_card_cover_color;
-              return 'rgba(var(--color-' + color + '),1)';
+              return 'rgba(var(--color-' + color + '),0.8)';
             }
           ]]]
         secondarySliderColor: >
           [[[
-            //if (entity.state == "unavailable"){
-            //  return 'rgba(var(--color-grey),0.2)';
-            //}
             if (variables.mui_card_cover_color) {
               var color = variables.mui_card_cover_color;
-              return 'rgba(var(--color-' + color + '),0.2)';
+              return 'rgba(var(--color-' + color + '),0.1)';
             }
           ]]]
         mainSliderColorOff: "rgba(var(--color-theme),0.05)"
