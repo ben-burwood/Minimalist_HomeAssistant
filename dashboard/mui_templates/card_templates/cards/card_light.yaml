@@ -29,10 +29,10 @@ card_light:
     - value: "on"
       styles:
         card:
-          - background-color: >-
+          - background-color: >
               [[[
                   if (variables.mui_card_light_enable_color) {
-                    if(variables.mui_card_light_force_background_color || hass.themes.darkMode) {
+                    if (variables.mui_card_light_force_background_color || hass.themes.darkMode) {
                       var color = entity.attributes.rgb_color;
                       return 'rgba(' + color + ',var(--opacity-bg))';
                     }
@@ -149,11 +149,10 @@ card_light:
                           var color = entity.attributes.rgb_color;
                           if (entity.state != "on"){
                             return 'rgba(var(--color-theme),0.2)';
-                          }
+                          } 
                           else if (color && variables.mui_card_light_enable_color){
                             return 'rgba(' + color + ',1)'
-                          }
-                          else{
+                          } else {
                             return 'rgba(var(--color-yellow),1)'
                           }
                       ]]]
@@ -166,8 +165,7 @@ card_light:
                           }
                           else if (color && variables.mui_card_light_enable_color){
                             return 'rgba(' + color + ',0.2)';
-                          }
-                          else{
+                          } else {
                             return 'rgba(var(--color-yellow),0.2)';
                           }
                       ]]]
@@ -200,34 +198,26 @@ card_light:
                 - value: "on"
                   styles:
                     name:
-                      - color: >-
+                      - color: >
                           [[[
                               var color = entity.attributes.rgb_color;
-                              if (variables.mui_card_light_enable_color){
-                                if(variables.mui_card_light_force_background_color || hass.themes.darkMode){
-                                  if (color){
-                                    return 'rgba(' + color + ',1)'
-                                  } else {
-                                    return 'rgba(var(--color-yellow),1)'
-                                  }
+                              if (color && variables.mui_card_light_enable_color) {
+                                if (variables.mui_card_light_force_background_color || hass.themes.darkMode) {
+                                  return 'rgba(' + color + ',1)';
                                 }
                               }
-                              return 'rgba(var(--color-yellow),1)'
+                              return 'rgba(var(--color-theme),1)';
                           ]]]
                     label:
-                      - color: >-
+                      - color: >
                           [[[
                               var color = entity.attributes.rgb_color;
-                              if (variables.mui_card_light_enable_color){
-                                if(variables.mui_card_light_force_background_color || hass.themes.darkMode){
-                                  if (color){
-                                    return 'rgba(' + color + ',1)'
-                                  } else {
-                                    return 'rgba(var(--color-yellow),1)'
-                                  }
+                              if (color && variables.mui_card_light_enable_color) {
+                                if (variables.mui_card_light_force_background_color || hass.themes.darkMode) {
+                                  return 'rgba(' + color + ',1)';
                                 }
                               }
-                              return 'rgba(var(--color-yellow),1)'
+                              return 'rgba(var(--color-theme),1)';
                           ]]]
     item2:
       card:
@@ -240,26 +230,26 @@ card_light:
         mainSliderColor: >
           [[[
               var color = entity.attributes.rgb_color;
-              if (entity.state == "unavailable"){
-                return "rgba(var(--color-grey),1)";
+              if (entity.state == "unavailable") {
+                return "rgba(var(--color-grey),0.8)";
               }
-              else if (color && variables.mui_card_light_enable_color){
-                return "rgba(" + color + ",1)";
+              else if (color && variables.mui_card_light_enable_color) {
+                return "rgba(" + color + ",0.8)";
               }
-              else{
-                return "rgba(var(--color-yellow),1)";
+              else {
+                return "rgba(var(--color-yellow),0.8)";
               }
           ]]]
         secondarySliderColor: >
           [[[
               var color = entity.attributes.rgb_color;
-              if (entity.state == "unavailable"){
+              if (entity.state == "unavailable") {
                 return "rgba(var(--color-grey),0.2)";
               }
-              else if (color && variables.mui_card_light_enable_color){
+              else if (color && variables.mui_card_light_enable_color) {
                 return "rgba(" + color + ",0.2)";
               }
-              else{
+              else {
                 return "rgba(var(--color-yellow),0.2)";
               }
           ]]]
@@ -280,7 +270,7 @@ card_light:
         secondarySliderColorOff: "rgba(var(--color-theme),0.05)"
         thumbHorizontalPadding: "0px"
         thumbVerticalPadding: "0px"
-        thumbWidth: "12px"
+        thumbWidth: "0x"
         card_mod:
         style: |
           ha-card {

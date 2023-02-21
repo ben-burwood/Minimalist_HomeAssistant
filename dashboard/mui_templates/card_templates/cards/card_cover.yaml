@@ -13,6 +13,8 @@ card_cover:
     mui_card_cover_color: false
     mui_card_cover_enable_buttons: false
     mui_card_cover_enable_slider: false
+    mui_card_cover_slider_min: 0
+    mui_card_cover_slider_max: 100
     mui_card_cover_enable_tilt: false
     mui_card_cover_enable_horizontal: false
     mui_card_cover_enable_popup: false
@@ -202,6 +204,7 @@ card_cover:
                           }
                           return 'rgba(var(--color-' + color + '),0.2)';
                         }
+                        return 'rgba(var(--color-theme),0.05)';
                       ]]]
           item2:
             card:
@@ -309,12 +312,15 @@ card_cover:
         entity: "[[[ return entity.entity_id ]]]"
         radius: "14px"
         height: "42px"
+        minSet: "[[[ return variables.mui_card_cover_slider_min ]]]"
+        maxSet: "[[[ return variables.mui_card_cover_slider_max ]]]"
         mainSliderColor: >
           [[[
             if (variables.mui_card_cover_color) {
               var color = variables.mui_card_cover_color;
               return 'rgba(var(--color-' + color + '),0.8)';
             }
+            return "rgba(var(--color-grey),0.8)";
           ]]]
         secondarySliderColor: >
           [[[
@@ -322,6 +328,7 @@ card_cover:
               var color = variables.mui_card_cover_color;
               return 'rgba(var(--color-' + color + '),0.1)';
             }
+            return "rgba(var(--color-grey),0.1)";
           ]]]
         mainSliderColorOff: "rgba(var(--color-theme),0.05)"
         secondarySliderColorOff: "rgba(var(--color-theme),0.05)"

@@ -66,6 +66,7 @@ card_alarm_time:
             card:
               type: "custom:button-card"
               entity: "[[[ return entity.entity_id ]]]"
+              icon: "[[[ return variables.mui_card_alarm_time_icon ]]]"
               styles:
                 icon:
                   - color: >
@@ -122,7 +123,7 @@ card_alarm_time:
             - grid-template-columns: >
                 [[[
                     if (variables.mui_card_alarm_time_horizontal) {
-                      return "ifr";
+                      return "1fr";
                     } else {
                       return "1fr 1fr 1fr";
                     }
@@ -166,7 +167,7 @@ card_alarm_time:
                       var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
                       return formattedTime;
                     ]]]
-              icon: "mdi:plus"
+              icon: "mdi:minus"
           item2:
             card:
               type: "custom:button-card"
@@ -203,4 +204,4 @@ card_alarm_time:
                       var formattedTime = hours + ':' + minutes.substr(-2) + ':' + seconds.substr(-2);
                       return formattedTime;
                     ]]]
-              icon: "mdi:minus"
+              icon: "mdi:plus"
